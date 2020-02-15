@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:yun_record/models/Home.dart';
+
+import '../index.dart';
+import 'SplashScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -34,6 +38,108 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<SingleChildCloneableWidget> _models = [
+//      ChangeNotifierProvider<HomeModel>(
+//        create: (context) => HomeModel(context),
+//        child: SplashScreen(),
+//      ),
+    ];
+
+    return MultiProvider(
+      providers: _models,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: SafeArea(
+              top: true,
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    new Container(
+                      //color: Constants.lg_green,
+                      height: 250.0,
+                      decoration: new BoxDecoration(
+                        gradient: new LinearGradient(
+                            colors: [Colors.green[300], Colors.green[700]],
+                            begin: const FractionalOffset(0.1, 0.0),
+                            end: const FractionalOffset(0.6, 0.0),
+                            stops: [0.0, 1.0],
+                            tileMode: TileMode.clamp),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: FlatButton(
+                                child: Text(
+                                  "Sign out",
+                                ),
+                                onPressed: () => _signOutButtonTapped()),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: _background(),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              padding: EdgeInsets.only(left: 80.0, bottom: 25.0),
+                              child: new CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 20.0,
+                                child: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    iconSize: 25.0,
+                                    color: Colors.blueGrey,
+                                    onPressed: () => _showDialogue()),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    new Card(
+                      margin: EdgeInsets.all(10.0),
+                      elevation: 5.0,
+                      //color: Constants.lg_gray_light,
+                      child: _profileItems(),
+                    ),
+                    _isFacebookUser
+                        ? new Container()
+                        : Container(
+                            margin: EdgeInsets.only(right: kMarginPadding),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: FlatButton(
+                                  child: Text(
+                                    "Reset Password",
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _oldPasswordTextController.clear();
+                                      _newPasswordTextController.clear();
+                                      _confirmPasswordTextController.clear();
+                                      isResetPassword ? isResetPassword = false : isResetPassword = true;
+                                    });
+                                  }),
+                            ),
+                          ),
+                    isResetPassword
+                        ? new Card(
+                            margin: EdgeInsets.all(10.0),
+                            elevation: 5.0,
+                            //color: Constants.lg_gray_light,
+                            child: _passwordRestCard(),
+                          )
+                        : new Container(),
+                    _bottomCard()
+                  ],
+                ),
+              )),
+        ),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -361,7 +467,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _signOutButtonTapped() {}
+  _signOutButtonTapped() {
+//    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => SplashScreen()));
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider<HomeModel>(
+          create: (context) => HomeModel(context),
+          child: SplashScreen(),
+        ),
+        fullscreenDialog: true,
+      ),
+    );
+  }
 
   _launchPrivacypolicyUrl() async {}
 }
