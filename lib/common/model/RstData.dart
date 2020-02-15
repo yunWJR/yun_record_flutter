@@ -11,27 +11,25 @@ class RstDataDefine {
   static final int commonErrorCode = -1;
 }
 
-class RstData<T extends BaseModel> {
+class RspData<T extends BaseModel> {
+  /// 返回类型：1-HTTP状态数据;2-业务数据;
+  /// 默认值：2
+  int type;
+
   int code;
   Map<String, dynamic> dataMap;
   String errorMsg;
 
   T data;
 
-  RstData();
+  RspData({type: 2});
 
-  RstData update(int code, T data, String errorMsg) {
-    this.code = code;
-    this.data = data;
-    this.errorMsg = errorMsg;
-  }
-
-  factory RstData.fromJson(T d, Map<String, dynamic> map) {
-    var item = new RstData<T>();
+  factory RspData.fromJson(T d, Map<String, dynamic> map) {
+    var item = new RspData<T>();
 
     try {
       if (map[RstDataDefine.codeName] == null) {
-        return item.update(RstDataDefine.commonErrorCode, null, "数据格式不正确");
+        return item.updateError(RstDataDefine.commonErrorCode, "数据格式不正确");
       }
 
       item.code = map[RstDataDefine.codeName];
@@ -51,7 +49,7 @@ class RstData<T extends BaseModel> {
 
       item.data = d.fromJson(item.dataMap);
     } catch (e) {
-      return item.update(RstDataDefine.commonErrorCode, null, e.toString());
+      return item.updateError(RstDataDefine.commonErrorCode, e.toString());
     }
 
     return item;
@@ -64,6 +62,14 @@ class RstData<T extends BaseModel> {
     data['data'] = this.data.toJson();
 
     return data;
+  }
+
+  RspData<T> updateError(int code, String errorMsg) {
+    this.code = code;
+    this.errorMsg = errorMsg;
+    this.data = null;
+
+    return this;
   }
 
   bool isSuc() {

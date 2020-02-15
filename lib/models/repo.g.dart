@@ -11,12 +11,8 @@ Repo _$RepoFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as num
     ..name = json['name'] as String
     ..full_name = json['full_name'] as String
-    ..owner = json['owner'] == null
-        ? null
-        : User.fromJson(json['owner'] as Map<String, dynamic>)
-    ..parent = json['parent'] == null
-        ? null
-        : Repo.fromJson(json['parent'] as Map<String, dynamic>)
+    ..owner = json['owner'] == null ? null : User.fromJson(json['owner'] as Map<String, dynamic>)
+    ..parent = json['parent'] == null ? null : Repo.fromJson(json['parent'] as Map<String, dynamic>)
     ..private = json['private'] as bool
     ..html_url = json['html_url'] as String
     ..description = json['description'] as String

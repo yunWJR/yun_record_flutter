@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'common/global.dart';
-import 'pages/login/login.dart';
+import 'routes/login/LoginScreen.dart';
 import 'states/profile_change_notifier.dart';
 
 void main() => Global.init().then((e) => runApp(MyApp()));
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
             onGenerateTitle: (context) {
               return "yun record";
             },
-            home: LoginRoute(),
+            home: LoginScreen(),
             locale: localeModel.getLocale(),
             //我们只支持美国英语和中文简体
             supportedLocales: [
@@ -39,8 +39,7 @@ class MyApp extends StatelessWidget {
 //              GlobalMaterialLocalizations.delegate,
 //              GlobalWidgetsLocalizations.delegate,
 //            ],
-            localeResolutionCallback:
-                (Locale _locale, Iterable<Locale> supportedLocales) {
+            localeResolutionCallback: (Locale _locale, Iterable<Locale> supportedLocales) {
               if (localeModel.getLocale() != null) {
                 //如果已经选定语言，则不跟随系统
                 return localeModel.getLocale();
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
             },
             // 注册路由表
             routes: <String, WidgetBuilder>{
-              "login": (context) => LoginRoute(),
+              "login": (context) => LoginScreen(),
             },
           );
         },

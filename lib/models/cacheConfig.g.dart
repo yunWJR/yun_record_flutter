@@ -14,8 +14,4 @@ CacheConfig _$CacheConfigFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$CacheConfigToJson(CacheConfig instance) =>
-    <String, dynamic>{
-      'enable': instance.enable,
-      'maxAge': instance.maxAge,
-      'maxCount': instance.maxCount
-    };
+    <String, dynamic>{'enable': instance.enable, 'maxAge': instance.maxAge, 'maxCount': instance.maxCount};

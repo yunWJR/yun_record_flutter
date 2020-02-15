@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:yun_record/models/index.dart';
 
 import '../index.dart';
-import 'model/RstData.dart';
 import '../models/UserVo.dart';
+import 'model/RstData.dart';
 
 class Git {
   // 在网络请求过程中可能会需要使用当前的context信息，比如在请求失败时
@@ -69,7 +69,7 @@ class Git {
     //更新profile中的token信息
 //    Global.profile.token = basic;
 
-    RstData<UserVo> vo = RstData.fromJson(UserVo(), map);
+    RspData<UserVo> vo = RspData.fromJson(UserVo(), map);
 
     return vo.data;
   }

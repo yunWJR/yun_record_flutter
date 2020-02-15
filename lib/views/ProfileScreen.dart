@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 
 class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final TextEditingController _firstNameTextController =
-  new TextEditingController();
-  final TextEditingController _lastNameTextController =
-  new TextEditingController();
-  final TextEditingController _emailTextController =
-  new TextEditingController();
-  final TextEditingController _phoneTextController =
-  new TextEditingController();
-  final TextEditingController _oldPasswordTextController =
-  new TextEditingController();
-  final TextEditingController _newPasswordTextController =
-  new TextEditingController();
-  final TextEditingController _confirmPasswordTextController =
-  new TextEditingController();
+  final TextEditingController _firstNameTextController = new TextEditingController();
+  final TextEditingController _lastNameTextController = new TextEditingController();
+  final TextEditingController _emailTextController = new TextEditingController();
+  final TextEditingController _phoneTextController = new TextEditingController();
+  final TextEditingController _oldPasswordTextController = new TextEditingController();
+  final TextEditingController _newPasswordTextController = new TextEditingController();
+  final TextEditingController _confirmPasswordTextController = new TextEditingController();
   GlobalKey<FormState> _formKey1 = new GlobalKey<FormState>();
   GlobalKey<FormState> _formKey2 = new GlobalKey<FormState>();
   String version = "";
@@ -78,8 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: Container(
-                            padding:
-                            EdgeInsets.only(left: 80.0, bottom: 25.0),
+                            padding: EdgeInsets.only(left: 80.0, bottom: 25.0),
                             child: new CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 20.0,
@@ -103,32 +94,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _isFacebookUser
                       ? new Container()
                       : Container(
-                    margin: EdgeInsets.only(right: kMarginPadding),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: FlatButton(
-                          child: Text(
-                            "Reset Password",
+                          margin: EdgeInsets.only(right: kMarginPadding),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: FlatButton(
+                                child: Text(
+                                  "Reset Password",
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _oldPasswordTextController.clear();
+                                    _newPasswordTextController.clear();
+                                    _confirmPasswordTextController.clear();
+                                    isResetPassword ? isResetPassword = false : isResetPassword = true;
+                                  });
+                                }),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _oldPasswordTextController.clear();
-                              _newPasswordTextController.clear();
-                              _confirmPasswordTextController.clear();
-                              isResetPassword
-                                  ? isResetPassword = false
-                                  : isResetPassword = true;
-                            });
-                          }),
-                    ),
-                  ),
+                        ),
                   isResetPassword
                       ? new Card(
-                    margin: EdgeInsets.all(10.0),
-                    elevation: 5.0,
-                    //color: Constants.lg_gray_light,
-                    child: _passwordRestCard(),
-                  )
+                          margin: EdgeInsets.all(10.0),
+                          elevation: 5.0,
+                          //color: Constants.lg_gray_light,
+                          child: _passwordRestCard(),
+                        )
                       : new Container(),
                   _bottomCard()
                 ],
@@ -176,8 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             LGTitleTextFormField(
-              padding:
-              EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
+              padding: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
               title: "Email",
               hintText: "Enter",
               controller: _emailTextController,
@@ -209,10 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: <Widget>[
             LGTitleTextFormField(
                 padding: EdgeInsets.only(
-                    top: kMarginPadding,
-                    left: kMarginPadding,
-                    right: kMarginPadding,
-                    bottom: kMarginPadding),
+                    top: kMarginPadding, left: kMarginPadding, right: kMarginPadding, bottom: kMarginPadding),
                 title: "Old Password",
                 hintText: "Enter your old password",
                 controller: _oldPasswordTextController,
@@ -228,10 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 obscureText: true),
             LGTitleTextFormField(
-                padding: EdgeInsets.only(
-                    left: kMarginPadding,
-                    right: kMarginPadding,
-                    bottom: kMarginPadding),
+                padding: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding, bottom: kMarginPadding),
                 title: "New Password",
                 hintText: "Enter your new password",
                 controller: _newPasswordTextController,
@@ -335,9 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 
-  Future _getImage() async {
-
-  }
+  Future _getImage() async {}
 
   _saveButtonTapped() {
     if (isResetPassword) {
@@ -354,10 +334,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     }
   }
-
-
-
-
 
   Widget _background() {
     return new Stack(
@@ -385,33 +361,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  _signOutButtonTapped() {}
 
-  _signOutButtonTapped() {
-
-  }
-
-  _launchPrivacypolicyUrl() async {
-
-  }
-
+  _launchPrivacypolicyUrl() async {}
 }
 
-
 class LGTitleTextFormField extends StatelessWidget {
-  LGTitleTextFormField({
-    this.title,
-    this.hintText,
-    this.controller,
-    this.validator,
-    this.emptyValidator = false,
-    this.emptyValidatorMsg = "Should not be empty",
-    this.textInputType,
-    this.padding,
-    this.disable = false,
-    this.obscureText = false,
-    this.onEditingComplete,
-    this.inputFormatters
-  });
+  LGTitleTextFormField(
+      {this.title,
+      this.hintText,
+      this.controller,
+      this.validator,
+      this.emptyValidator = false,
+      this.emptyValidatorMsg = "Should not be empty",
+      this.textInputType,
+      this.padding,
+      this.disable = false,
+      this.obscureText = false,
+      this.onEditingComplete,
+      this.inputFormatters});
 
   final String title;
   final String hintText;
@@ -436,10 +404,7 @@ class LGTitleTextFormField extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: new Text(
                 title,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Colors.blueGrey),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueGrey),
               )),
           new TextFormField(
               controller: controller,

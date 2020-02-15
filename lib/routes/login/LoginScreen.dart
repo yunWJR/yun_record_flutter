@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:yun_record/models/UserVo.dart';
+import 'package:yun_record/views/ProfileScreen.dart';
+
+import '../../index.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,8 +13,8 @@ class _LoginScreenState extends State<LoginScreen> {
   var divWidth;
   bool _autoValidate = false;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  final TextEditingController _emailTextController = new TextEditingController();
-  final TextEditingController _passwordTextController = new TextEditingController();
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _pwdController = new TextEditingController();
   var kMarginPadding = 16.0;
   var kFontSize = 13.0;
 
@@ -57,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         new Container(
           margin: EdgeInsets.only(top: 50.0, left: 15.0, right: 15.0),
           child: new Text(
-            "Login here",
+            "登  录",
             maxLines: 1,
           ),
         ),
@@ -65,11 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new TextFormField(
-              controller: _emailTextController,
+              controller: _nameController,
               validator: _validateEmail,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  labelText: "Email*", hintText: "Enter your email", labelStyle: new TextStyle(fontSize: 13))),
+              decoration:
+                  InputDecoration(labelText: "用户名*", hintText: "请输入用户名", labelStyle: new TextStyle(fontSize: 13))),
         ),
         SizedBox(
           height: 10.0,
@@ -82,45 +86,75 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               validator: (String value) {
                 if (value.isEmpty) {
-                  return "Please enter your password";
+                  return "请输入密码";
                 } else {
                   return null;
                 }
               },
-              controller: _passwordTextController,
-              decoration: InputDecoration(
-                  labelText: "Password*",
-                  hintText: "Enter a password",
-                  labelStyle: new TextStyle(fontSize: kFontSize))),
+              controller: _pwdController,
+              decoration:
+                  InputDecoration(labelText: "密码*", hintText: "请输入密码", labelStyle: new TextStyle(fontSize: kFontSize))),
         ),
         SizedBox(
           height: 10.0,
         ),
         new RaisedButton(
           onPressed: () => _loginButtonTapped(),
-          child: new Text("Login"),
+          child: new Text("登  录"),
         ),
         new FlatButton(
             onPressed: () {},
             child: new Text(
-              'Forgot password',
+              '忘记密码',
             )),
       ],
     );
   }
 
-  String _validateEmail(String email) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (regex.hasMatch(email))
-      return null;
-    else
-      return "Please enter a valid email";
+  String _validateEmail(String uName) {
+    if (uName.length == null || uName.length == 0) {
+      return '请输入用户名';
+    }
+
+    return null;
+
+//    Pattern pattern =
+//        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+//    RegExp regex = new RegExp(pattern);
+//    if (regex.hasMatch(uName))
+//      return null;
+//    else
+//      return "Please enter a valid email";
   }
 
-  _loginButtonTapped() {
+  _loginButtonTapped() async {
     FocusScope.of(context).requestFocus(new FocusNode());
-    if (_formKey.currentState.validate()) {}
+    if (_formKey.currentState.validate()) {
+      showLoading(context);
+      UserVo user;
+      try {
+        user = await Git(context).login(_nameController.text, _pwdController.text);
+        // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
+//        Provider.of<UserModel>(context, listen: false).user = user;
+      } catch (e) {
+        //登录失败则提示
+        if (e.response?.statusCode == 401) {
+          showToast('登录失败');
+        } else {
+          showToast(e.toString());
+        }
+      } finally {
+        // 隐藏loading框
+        Navigator.of(context).pop();
+      }
+
+      if (user != null) {
+//        Navigator.of(context).push(
+//            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()));
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);
+      }
+    }
   }
 }
