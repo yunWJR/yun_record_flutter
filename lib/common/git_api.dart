@@ -61,7 +61,6 @@ class Git {
     );
 
     Map<String, dynamic> map = json.decode(r.data);
-    print(map);
 
     //登录成功后更新公共头（authorization），此后的所有请求都会带上用户身份信息
 //    dio.options.headers[HttpHeaders.authorizationHeader] = basic;

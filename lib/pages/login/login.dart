@@ -1,5 +1,5 @@
 import 'package:yun_record/models/UserVo.dart';
-import 'package:yun_record/pages/home/ProfileScreen.dart';
+import 'package:yun_record/views/ProfileScreen.dart';
 
 import '../../index.dart';
 
