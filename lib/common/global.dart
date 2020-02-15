@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yun_record/models/UserVo.dart';
 import 'package:yun_record/models/index.dart';
 
 import '../index.dart';
@@ -18,6 +19,8 @@ const _themes = <MaterialColor>[
 class Global {
   static SharedPreferences _prefs;
   static Profile profile = Profile();
+
+  static UserVo userVo = UserVo();
 
   // 网络缓存对象
   static NetCache netCache = NetCache();

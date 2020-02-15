@@ -39,28 +39,7 @@ class UserVo implements BaseModel {
     );
   }
 
-  @override
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['acctName'] = this.acctName;
-    data['createTime'] = this.createTime;
-    data['email'] = this.email;
-    data['enabled'] = this.enabled;
-    data['headerUrl'] = this.headerUrl;
-    data['id'] = this.id;
-    data['loginToken'] = this.loginToken;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['weChat'] = this.weChat;
-
-    return data;
-  }
-
-  @override
   fromJson(Map<String, dynamic> json) {
-    print('fromJson');
-    print(json);
-
     if (json['acctName'] != null) {
       this.acctName = json['acctName']?.toString();
     }
@@ -93,5 +72,21 @@ class UserVo implements BaseModel {
     }
 
     return this;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['acctName'] = this.acctName;
+    data['createTime'] = this.createTime;
+    data['email'] = this.email;
+    data['enabled'] = this.enabled;
+    data['headerUrl'] = this.headerUrl;
+    data['id'] = this.id;
+    data['loginToken'] = this.loginToken;
+    data['name'] = this.name;
+    data['phone'] = this.phone;
+    data['weChat'] = this.weChat;
+
+    return data;
   }
 }

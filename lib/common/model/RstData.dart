@@ -17,10 +17,11 @@ class RspData<T extends BaseModel> {
   int type;
 
   int code;
-  Map<String, dynamic> dataMap;
+  dynamic orgData; // Map<String, dynamic> 或者 list
   String errorMsg;
 
   T data;
+  List<T> dataList;
 
   RspData({type: 2});
 
@@ -45,9 +46,42 @@ class RspData<T extends BaseModel> {
       }
 
       // 成功-解析 data
-      item.dataMap = map[RstDataDefine.dataName];
+      item.orgData = map[RstDataDefine.dataName];
 
-      item.data = d.fromJson(item.dataMap);
+      item.data = d.fromJson(item.orgData);
+    } catch (e) {
+      return item.updateError(RstDataDefine.commonErrorCode, e.toString());
+    }
+
+    return item;
+  }
+
+  factory RspData.fromListJson(T d, Map<String, dynamic> map) {
+    var item = new RspData<T>();
+
+    try {
+      if (map[RstDataDefine.codeName] == null) {
+        return item.updateError(RstDataDefine.commonErrorCode, "数据格式不正确");
+      }
+
+      item.code = map[RstDataDefine.codeName];
+
+      // 错误
+      if (item.code != RstDataDefine.sucCode) {
+        item.errorMsg = map[RstDataDefine.msgName];
+        if (ValueUtils.isNullOrEmpty(item.errorMsg)) {
+          item.errorMsg = '未知错误';
+        }
+
+        return item;
+      }
+
+      // 成功-解析 data
+      List list = map[RstDataDefine.dataName];
+
+      item.orgData = list;
+
+      item.dataList = list.map<T>((e) => d.fromJson(e)).toList();
     } catch (e) {
       return item.updateError(RstDataDefine.commonErrorCode, e.toString());
     }

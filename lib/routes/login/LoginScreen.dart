@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yun_record/models/ThemeVo.dart';
 import 'package:yun_record/models/UserVo.dart';
 import 'package:yun_record/views/ProfileScreen.dart';
 
@@ -151,6 +152,11 @@ class _LoginScreenState extends State<LoginScreen> {
       if (user != null) {
 //        Navigator.of(context).push(
 //            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()));
+
+        Global.userVo = user;
+
+        List<ThemeVo> ts = await Git(context).getThemeList();
+        print(ts);
 
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);

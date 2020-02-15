@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:yun_record/models/ThemeVo.dart';
 import 'package:yun_record/models/index.dart';
 
 import '../index.dart';
@@ -48,6 +50,8 @@ class Git {
 
   // 登录接口，登录成功后返回用户信息
   Future<UserVo> login(String login, String pwd) async {
+    reset();
+
     var qP = Map<String, dynamic>();
     qP["password"] = pwd;
     qP["acctName"] = login;
@@ -74,6 +78,29 @@ class Git {
     return vo.data;
   }
 
+  Future<List<ThemeVo>> getThemeList(
+      {Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
+      refresh = false}) async {
+    reset();
+
+    if (refresh) {
+      // 列表下拉刷新，需要删除缓存（拦截器中会读取这些信息）
+      _options.extra.addAll({"refresh": true, "list": true});
+    }
+
+    Response<Map<String, dynamic>> r = await dio.get<Map<String, dynamic>>(
+      "/v1/api/record/theme/list",
+      queryParameters: queryParameters,
+      options: _options,
+    );
+
+    Map<String, dynamic> map = r.data;
+
+    RspData<ThemeVo> vo = RspData.fromListJson(ThemeVo(), map);
+
+    return vo.dataList;
+  }
+
   //获取用户项目列表
   Future<List<Repo>> getRepos(
       {Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
@@ -87,6 +114,17 @@ class Git {
       queryParameters: queryParameters,
       options: _options,
     );
+
+
     return r.data.map((e) => Repo.fromJson(e)).toList();
+  }
+
+  void reset() {
+    String token = "";
+    if (Global.userVo != null) {
+      token = Global.userVo.loginToken;
+    }
+
+    dio.options.headers[HttpHeaders.authorizationHeader] = token;
   }
 }
