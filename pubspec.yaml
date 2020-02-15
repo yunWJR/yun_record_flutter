@@ -24,10 +24,31 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
+#  # ui
+  cached_network_image: ^2.0.0
+#
+#  # tool
+#  dio: ^3.0.8
+#  provider: ^4.0.4
+#  shared_preferences: ^0.5.6+1
+#  fluttertoast: ^3.1.3
+
+  intl: ^0.16.0
+  dio: ^3.0.3
+  provider: ^3.0.0+1
+  shared_preferences: ^0.5.1+1
+#  cached_network_image: ^0.8.0
+  fluttertoast: ^3.0.3
+  flukit: ^1.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  json_model: ^0.0.2
+  intl_translation: ^0.17.4
+  build_runner: ^1.0.0
+  json_serializable: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
