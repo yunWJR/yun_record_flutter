@@ -2,24 +2,26 @@ import 'package:yun_record/common/model/query_model.dart';
 
 import '../../index.dart';
 
-class SliverPage<T extends QueryModel> extends StatelessWidget {
+class BasePage<T extends QueryModel> extends StatelessWidget {
   final Widget body;
 
-  const SliverPage({@required this.body});
+  final T model;
 
-  factory SliverPage.slide({
-    @required Widget header,
+  const BasePage({@required this.body, @required this.model});
+
+  factory BasePage.slide({
+    @required Widget body,
+    @required T model,
   }) {
-    return SliverPage(
-      body: header,
+    return BasePage(
+      body: body,
+      model: model,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<T>(
-      builder: (context, model, child) => bodyWidget(model),
-    );
+    return bodyWidget(model);
   }
 
   Widget bodyWidget(T model) {

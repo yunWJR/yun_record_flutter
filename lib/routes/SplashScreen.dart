@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/model/query_model.dart';
+import 'package:yun_record/common/page/SliverPage.dart';
 import 'package:yun_record/models/Home.dart';
 
 import '../index.dart';
@@ -15,7 +16,12 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeModel>(
-      builder: (context, model, child) => bodyWidget(model),
+      builder: (context, model, child) => Scaffold(
+        body: BasePage<HomeModel>.slide(
+          body: ctWidget(model),
+          model: model,
+        ),
+      ),
     );
   }
 
