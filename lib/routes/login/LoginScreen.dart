@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:yun_record/common/Http/HttpHelper.dart';
 import 'package:yun_record/common/model/PageNotiInterface.dart';
 import 'package:yun_record/common/page/BasePage.dart';
-import 'package:yun_record/models/HomeModel.dart';
 import 'package:yun_record/models/UserVo.dart';
 
 import '../../index.dart';
-import '../SplashScreen.dart';
 import 'LoginNoti.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -206,16 +204,18 @@ class _LoginScreenState extends State<LoginScreen> with PageNotiInterface<LoginN
 //        List<ThemeVo> ts = await Git(context).getThemeList();
 //        print(ts);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<HomeModel>(
-            create: (context) => HomeModel(context),
-            child: SplashScreen(),
-          ),
-//            fullscreenDialog: true,
-        ),
-      );
+      Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
+
+//      Navigator.push(
+//        context,
+//        MaterialPageRoute(
+//          builder: (context) => ChangeNotifierProvider<HomeModel>(
+//            create: (context) => HomeModel(context),
+//            child: SplashScreen(),
+//          ),
+////            fullscreenDialog: true,
+//        ),
+//      );
 
 //        Navigator.of(context).pushAndRemoveUntil(
 //            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);

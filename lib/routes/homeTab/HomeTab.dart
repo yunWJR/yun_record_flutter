@@ -5,8 +5,6 @@ import 'package:yun_record/models/HomeModel.dart';
 import 'package:yun_record/routes/home/HomeScreen.dart';
 import 'package:yun_record/routes/my/MyScreen.dart';
 
-import '../ProfileScreen.dart';
-
 /// This view holds all tabs & its models: home, vehicles, upcoming & latest launches, & company tabs.
 class HomeTab extends StatefulWidget {
   @override
@@ -30,7 +28,7 @@ class _HomeTabState extends State<HomeTab> {
       ),
       ChangeNotifierProvider<HomeModel>(
         create: (context) => HomeModel(context),
-        child: ProfileScreen(),
+        child: MyScreen(),
       ),
       ChangeNotifierProvider<HomeModel>(
         create: (context) => HomeModel(context),

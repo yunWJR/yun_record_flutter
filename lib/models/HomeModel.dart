@@ -11,18 +11,14 @@ class HomeModel extends PageBaseNotiModel {
 
   @override
   Future loadData([BuildContext context]) async {
-    print('loadDataloadDataloadDataloadDataloadDataloadDataloadData');
-
     if (await canLoadData()) {
       // Add parsed item
 
       await Future.delayed(Duration(milliseconds: 1000));
 
-      UserVo user = await Git(context).login("y", "y");
-
-      items.add(user);
-
-      print('loadData cmp');
+//      UserVo user = await Git(context).login("y", "y");
+//      items.add(user);
+//      print('loadData cmp');
 
       // Adds notifications to queue
 //      await initNotifications(context);

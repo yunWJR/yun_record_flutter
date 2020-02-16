@@ -17,7 +17,12 @@ abstract class PageBaseNotiModel with ChangeNotifier {
   bool initLoadData = true;
 
   PageBaseNotiModel(BuildContext context, {this.initLoadData}) : items = [] {
+    if (initLoadData == null) {
+      initLoadData = true;
+    }
+
     this.context = context;
+
     if (initLoadData) {
       startLoading();
       loadData(context);
@@ -65,7 +70,7 @@ abstract class PageBaseNotiModel with ChangeNotifier {
   void showErr(String error) {
     // hide loading
 
-    AlertHelper.showErr(context,error);
+    AlertHelper.showErr(context, error);
   }
 
   void finishLoading() {

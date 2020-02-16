@@ -29,7 +29,7 @@ class BasePage<T extends PageBaseNotiModel> extends StatelessWidget {
     widgets.add(this.body);
 
     widgets.add(Visibility(
-      visible: model.isLoading,
+      visible: model == null ? false : model.isLoading, // todo
       child: loadingWidget(model),
     ));
 
