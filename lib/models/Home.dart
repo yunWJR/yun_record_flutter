@@ -16,11 +16,9 @@ class HomeModel extends QueryModel {
     if (await canLoadData()) {
       // Add parsed item
 
-      await Future.delayed(Duration(milliseconds: 4000));
+      await Future.delayed(Duration(milliseconds: 1000));
 
       UserVo user = await Git(context).login("y", "y");
-
-
 
       items.add(user);
 
@@ -37,4 +35,6 @@ class HomeModel extends QueryModel {
       finishLoading();
     }
   }
+
+  UserVo get userVo => (items != null && items.length > 0) ? items[0] : null;
 }

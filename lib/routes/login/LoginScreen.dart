@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/models/ThemeVo.dart';
+import 'package:yun_record/models/Home.dart';
 import 'package:yun_record/models/UserVo.dart';
-import 'package:yun_record/routes/ProfileScreen.dart';
 
 import '../../index.dart';
+import '../SplashScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -129,6 +129,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _loginButtonTapped() async {
+    await Future.delayed(Duration(microseconds: 10));
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider<HomeModel>(
+          create: (context) => HomeModel(context),
+          child: SplashScreen(),
+        ),
+//            fullscreenDialog: true,
+      ),
+    );
+
+    return;
+
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_formKey.currentState.validate()) {
       showLoading(context);
@@ -158,8 +173,19 @@ class _LoginScreenState extends State<LoginScreen> {
 //        List<ThemeVo> ts = await Git(context).getThemeList();
 //        print(ts);
 
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider<HomeModel>(
+              create: (context) => HomeModel(context),
+              child: SplashScreen(),
+            ),
+//            fullscreenDialog: true,
+          ),
+        );
+
+//        Navigator.of(context).pushAndRemoveUntil(
+//            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);
       }
     }
   }
