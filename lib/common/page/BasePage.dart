@@ -1,4 +1,4 @@
-import 'package:yun_record/common/model/query_model.dart';
+import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 
 import '../../index.dart';
 
@@ -7,26 +7,22 @@ class BasePage<T extends PageBaseNotiModel> extends StatelessWidget {
 
   T model;
 
-//  final BuildContext context;
-
   BasePage({@required this.body, @required this.model});
 
-  // 4.0.0 后，model 无效
-  factory BasePage.slide({
+  factory BasePage.page({
     @required Widget body,
     @required T model,
   }) {
     return BasePage(
       body: body,
       model: model,
-//      context: context,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     // 主动监听 model 改变
-//    model = Provider.of<T>(context, listen: true);
+    // model = Provider.of<T>(context, listen: true);
 
     List<Widget> widgets = new List();
 

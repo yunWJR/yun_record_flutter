@@ -20,6 +20,9 @@ class Git {
 
   BuildContext context;
   Options _options;
+
+  static String baseUrl = "http://fffy.api.yunsoho.cn";
+
   static Dio dio = new Dio(BaseOptions(
     baseUrl: 'http://fffy.api.yunsoho.cn',
 //    headers: {

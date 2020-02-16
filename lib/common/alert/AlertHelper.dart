@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlertHelper {
-  static   void showErr(BuildContext context) {
+  static void showErr(BuildContext context, String error) {
     // hide loading
 
     showDialog<bool>(
@@ -10,7 +10,7 @@ class AlertHelper {
       builder: (context) {
         return CupertinoAlertDialog(
           title: Text("提示"),
-          content: Text("您确定要删除当前文件吗?"),
+          content: Text(error),
           actions: <Widget>[
 //            FlatButton(
 //              child: Text("取消"),
@@ -30,5 +30,4 @@ class AlertHelper {
 
 //    notifyListeners();
   }
-
 }

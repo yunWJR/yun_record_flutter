@@ -93,7 +93,7 @@ class RspData<T extends BaseModel> {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['code'] = this.code;
     data['errorMsg'] = this.errorMsg;
-    data['data'] = this.data.toJson();
+    data['data'] = this.data?.toJson(); // todo ?. 检查
 
     return data;
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/git_api.dart';
-import 'package:yun_record/common/model/query_model.dart';
+import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 
 import 'UserVo.dart';
 

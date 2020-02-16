@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:yun_record/common/Http/HttpHelper.dart';
+import 'package:yun_record/common/model/PageNotiInterface.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/models/HomeModel.dart';
 import 'package:yun_record/models/UserVo.dart';
 
 import '../../index.dart';
 import '../SplashScreen.dart';
-import 'LoginModel.dart';
+import 'LoginNoti.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with PageNotiInterface<LoginNoti> {
   var divWidth;
   bool _autoValidate = false;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -28,27 +30,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginModel>(
-      create: (context) => LoginModel(context),
-//            lazy: false,
-      child: Consumer<LoginModel>(
-        builder: (context, model, child) => Scaffold(
-          body: BasePage<LoginModel>.slide(
+    return ChangeNotifierProvider<LoginNoti>(
+        create: (context) => LoginNoti(context),
+        child: Consumer<LoginNoti>(
+          builder: (context, model, child) => BasePage<LoginNoti>.page(
             body: bodyWidget(model),
             model: model,
           ),
-        ),
-      )
-    );
+        ));
 
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider<LoginModel>(
-            create: (context) => LoginModel(context),
+          ChangeNotifierProvider<LoginNoti>(
+            create: (context) => LoginNoti(context),
 //            lazy: false,
-            child: Consumer<LoginModel>(
+            child: Consumer<LoginNoti>(
               builder: (context, model, child) => Scaffold(
-                body: BasePage<LoginModel>.slide(
+                body: BasePage<LoginNoti>.page(
                   body: bodyWidget(model),
                   model: model,
                 ),
@@ -56,9 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ],
-        child: Consumer<LoginModel>(
+        child: Consumer<LoginNoti>(
           builder: (context, model, child) => Scaffold(
-            body: BasePage<LoginModel>.slide(
+            body: BasePage<LoginNoti>.page(
               body: bodyWidget(model),
               model: model,
             ),
@@ -66,9 +64,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  Widget bodyWidget(LoginModel model) {
+  Widget bodyWidget(LoginNoti model) {
     divWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
+//      appBar: AppBar(
+//        title: Text('123'),
+//      ),
       body: Center(
         child: SingleChildScrollView(
           child: Form(
@@ -79,11 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
               )),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, // todo
     );
   }
 
-  Widget _buildSignUpForm(LoginModel model) {
+  Widget _buildSignUpForm(LoginNoti model) {
     //Form 1
     return new Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -156,75 +158,77 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return null;
 
-//    Pattern pattern =
-//        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-//    RegExp regex = new RegExp(pattern);
-//    if (regex.hasMatch(uName))
-//      return null;
-//    else
-//      return "Please enter a valid email";
+    // 验证用户名 todo
+    Pattern pattern = r'^(13[0-9]|14[5-9]|15[0-3,5-9]|16[2,5,6,7]|17[0-8]|18[0-9]|19[0-3,5-9])\\d{8}$';
+    RegExp regex = new RegExp(pattern);
+    if (regex.hasMatch(uName))
+      return null;
+    else
+      return "请输入正确的用户名(电话号码)";
   }
 
-  _loginButtonTapped(LoginModel model) async {
-
-//    model = Provider.of<LoginModel>(context, listen: false);
+  _loginButtonTapped(LoginNoti model) async {
+    // 验证
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
 
     model.startLoading();
-//    Provider.of<LoginModel>(context, listen: false).startLoading();
 
-    await Future.delayed(Duration(seconds: 1));
+    var qP = Map<String, dynamic>();
+    qP["acctName"] = _nameController.text;
+    qP["password"] = _pwdController.text;
 
-    model.finishLoading();
+    UserVo user = await HttpHelper(model).post(UserVo(), "/v1/api/login/login", null, qP);
+//    try {
+//      user = await Git(context).login(_nameController.text, _pwdController.text);
+//      // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
+////        Provider.of<UserModel>(context, listen: false).user = user;
+//    } catch (e) {
+//      //登录失败则提示
+//      if (e.response?.statusCode == 401) {
+//        showToast('登录失败');
+//      } else {
+//        showToast(e.toString());
+//      }
+//    } finally {
+//      // 隐藏loading框
+//      Navigator.of(context).pop();
+//    }
 
-    model.showErr();
-
-//    Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
-
-    return;
-
-    FocusScope.of(context).requestFocus(new FocusNode());
-    if (_formKey.currentState.validate()) {
-      showLoading(context);
-      UserVo user;
-      try {
-        user = await Git(context).login(_nameController.text, _pwdController.text);
-        // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
-//        Provider.of<UserModel>(context, listen: false).user = user;
-      } catch (e) {
-        //登录失败则提示
-        if (e.response?.statusCode == 401) {
-          showToast('登录失败');
-        } else {
-          showToast(e.toString());
-        }
-      } finally {
-        // 隐藏loading框
-        Navigator.of(context).pop();
-      }
-
-      if (user != null) {
+    if (user != null) {
 //        Navigator.of(context).push(
 //            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()));
 
-        Global.userVo = user;
+      Global.userVo = user;
 
 //        List<ThemeVo> ts = await Git(context).getThemeList();
 //        print(ts);
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChangeNotifierProvider<HomeModel>(
-              create: (context) => HomeModel(context),
-              child: SplashScreen(),
-            ),
-//            fullscreenDialog: true,
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider<HomeModel>(
+            create: (context) => HomeModel(context),
+            child: SplashScreen(),
           ),
-        );
+//            fullscreenDialog: true,
+        ),
+      );
 
 //        Navigator.of(context).pushAndRemoveUntil(
 //            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);
-      }
     }
+
+//    await Future.delayed(Duration(seconds: 1));
+//
+//    model.finishLoading();
+//
+//    model.showErr();
+
+//    Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
+
+    return;
   }
 }

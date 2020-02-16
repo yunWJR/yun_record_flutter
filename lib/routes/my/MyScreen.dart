@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/query_model.dart';
+import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/models/HomeModel.dart';
 
@@ -17,7 +17,7 @@ class MyScreenState extends State<MyScreen> {
   Widget build(BuildContext context) {
     return Consumer<HomeModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<HomeModel>.slide(
+        body: BasePage<HomeModel>.page(
           body: ctWidget(model),
           model: model,
         ),

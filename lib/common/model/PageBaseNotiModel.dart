@@ -8,22 +8,15 @@ import 'package:yun_record/common/alert/AlertHelper.dart';
 enum Status { loading, error, loaded }
 
 abstract class PageBaseNotiModel with ChangeNotifier {
-  // Lists of both models info & its photos
   final List items;
 
-  // Model's status regarding data loading capabilities
   Status _status;
 
   BuildContext context;
 
   bool initLoadData = true;
 
-  bool errOn = false;
-
   PageBaseNotiModel(BuildContext context, {this.initLoadData}) : items = [] {
-    print("context");
-    print(context);
-
     this.context = context;
     if (initLoadData) {
       startLoading();
@@ -64,21 +57,15 @@ abstract class PageBaseNotiModel with ChangeNotifier {
 
   // Methods which update the [_status] variable
   void startLoading() {
-    print('startLoading');
-
     _status = Status.loading;
-
-//    if (context != null) {
-//      showLoading(context);
-//    }
 
     notifyListeners();
   }
 
-  void showErr() {
+  void showErr(String error) {
     // hide loading
 
-    AlertHelper.showErr(context);
+    AlertHelper.showErr(context,error);
   }
 
   void finishLoading() {
