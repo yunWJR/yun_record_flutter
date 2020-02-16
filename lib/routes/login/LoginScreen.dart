@@ -28,25 +28,25 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     divWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+//      appBar: AppBar(
+//        backgroundColor: Colors.white,
+//        elevation: 0.0,
+//      ),
       body: Center(
         child: SingleChildScrollView(
           child: Form(
               key: _formKey,
               autovalidate: _autoValidate,
               child: Column(
-                children: <Widget>[_buildEmailSignUpForm()],
+                children: <Widget>[_buildSignUpForm()],
               )),
         ),
       ),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-      ),
+      backgroundColor: Colors.white,
     );
   }
 
-  Widget _buildEmailSignUpForm() {
+  Widget _buildSignUpForm() {
     //Form 1
     return new Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
         new Container(
           margin: EdgeInsets.only(top: 50.0, left: 15.0, right: 15.0),
           child: new Text(
-            "登  录",
+            "YUN 随记",
             maxLines: 1,
           ),
         ),
@@ -131,16 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
   _loginButtonTapped() async {
     await Future.delayed(Duration(microseconds: 10));
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider<HomeModel>(
-          create: (context) => HomeModel(context),
-          child: SplashScreen(),
-        ),
-//            fullscreenDialog: true,
-      ),
-    );
+    Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
 
     return;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yun_record/routes/homeTab/HomeTab.dart';
 
 import 'common/global.dart';
 import 'routes/login/LoginScreen.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
             // 注册路由表
             routes: <String, WidgetBuilder>{
               "login": (context) => LoginScreen(),
+              "homeTab": (context) => HomeTab(),
             },
           );
         },
