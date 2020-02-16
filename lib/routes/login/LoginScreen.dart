@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:yun_record/common/page/SliverPage.dart';
 import 'package:yun_record/models/Home.dart';
 import 'package:yun_record/models/UserVo.dart';
 
 import '../../index.dart';
 import '../SplashScreen.dart';
+import 'LoginModel.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -26,19 +28,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<LoginModel>(
+            create: (context) => LoginModel(context),
+            child: LoginScreen(),
+          ),
+        ],
+        child: Consumer<LoginModel>(
+          builder: (context, model, child) => Scaffold(
+            body: BasePage<LoginModel>.slide(
+              body: bodyWidget(model),
+              model: model,
+              context: context,
+            ),
+          ),
+        ));
+  }
+
+  Widget bodyWidget(LoginModel model) {
     divWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-//      appBar: AppBar(
-//        backgroundColor: Colors.white,
-//        elevation: 0.0,
-//      ),
       body: Center(
         child: SingleChildScrollView(
           child: Form(
               key: _formKey,
               autovalidate: _autoValidate,
               child: Column(
-                children: <Widget>[_buildSignUpForm()],
+                children: <Widget>[_buildSignUpForm(model)],
               )),
         ),
       ),
@@ -46,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSignUpForm() {
+  Widget _buildSignUpForm(LoginModel model) {
     //Form 1
     return new Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new TextFormField(
               controller: _nameController,
-              validator: _validateEmail,
+              validator: _validateUserName,
               keyboardType: TextInputType.emailAddress,
               decoration:
                   InputDecoration(labelText: "用户名*", hintText: "请输入用户名", labelStyle: new TextStyle(fontSize: 13))),
@@ -100,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 10.0,
         ),
         new RaisedButton(
-          onPressed: () => _loginButtonTapped(),
+          onPressed: () => _loginButtonTapped(model),
           child: new Text("登  录"),
         ),
         new FlatButton(
@@ -112,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  String _validateEmail(String uName) {
+  String _validateUserName(String uName) {
     if (uName.length == null || uName.length == 0) {
       return '请输入用户名';
     }
@@ -128,10 +145,16 @@ class _LoginScreenState extends State<LoginScreen> {
 //      return "Please enter a valid email";
   }
 
-  _loginButtonTapped() async {
-    await Future.delayed(Duration(microseconds: 10));
+  _loginButtonTapped(LoginModel model) async {
+    model.startLoading();
 
-    Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
+    await Future.delayed(Duration(seconds: 1));
+
+    model.finishLoading();
+
+    model.showErr();
+
+//    Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
 
     return;
 

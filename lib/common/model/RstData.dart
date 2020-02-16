@@ -1,4 +1,4 @@
-import 'package:yun_record/util/ValueUtils.dart';
+import 'package:yun_record/common/util/ValueUtils.dart';
 
 import 'BaseModel.dart';
 

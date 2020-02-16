@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../funs.dart';
+import 'package:yun_record/common/alert/AlertHelper.dart';
 
 /// General model used to help retrieve, parse & storage
 /// information from a public REST API
@@ -9,21 +9,34 @@ enum Status { loading, error, loaded }
 
 abstract class QueryModel with ChangeNotifier {
   // Lists of both models info & its photos
-  final List items, photos;
+  final List items;
 
   // Model's status regarding data loading capabilities
   Status _status;
 
   BuildContext context;
 
-  QueryModel([BuildContext context])
-      : items = [],
-        photos = [] {
-//    this.context =context;
+  bool initLoadData = true;
 
-    startLoading();
-    loadData(context);
+  bool errOn = false;
+
+  QueryModel(BuildContext context, {this.initLoadData}) : items = [] {
+    print("context");
+    print(context);
+
+    this.context = context;
+    if (initLoadData) {
+      startLoading();
+      loadData(context);
+    }
   }
+
+//  QueryModel.d(BuildContext context, {this.initLoadData}) :this(context) {
+//  }
+
+//  MenuItem(String name, this.body, {this.summary}) : super(name) {
+//    state = ItemState.none;
+//  }
 
   // Fetches data & returns it
   Future fetchData(String url, {Map<String, dynamic> parameters}) async {
@@ -42,11 +55,7 @@ abstract class QueryModel with ChangeNotifier {
   // General getters for both lists
   dynamic getItem(int index) => items.isNotEmpty ? items[index] : null;
 
-  String getPhoto(int index) => photos.isNotEmpty ? photos[index] : null;
-
   int get getItemCount => items.length;
-
-  int get getPhotosCount => photos.length;
 
   // Status getters
   bool get isLoading => _status == Status.loading;
@@ -57,16 +66,25 @@ abstract class QueryModel with ChangeNotifier {
   void startLoading() {
     _status = Status.loading;
 
-    if (context != null) {
-      showLoading(context);
-    }
+//    if (context != null) {
+//      showLoading(context);
+//    }
+
+    notifyListeners();
+  }
+
+  void showErr() {
+    // hide loading
+
+    AlertHelper.showErr(context);
   }
 
   void finishLoading() {
     _status = Status.loaded;
+
     notifyListeners();
 
-    Navigator.of(context).pop();
+//    Navigator.of(context).pop();
   }
 
   void receivedError() {

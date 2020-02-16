@@ -7,11 +7,14 @@ class BasePage<T extends QueryModel> extends StatelessWidget {
 
   final T model;
 
-  const BasePage({@required this.body, @required this.model});
+  BuildContext context;
+
+  BasePage({@required this.body, @required this.model, this.context});
 
   factory BasePage.slide({
     @required Widget body,
     @required T model,
+    BuildContext context,
   }) {
     return BasePage(
       body: body,
