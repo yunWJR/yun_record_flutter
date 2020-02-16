@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/page/SliverPage.dart';
-import 'package:yun_record/models/Home.dart';
+import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/models/HomeModel.dart';
 import 'package:yun_record/models/UserVo.dart';
 
 import '../../index.dart';
@@ -28,11 +28,32 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<LoginModel>(
+      create: (context) => LoginModel(context),
+//            lazy: false,
+      child: Consumer<LoginModel>(
+        builder: (context, model, child) => Scaffold(
+          body: BasePage<LoginModel>.slide(
+            body: bodyWidget(model),
+            model: model,
+          ),
+        ),
+      )
+    );
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<LoginModel>(
             create: (context) => LoginModel(context),
-            child: LoginScreen(),
+//            lazy: false,
+            child: Consumer<LoginModel>(
+              builder: (context, model, child) => Scaffold(
+                body: BasePage<LoginModel>.slide(
+                  body: bodyWidget(model),
+                  model: model,
+                ),
+              ),
+            ),
           ),
         ],
         child: Consumer<LoginModel>(
@@ -40,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
             body: BasePage<LoginModel>.slide(
               body: bodyWidget(model),
               model: model,
-              context: context,
             ),
           ),
         ));
@@ -146,7 +166,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _loginButtonTapped(LoginModel model) async {
+
+//    model = Provider.of<LoginModel>(context, listen: false);
+
     model.startLoading();
+//    Provider.of<LoginModel>(context, listen: false).startLoading();
 
     await Future.delayed(Duration(seconds: 1));
 

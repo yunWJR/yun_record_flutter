@@ -3,7 +3,7 @@ import 'package:yun_record/common/model/query_model.dart';
 
 /// Storages essencial data from the next scheduled UserVo.
 /// Used in the 'Home' tab, under the SpaceX screen.
-class LoginModel extends QueryModel {
+class LoginModel extends PageBaseNotiModel {
   LoginModel(BuildContext context) : super(context, initLoadData: false) {
 //    initLoadData = false;
   }

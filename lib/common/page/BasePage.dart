@@ -2,42 +2,38 @@ import 'package:yun_record/common/model/query_model.dart';
 
 import '../../index.dart';
 
-class BasePage<T extends QueryModel> extends StatelessWidget {
+class BasePage<T extends PageBaseNotiModel> extends StatelessWidget {
   final Widget body;
 
-  final T model;
+  T model;
 
-  BuildContext context;
+//  final BuildContext context;
 
-  BasePage({@required this.body, @required this.model, this.context});
+  BasePage({@required this.body, @required this.model});
 
+  // 4.0.0 后，model 无效
   factory BasePage.slide({
     @required Widget body,
     @required T model,
-    BuildContext context,
   }) {
     return BasePage(
       body: body,
       model: model,
+//      context: context,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return bodyWidget(model);
-  }
-
-  Widget bodyWidget(T model) {
-    print(model.isLoading);
-
-    bool isLoading = model.isLoading;
+    // 主动监听 model 改变
+//    model = Provider.of<T>(context, listen: true);
 
     List<Widget> widgets = new List();
 
     widgets.add(this.body);
 
     widgets.add(Visibility(
-      visible: isLoading,
+      visible: model.isLoading,
       child: loadingWidget(model),
     ));
 

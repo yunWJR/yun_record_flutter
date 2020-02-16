@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/homeTab/HomeTab.dart';
 
 import 'common/global.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: <SingleChildCloneableWidget>[
+      providers: <SingleChildWidget>[
         ChangeNotifierProvider.value(value: ThemeModel()),
         ChangeNotifierProvider.value(value: UserModel()),
         ChangeNotifierProvider.value(value: LocaleModel()),

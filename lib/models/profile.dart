@@ -1,11 +1,8 @@
-import 'package:json_annotation/json_annotation.dart';
-
 import "cacheConfig.dart";
 import "user.dart";
 
 part 'profile.g.dart';
 
-@JsonSerializable()
 class Profile {
   Profile();
 

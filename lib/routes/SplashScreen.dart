@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/model/query_model.dart';
-import 'package:yun_record/common/page/SliverPage.dart';
-import 'package:yun_record/models/Home.dart';
+import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/models/HomeModel.dart';
 
 import '../index.dart';
 
@@ -122,7 +122,7 @@ class SplashScreenState extends State<SplashScreen> {
     ]);
   }
 
-  Future<void> _onRefresh(BuildContext context, QueryModel model) {
+  Future<void> _onRefresh(BuildContext context, PageBaseNotiModel model) {
     print('_onRefresh');
     final Completer<void> completer = Completer<void>();
     model.refreshData().then((_) {

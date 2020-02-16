@@ -7,7 +7,7 @@ import 'package:yun_record/common/alert/AlertHelper.dart';
 /// information from a public REST API
 enum Status { loading, error, loaded }
 
-abstract class QueryModel with ChangeNotifier {
+abstract class PageBaseNotiModel with ChangeNotifier {
   // Lists of both models info & its photos
   final List items;
 
@@ -20,7 +20,7 @@ abstract class QueryModel with ChangeNotifier {
 
   bool errOn = false;
 
-  QueryModel(BuildContext context, {this.initLoadData}) : items = [] {
+  PageBaseNotiModel(BuildContext context, {this.initLoadData}) : items = [] {
     print("context");
     print(context);
 
@@ -64,6 +64,8 @@ abstract class QueryModel with ChangeNotifier {
 
   // Methods which update the [_status] variable
   void startLoading() {
+    print('startLoading');
+
     _status = Status.loading;
 
 //    if (context != null) {

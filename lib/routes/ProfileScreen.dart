@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:yun_record/models/Home.dart';
+import 'package:provider/single_child_widget.dart';
+import 'package:yun_record/models/HomeModel.dart';
 
 import '../index.dart';
 import 'SplashScreen.dart';
@@ -38,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<SingleChildCloneableWidget> _models = [
+    final List<SingleChildWidget> _models = [
 //      ChangeNotifierProvider<HomeModel>(
 //        create: (context) => HomeModel(context),
 //        child: SplashScreen(),

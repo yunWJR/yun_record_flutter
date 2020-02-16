@@ -1,8 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
-
 part 'cacheConfig.g.dart';
 
-@JsonSerializable()
 class CacheConfig {
   CacheConfig();
 

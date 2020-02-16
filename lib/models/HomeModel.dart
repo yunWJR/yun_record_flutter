@@ -6,7 +6,7 @@ import 'UserVo.dart';
 
 /// Storages essencial data from the next scheduled UserVo.
 /// Used in the 'Home' tab, under the SpaceX screen.
-class HomeModel extends QueryModel {
+class HomeModel extends PageBaseNotiModel {
   HomeModel(BuildContext context) : super(context);
 
   @override
