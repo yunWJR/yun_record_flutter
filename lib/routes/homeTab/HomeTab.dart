@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:yun_record/routes/home/HomeModel.dart';
-import 'package:yun_record/routes/home/HomeScreen.dart';
+import 'package:yun_record/routes/record/RecordModel.dart';
+import 'package:yun_record/routes/record/RecordScreen.dart';
 import 'package:yun_record/routes/my/MyScreen.dart';
 import 'package:yun_record/routes/theme/ThemeMgScreen.dart';
 
-/// This view holds all tabs & its models: home, vehicles, upcoming & latest launches, & company tabs.
 class HomeTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomeTabState();

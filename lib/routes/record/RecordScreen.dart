@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
-import 'package:yun_record/routes/home/HomeModel.dart';
 
 import '../../index.dart';
+import 'RecordModel.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,6 +23,17 @@ class HomeScreenState extends State<HomeScreen> {
           body: bodyWidget(model),
           model: model,
         ),
+        floatingActionButton: ClipOval(
+            child: Container(
+          color: Colors.blue,
+          child: IconButton(
+            onPressed: () {
+              print('add');
+            },
+            icon: Icon(Icons.add),
+            color: Colors.white,
+          ),
+        )),
       ),
     );
   }
@@ -117,13 +128,12 @@ class HomeScreenState extends State<HomeScreen> {
           Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
+//              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
 //              height: 30.0,
-              color: Colors.red,
-              child: FlatButton(
-                child: Text(model.themeText()),
-//                icon: Icon(Icons.info),
-//                label: Text(model.themeText()),
+              color: Colors.blueGrey[200],
+              child: FlatButton.icon(
+                icon: Icon(Icons.book),
+                label: Text(model.themeText()),
                 onPressed: () {
                   _onTheme(model);
                 },
@@ -133,11 +143,11 @@ class HomeScreenState extends State<HomeScreen> {
           Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
+//              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
 //              height: 30.0,
-              color: Colors.green,
+              color: Colors.amber[300],
               child: FlatButton.icon(
-                icon: Icon(Icons.add),
+                icon: Icon(Icons.date_range),
                 label: Text(model.dateText()),
                 onPressed: () {
                   _onDate(model);
@@ -147,7 +157,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      color: Colors.teal,
+      //      color: Colors.amber,
     );
   }
 

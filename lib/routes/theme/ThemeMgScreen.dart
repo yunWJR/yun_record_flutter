@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 import 'package:yun_record/common/page/BasePage.dart';
-import 'package:yun_record/routes/home/HomeModel.dart';
+import 'package:yun_record/routes/record/RecordModel.dart';
 
 import '../../index.dart';
 
