@@ -5,6 +5,7 @@ import 'package:yun_record/routes/homeTab/HomeTab.dart';
 import 'config/GlobalConfig.dart';
 import 'config/GlobalConfigNoti.dart';
 import 'routes/login/LoginScreen.dart';
+import 'routes/record/AddRecordScreen.dart';
 
 final ThemeGcn themeGcn = ThemeGcn();
 
@@ -17,7 +18,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ThemeGcn>(
@@ -30,41 +30,17 @@ class MyApp extends StatelessWidget {
           home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
-            "login": (context) => LoginScreen(),
-            "homeTab": (context) => HomeTab(),
+            "Login": (context) => LoginScreen(),
+            "HomeTab": (context) => HomeTab(),
+            "AddRecordScreen": (context) => AddRecordScreen(),
           },
-//          localizationsDelegates: [
-//            FlutterI18nDelegate(fallbackFile: 'en'),
-//            GlobalMaterialLocalizations.delegate,
-//            GlobalWidgetsLocalizations.delegate
-//          ],
+          //          localizationsDelegates: [
+          //            FlutterI18nDelegate(fallbackFile: 'en'),
+          //            GlobalMaterialLocalizations.delegate,
+          //            GlobalWidgetsLocalizations.delegate
+          //          ],
         ),
       ),
-    );
-
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeGcn>(
-          create: (context) => ThemeGcn(),
-//            lazy: false,
-          child: Consumer<ThemeGcn>(
-            builder: (context, model, child) => MaterialApp(
-//              theme: ThemeData(
-//                primarySwatch: themeModel.theme,
-//              ),
-              onGenerateTitle: (context) {
-                return "yun record";
-              },
-              home: GlobalConfig.isLogin ? LoginScreen() : LoginScreen(),
-              // 注册路由表
-              routes: <String, WidgetBuilder>{
-                "login": (context) => LoginScreen(),
-                "homeTab": (context) => HomeTab(),
-              },
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

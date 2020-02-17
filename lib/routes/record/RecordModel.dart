@@ -5,13 +5,15 @@ import 'package:yun_record/models/Api.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
-class HomeModel extends PageBaseNotiModel {
-  HomeModel(BuildContext context) : super(context);
+class RecordModel extends PageBaseNotiModel {
+  RecordModel(BuildContext context) : super(context);
 
   List<ThemeVo> themeList;
   List<ThemeDataVo> themeDataList;
 
   ThemeVo selTheme;
+
+  ThemeVo selThemeDt;
 
   DateTime selDate;
 
@@ -39,7 +41,7 @@ class HomeModel extends PageBaseNotiModel {
         selDate = DateTime.now();
       }
 
-      String date = DateUtils.dayStr(selDate);
+      String date = DateUtils.ymdStr(selDate);
 
       themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
 
@@ -51,7 +53,7 @@ class HomeModel extends PageBaseNotiModel {
     if (canLoadData()) {
       // Add parsed item
 
-      String date = DateUtils.dayStr(selDate);
+      String date = DateUtils.ymdStr(selDate);
 
       themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
 
@@ -79,7 +81,7 @@ class HomeModel extends PageBaseNotiModel {
 
   String dateText() {
     if (selDate != null) {
-      return DateUtils.dayStr(selDate);
+      return DateUtils.ymdStr(selDate);
     }
 
     return "请选择日期";
@@ -99,10 +101,23 @@ class HomeModel extends PageBaseNotiModel {
   }
 
   void selectDate(DateTime date) {
-    if (selTheme == null || !DateUtils.sameDay(selDate, date)) {
+    if (selTheme == null || !DateUtils.sameYmd(selDate, date)) {
       selDate = date;
 
       loadList();
     }
+  }
+
+  Future<ThemeVo> getValidThemeDetails() async {
+    if (selThemeDt == null || selThemeDt.id != selTheme.id) {
+      selThemeDt = await Api.getThemeDetails(this, selTheme.id);
+    } else {
+      await Future.delayed(Duration(microseconds: 0));
+      if (selThemeDt.tagList.length == 0) {
+        showErr("主题无标签信息");
+      }
+    }
+
+    return selThemeDt;
   }
 }

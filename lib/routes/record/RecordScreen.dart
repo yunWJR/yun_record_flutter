@@ -3,23 +3,25 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:yun_record/common/action/ActionHelper.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
+import 'package:yun_record/models/ThemeVo.dart';
 
 import '../../index.dart';
 import 'RecordModel.dart';
 
-class HomeScreen extends StatefulWidget {
+class RecordScreen extends StatefulWidget {
   @override
-  HomeScreenState createState() => HomeScreenState();
+  _RecordScreenState createState() => _RecordScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class _RecordScreenState extends State<RecordScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeModel>(
+    return Consumer<RecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<HomeModel>.page(
+        body: BasePage<RecordModel>.page(
           body: bodyWidget(model),
           model: model,
         ),
@@ -28,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> {
           color: Colors.blue,
           child: IconButton(
             onPressed: () {
-              print('add');
+              _addOn();
             },
             icon: Icon(Icons.add),
             color: Colors.white,
@@ -38,7 +40,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget bodyWidget(HomeModel model) {
+  Widget bodyWidget(RecordModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('记录列表'),
@@ -52,10 +54,10 @@ class HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            statusWidget(model),
+            _statusWidget(model),
             Expanded(
                 child: RefreshIndicator(
-              child: model.isBlankList() ? blankWidget(model) : listWidget(model),
+              child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
               onRefresh: _handleRefresh,
             )),
           ],
@@ -71,40 +73,19 @@ class HomeScreenState extends State<HomeScreen> {
     print('refresh');
   }
 
-  _onTheme(HomeModel model) {
-    changeTheme(model);
+  _onTheme(RecordModel model) {
+    _changeTheme(model);
   }
 
-  Future<void> changeTheme(HomeModel model) async {
-    int i = await showCupertinoModalPopup<int>(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoActionSheet(
-            title: const Text('请选择主题'),
-//            message: const Text('请选择语言'),
-            cancelButton: CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.pop(context, null);
-              },
-              child: new Text("取消"),
-            ),
-            actions: model.themeList.map((f) {
-              return CupertinoActionSheetAction(
-                onPressed: () {
-                  Navigator.pop(context, f.id);
-                },
-                child: new Text(f.name),
-              );
-            }).toList(),
-          );
-        });
+  Future<void> _changeTheme(RecordModel model) async {
+    int index = await ActionHelper.showAction(context, model.themeList.map((f) => f.name).toList());
 
-    if (i != null) {
-      model.selectTheme(i);
+    if (index != null) {
+      model.selectTheme(model.themeList[index].id);
     }
   }
 
-  _onDate(HomeModel model) {
+  _onDate(RecordModel model) {
     DatePicker.showDatePicker(context,
         showTitleActions: true, minTime: DateTime(1900, 1, 1), maxTime: DateTime(2100, 1, 1), onChanged: (date) {
 //      print('change $date');
@@ -113,12 +94,47 @@ class HomeScreenState extends State<HomeScreen> {
     }, currentTime: model.selDate ?? DateTime.now(), locale: LocaleType.zh);
   }
 
+  void _addOn() {
+    _setThemeTag();
+  }
+
+  void _setThemeTag() async {
+    RecordModel model = Provider.of(context, listen: false);
+    print(model);
+
+    ThemeVo th = await model.getValidThemeDetails();
+    if (th == null || th.tagList.length == 0) {
+//      model.showErr('无主题信息');
+      return;
+    }
+
+    int tagIndex;
+
+    if (th.tagList.length == 1) {
+      tagIndex = 0;
+    } else {
+      tagIndex = await ActionHelper.showAction(context, th.tagList.map((f) => f.name).toList());
+    }
+
+    if (tagIndex != null) {
+      Map<String, dynamic> argu = new Map();
+      argu["theme"] = th;
+      argu["date"] = model.selDate;
+      argu['tag'] = th.tagList[tagIndex];
+
+      var rst = await Navigator.pushNamed(context, "AddRecordScreen", arguments: argu);
+      if (rst != null) {
+        model.loadList(context);
+      }
+    }
+  }
+
   // endregion
 
   // region Widget
 
-  Widget statusWidget(HomeModel model) {
-    double p = defPadding();
+  Widget _statusWidget(RecordModel model) {
+    double p = _defPadding();
 
     return new Container(
       width: MediaQuery.of(context).size.width,
@@ -161,22 +177,22 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget blankWidget(HomeModel model) {
+  Widget _blankWidget(RecordModel model) {
     return Column(
       children: <Widget>[
         Expanded(
-          child: noContentWidget(model),
+          child: _noContentWidget(model),
         ),
       ],
     );
   }
 
-  Widget listWidget(HomeModel model) {
+  Widget _listWidget(RecordModel model) {
     return ListView.separated(
       itemCount: model.themeDataList.length,
 //                    itemExtent: 50.0, //强制高度为50.0
       itemBuilder: (BuildContext context, int index) {
-        return itemWidget(model, index);
+        return _itemWidget(model, index);
       },
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
@@ -189,15 +205,13 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   // 每个条目
-  Widget itemWidget(HomeModel model, int index) {
+  Widget _itemWidget(RecordModel model, int index) {
     ThemeDataVo item = model.themeDataList[index];
-
-    print(item.toJson());
 
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(defPadding()),
+          padding: EdgeInsets.all(_defPadding()),
           color: Colors.black12,
           child: Flex(
             direction: Axis.horizontal,
@@ -218,7 +232,7 @@ class HomeScreenState extends State<HomeScreen> {
             child: Column(
           children: item.propDataList.map<Widget>((PropDataVo f) {
             return Container(
-              padding: EdgeInsets.all(defPadding()),
+              padding: EdgeInsets.all(_defPadding()),
 //              color: Colors.amberAccent,
               child: Flex(
                 direction: Axis.horizontal,
@@ -240,14 +254,12 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  double defPadding() {
+  double _defPadding() {
     return 10.0;
   }
 
-  Widget noContentWidget(HomeModel model) {
-    return Container(
-//        color: Colors.black,
-        child: Center(child: new Text("无内容")));
+  Widget _noContentWidget(RecordModel model) {
+    return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
   }
 
 // endregion

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:yun_record/common/model/BaseMapModel.dart';
 import 'package:yun_record/common/util/ValueUtils.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
@@ -20,6 +21,12 @@ class Api {
     return user;
   }
 
+  static Future<BaseMapModel> saveThemeData<N extends PageBaseNotiModel>(N model, data) async {
+    BaseMapModel rst = await HttpHelper(model).post(BaseMapModel(), "/v1/api/record/themeTagData", data, null);
+
+    return rst;
+  }
+
   /// 获取主题列表
   static Future<List<ThemeVo>> getThemeList<N extends PageBaseNotiModel>(N model, String name) async {
     var qP = Map<String, dynamic>();
@@ -27,24 +34,34 @@ class Api {
       qP['name'] = name;
     }
 
-    List<ThemeVo> rst = await HttpHelper(model).get(ThemeVo(), "/v1/api/record/theme/list", qP,dIsList: true);
+    List<ThemeVo> rst = await HttpHelper(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);
 
     return rst;
   }
 
-  static Future<List<ThemeDataVo>> getThemeDataList<N extends PageBaseNotiModel>(N model, String date,int tagId,int themeId) async {
+  /// 获取主题详情
+  static Future<ThemeVo> getThemeDetails<N extends PageBaseNotiModel>(N model, int themeId) async {
+    ThemeVo rst = await HttpHelper(model).get(ThemeVo(), "/v1/api/record/theme/${themeId.toString()}", null);
+
+    return rst;
+  }
+
+  /// 获取主题数据列表
+  static Future<List<ThemeDataVo>> getThemeDataList<N extends PageBaseNotiModel>(
+      N model, String date, int tagId, int themeId) async {
     var qP = Map<String, dynamic>();
     if (ValueUtils.hasContent(date)) {
       qP['date'] = date;
     }
-    if (tagId!=null) {
+    if (tagId != null) {
       qP['tagId'] = tagId;
     }
-    if (themeId!=null) {
+    if (themeId != null) {
       qP['themeId'] = themeId;
     }
 
-    List<ThemeDataVo> rst = await HttpHelper(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP,dIsList: true);
+    List<ThemeDataVo> rst =
+        await HttpHelper(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
 
     return rst;
   }

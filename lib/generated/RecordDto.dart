@@ -1,0 +1,134 @@
+import 'package:flutter/widgets.dart';
+import 'package:yun_record/common/util/DateUtils.dart';
+import 'package:yun_record/common/util/ValueUtils.dart';
+import 'package:yun_record/models/ThemeVo.dart';
+
+class RecordDto {
+  int id; // 0
+
+  int dateTime; // 0
+  String date;
+  String time;
+
+  int tagId; // 0
+
+  List<PropDto> propList;
+
+  // 临时变量
+  DateTime selDate;
+
+  static RecordDto ofNew(ThemeVo theme, Tag tag, DateTime date) {
+    RecordDto dto = RecordDto();
+    dto.tagId = tag.id;
+
+    String y = DateUtils.ymdStr(date);
+    String t = DateUtils.hmsStr(date);
+    dto.selDate = DateUtils.ymdHmsDate("${y} ${t}");
+
+    dto.propList = List();
+    for (var value in tag.propList) {
+      PropDto pDto = PropDto.ofNew(value);
+
+      dto.propList.add(pDto);
+    }
+
+    return dto;
+  }
+
+  String checkAndReform() {
+    bool valid = false;
+    for (var prop in propList) {
+      if (prop.checkAndReform()) {
+        valid = true;
+      }
+    }
+
+    if (!valid) {
+      return "请至少输入一项内容。";
+    }
+
+    dateTime = selDate.millisecondsSinceEpoch;
+
+    return null;
+  }
+
+  RecordDto({this.date, this.dateTime, this.id, this.propList, this.tagId, this.time});
+
+  RecordDto fromJson(Map<String, dynamic> json) {
+    return RecordDto(
+      date: json['date'],
+      dateTime: json['dateTime'],
+      id: json['id'],
+      propList: json['propList'] != null ? (json['propList'] as List).map((i) => PropDto().fromJson(i)).toList() : null,
+      tagId: json['tagId'],
+      time: json['time'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['date'] = this.date;
+    data['dateTime'] = this.dateTime;
+    data['id'] = this.id;
+    data['tagId'] = this.tagId;
+    data['time'] = this.time;
+    if (this.propList != null) {
+      data['propList'] = this.propList.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class PropDto {
+  int id; // 0
+
+  int propId; // 0
+
+  int dataType; // 0
+  String dataValue;
+
+  // 临时变量
+  Prop prop;
+  TextEditingController input = TextEditingController();
+
+  static PropDto ofNew(Prop prop) {
+    PropDto dto = PropDto();
+
+    dto.propId = prop.id;
+    dto.dataType = prop.dataType;
+
+    dto.prop = prop;
+
+    return dto;
+  }
+
+  bool checkAndReform() {
+    if (ValueUtils.hasContent(input.text)) {
+      dataValue = input.text;
+      return true;
+    }
+
+    dataValue = null;
+    return false;
+  }
+
+  PropDto({this.dataType, this.dataValue, this.id, this.propId});
+
+  PropDto fromJson(Map<String, dynamic> json) {
+    return PropDto(
+      dataType: json['dataType'],
+      dataValue: json['dataValue'],
+      id: json['id'],
+      propId: json['propId'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dataType'] = this.dataType;
+    data['dataValue'] = this.dataValue;
+    data['id'] = this.id;
+    data['propId'] = this.propId;
+    return data;
+  }
+}

@@ -76,7 +76,7 @@ class Prop implements BaseModel {
 
   Prop({this.createTime, this.dataType, this.dataTypeId, this.dataUnit, this.id, this.name});
 
-  fromJson(Map<String, dynamic> json) {
+  Prop fromJson(Map<String, dynamic> json) {
     return Prop(
       createTime: json['createTime'],
       dataType: json['dataType'],

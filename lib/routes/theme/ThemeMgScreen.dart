@@ -15,9 +15,9 @@ class ThemeMgScreen extends StatefulWidget {
 class ThemeMgScreenState extends State<ThemeMgScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeModel>(
+    return Consumer<RecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<HomeModel>.page(
+        body: BasePage<RecordModel>.page(
           body: bodyWidget(model),
           model: model,
         ),
@@ -25,7 +25,7 @@ class ThemeMgScreenState extends State<ThemeMgScreen> {
     );
   }
 
-  Widget bodyWidget(HomeModel model) {
+  Widget bodyWidget(RecordModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('Home'),

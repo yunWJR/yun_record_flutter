@@ -22,16 +22,16 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     final List<SingleChildWidget> _models = [
-      ChangeNotifierProvider<HomeModel>(
-        create: (context) => HomeModel(context),
-        child: HomeScreen(),
+      ChangeNotifierProvider<RecordModel>(
+        create: (context) => RecordModel(context),
+        child: RecordScreen(),
       ),
-      ChangeNotifierProvider<HomeModel>(
-        create: (context) => HomeModel(context),
+      ChangeNotifierProvider<RecordModel>(
+        create: (context) => RecordModel(context),
         child: ThemeMgScreen(),
       ),
-      ChangeNotifierProvider<HomeModel>(
-        create: (context) => HomeModel(context),
+      ChangeNotifierProvider<RecordModel>(
+        create: (context) => RecordModel(context),
         child: MyScreen(),
       ),
     ];
@@ -61,6 +61,7 @@ class _HomeTabState extends State<HomeTab> {
             ),
           ],
         ),
+
       ),
     );
   }

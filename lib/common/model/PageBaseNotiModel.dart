@@ -84,7 +84,7 @@ abstract class PageBaseNotiModel with ChangeNotifier {
   }
 
   // Checks internet connection & sets [_status] variable
-  bool canLoadData()  {
+  bool canLoadData() {
 //    var connectivityResult = await (Connectivity().checkConnectivity());
 //    connectivityResult == ConnectivityResult.none ? receivedError() : startLoading();
 

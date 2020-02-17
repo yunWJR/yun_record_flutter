@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> with PageNotiInterface<LoginN
     if (user != null) {
       GlobalConfig.loginToken = user.loginToken;
 
-      Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, "HomeTab", (Route<dynamic> route) => false);
 
 //      Navigator.push(
 //        context,

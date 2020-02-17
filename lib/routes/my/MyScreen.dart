@@ -15,9 +15,9 @@ class MyScreen extends StatefulWidget {
 class MyScreenState extends State<MyScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeModel>(
+    return Consumer<RecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<HomeModel>.page(
+        body: BasePage<RecordModel>.page(
           body: ctWidget(model),
           model: model,
         ),
@@ -25,7 +25,7 @@ class MyScreenState extends State<MyScreen> {
     );
   }
 
-  Widget bodyWidget(HomeModel model) {
+  Widget bodyWidget(RecordModel model) {
     print(model.isLoading);
 
     bool isLoading = model.isLoading;
@@ -42,7 +42,7 @@ class MyScreenState extends State<MyScreen> {
     return new Stack(children: widgets);
   }
 
-  Widget loadingWidget(HomeModel model) {
+  Widget loadingWidget(RecordModel model) {
     return new Container(
 //          width: MediaQuery.of(context).size.width,
 //          height: MediaQuery.of(context).size.height,
@@ -55,7 +55,7 @@ class MyScreenState extends State<MyScreen> {
     );
   }
 
-  Widget ctWidget(HomeModel model) {
+  Widget ctWidget(RecordModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('my'),
@@ -104,9 +104,7 @@ class MyScreenState extends State<MyScreen> {
     return completer.future;
   }
 
-  Widget _loadingIndicator() => Center(child: const CircularProgressIndicator());
-
   void _logOut() {
-    Navigator.pushNamedAndRemoveUntil(context, "login", (Route<dynamic> route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, "Login", (Route<dynamic> route) => false);
   }
 }
