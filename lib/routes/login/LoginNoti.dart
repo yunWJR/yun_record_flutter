@@ -10,7 +10,7 @@ class LoginNoti extends PageBaseNotiModel {
 
   @override
   Future loadData([BuildContext context]) async {
-    if (await canLoadData()) {
+    if (canLoadData()) {
       // Add parsed item
 
       await Future.delayed(Duration(milliseconds: 1000));
@@ -20,7 +20,7 @@ class LoginNoti extends PageBaseNotiModel {
   }
 
   Future login([BuildContext context]) async {
-    if (await canLoadData()) {
+    if (canLoadData()) {
       // Add parsed item
 
       await Future.delayed(Duration(milliseconds: 1000));

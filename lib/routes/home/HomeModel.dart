@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 import 'package:yun_record/common/util/DateUtils.dart';
 import 'package:yun_record/models/Api.dart';
@@ -18,7 +17,7 @@ class HomeModel extends PageBaseNotiModel {
 
   @override
   Future loadData([BuildContext context]) async {
-    if (await canLoadData()) {
+    if (canLoadData()) {
       // 获取主题列表
       themeList = await Api.getThemeList(this, null);
 
@@ -37,7 +36,7 @@ class HomeModel extends PageBaseNotiModel {
       selTheme = themeList[0];
 
       if (selDate == null) {
-//        selDate = DateTime.now();
+        selDate = DateTime.now();
       }
 
       String date = DateUtils.dayStr(selDate);
@@ -45,6 +44,20 @@ class HomeModel extends PageBaseNotiModel {
       themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
 
       notifyListeners();
+    }
+  }
+
+  Future loadList([BuildContext context]) async {
+    if (canLoadData()) {
+      // Add parsed item
+
+      String date = DateUtils.dayStr(selDate);
+
+      themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
+
+      notifyListeners();
+
+//      finishLoading();
     }
   }
 
@@ -70,5 +83,26 @@ class HomeModel extends PageBaseNotiModel {
     }
 
     return "请选择日期";
+  }
+
+  void selectTheme(int themeId) {
+    if (selTheme == null || selTheme.id != themeId) {
+      for (var value in themeList) {
+        if (value.id == themeId) {
+          selTheme = value;
+          break;
+        }
+      }
+
+      loadList();
+    }
+  }
+
+  void selectDate(DateTime date) {
+    if (selTheme == null || !DateUtils.sameDay(selDate, date)) {
+      selDate = date;
+
+      loadList();
+    }
   }
 }

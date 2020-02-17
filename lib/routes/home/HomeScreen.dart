@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/routes/home/HomeModel.dart';
@@ -58,9 +60,47 @@ class HomeScreenState extends State<HomeScreen> {
     print('refresh');
   }
 
-  _onTheme(HomeModel model) {}
+  _onTheme(HomeModel model) {
+    changeTheme(model);
+  }
 
-  _onDate(HomeModel model) {}
+  Future<void> changeTheme(HomeModel model) async {
+    int i = await showCupertinoModalPopup<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoActionSheet(
+            title: const Text('请选择主题'),
+//            message: const Text('请选择语言'),
+            cancelButton: CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context, null);
+              },
+              child: new Text("取消"),
+            ),
+            actions: model.themeList.map((f) {
+              return CupertinoActionSheetAction(
+                onPressed: () {
+                  Navigator.pop(context, f.id);
+                },
+                child: new Text(f.name),
+              );
+            }).toList(),
+          );
+        });
+
+    if (i != null) {
+      model.selectTheme(i);
+    }
+  }
+
+  _onDate(HomeModel model) {
+    DatePicker.showDatePicker(context,
+        showTitleActions: true, minTime: DateTime(1900, 1, 1), maxTime: DateTime(2100, 1, 1), onChanged: (date) {
+//      print('change $date');
+    }, onConfirm: (date) {
+      model.selectDate(date);
+    }, currentTime: model.selDate ?? DateTime.now(), locale: LocaleType.zh);
+  }
 
   // endregion
 
@@ -80,10 +120,13 @@ class HomeScreenState extends State<HomeScreen> {
               margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
 //              height: 30.0,
               color: Colors.red,
-              child: FlatButton.icon(
-                icon: Icon(Icons.info),
-                label: Text(model.themeText()),
-                onPressed: _onTheme(model),
+              child: FlatButton(
+                child: Text(model.themeText()),
+//                icon: Icon(Icons.info),
+//                label: Text(model.themeText()),
+                onPressed: () {
+                  _onTheme(model);
+                },
               ),
             ),
           ),
@@ -96,7 +139,9 @@ class HomeScreenState extends State<HomeScreen> {
               child: FlatButton.icon(
                 icon: Icon(Icons.add),
                 label: Text(model.dateText()),
-                onPressed: _onDate(model),
+                onPressed: () {
+                  _onDate(model);
+                },
               ),
             ),
           ),
@@ -109,11 +154,8 @@ class HomeScreenState extends State<HomeScreen> {
   Widget blankWidget(HomeModel model) {
     return Column(
       children: <Widget>[
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: new Text("无内容"),
-          ),
+        Expanded(
+          child: noContentWidget(model),
         ),
       ],
     );
@@ -146,7 +188,7 @@ class HomeScreenState extends State<HomeScreen> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(defPadding()),
-          color: Colors.white70,
+          color: Colors.black12,
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -192,5 +234,12 @@ class HomeScreenState extends State<HomeScreen> {
     return 10.0;
   }
 
+  Widget noContentWidget(HomeModel model) {
+    return Container(
+//        color: Colors.black,
+        child: Center(child: new Text("无内容")));
+  }
+
 // endregion
+
 }

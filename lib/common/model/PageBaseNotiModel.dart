@@ -84,11 +84,11 @@ abstract class PageBaseNotiModel with ChangeNotifier {
   }
 
   // Checks internet connection & sets [_status] variable
-  Future<bool> canLoadData() async {
+  bool canLoadData()  {
 //    var connectivityResult = await (Connectivity().checkConnectivity());
 //    connectivityResult == ConnectivityResult.none ? receivedError() : startLoading();
 
-    await Future.delayed(Duration(milliseconds: 10));
+//    await Future.delayed(Duration(milliseconds: 1)); // todo
 
     startLoading();
     return isLoading;
