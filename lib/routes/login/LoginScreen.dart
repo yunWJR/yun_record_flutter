@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yun_record/common/Http/HttpHelper.dart';
 import 'package:yun_record/common/model/PageNotiInterface.dart';
 import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/config/GlobalConfig.dart';
 import 'package:yun_record/models/UserVo.dart';
 
 import '../../index.dart';
@@ -174,35 +175,9 @@ class _LoginScreenState extends State<LoginScreen> with PageNotiInterface<LoginN
 
     model.startLoading();
 
-    var qP = Map<String, dynamic>();
-    qP["acctName"] = _nameController.text;
-    qP["password"] = _pwdController.text;
-
-    UserVo user = await HttpHelper(model).post(UserVo(), "/v1/api/login/login", null, qP);
-//    try {
-//      user = await Git(context).login(_nameController.text, _pwdController.text);
-//      // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
-////        Provider.of<UserModel>(context, listen: false).user = user;
-//    } catch (e) {
-//      //登录失败则提示
-//      if (e.response?.statusCode == 401) {
-//        showToast('登录失败');
-//      } else {
-//        showToast(e.toString());
-//      }
-//    } finally {
-//      // 隐藏loading框
-//      Navigator.of(context).pop();
-//    }
-
+    UserVo user = await Api.login(model, _nameController.text, _pwdController.text);
     if (user != null) {
-//        Navigator.of(context).push(
-//            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()));
-
-      Global.userVo = user;
-
-//        List<ThemeVo> ts = await Git(context).getThemeList();
-//        print(ts);
+      GlobalConfig.loginToken = user.loginToken;
 
       Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
 
@@ -220,14 +195,6 @@ class _LoginScreenState extends State<LoginScreen> with PageNotiInterface<LoginN
 //        Navigator.of(context).pushAndRemoveUntil(
 //            MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()), (Route<dynamic> route) => false);
     }
-
-//    await Future.delayed(Duration(seconds: 1));
-//
-//    model.finishLoading();
-//
-//    model.showErr();
-
-//    Navigator.pushNamedAndRemoveUntil(context, "homeTab", (Route<dynamic> route) => false);
 
     return;
   }

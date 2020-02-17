@@ -29,13 +29,6 @@ abstract class PageBaseNotiModel with ChangeNotifier {
     }
   }
 
-//  QueryModel.d(BuildContext context, {this.initLoadData}) :this(context) {
-//  }
-
-//  MenuItem(String name, this.body, {this.summary}) : super(name) {
-//    state = ItemState.none;
-//  }
-
   // Fetches data & returns it
   Future fetchData(String url, {Map<String, dynamic> parameters}) async {
     final response = await Dio().get(url, queryParameters: parameters);
@@ -62,9 +55,11 @@ abstract class PageBaseNotiModel with ChangeNotifier {
 
   // Methods which update the [_status] variable
   void startLoading() {
-    _status = Status.loading;
+    if (_status != Status.loading) {
+      _status = Status.loading;
 
-    notifyListeners();
+      notifyListeners();
+    }
   }
 
   void showErr(String error) {
@@ -74,9 +69,11 @@ abstract class PageBaseNotiModel with ChangeNotifier {
   }
 
   void finishLoading() {
-    _status = Status.loaded;
+    if (_status != Status.loaded) {
+      _status = Status.loaded;
 
-    notifyListeners();
+      notifyListeners();
+    }
 
 //    Navigator.of(context).pop();
   }

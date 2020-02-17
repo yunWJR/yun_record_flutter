@@ -22,7 +22,7 @@ class BasePage<T extends PageBaseNotiModel> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 主动监听 model 改变
-    // model = Provider.of<T>(context, listen: true);
+//    model = Provider.of<T>(context, listen: true);
 
     List<Widget> widgets = new List();
 

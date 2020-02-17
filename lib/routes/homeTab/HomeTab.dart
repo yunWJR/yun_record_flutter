@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:yun_record/models/HomeModel.dart';
+import 'package:yun_record/routes/home/HomeModel.dart';
 import 'package:yun_record/routes/home/HomeScreen.dart';
 import 'package:yun_record/routes/my/MyScreen.dart';
+import 'package:yun_record/routes/theme/ThemeMgScreen.dart';
 
 /// This view holds all tabs & its models: home, vehicles, upcoming & latest launches, & company tabs.
 class HomeTab extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomeTabState extends State<HomeTab> {
       ),
       ChangeNotifierProvider<HomeModel>(
         create: (context) => HomeModel(context),
-        child: MyScreen(),
+        child: ThemeMgScreen(),
       ),
       ChangeNotifierProvider<HomeModel>(
         create: (context) => HomeModel(context),
@@ -48,7 +49,7 @@ class _HomeTabState extends State<HomeTab> {
           currentIndex: _currentIndex,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              title: Text('首页'),
+              title: Text('记录'),
               icon: Icon(Icons.home),
             ),
             BottomNavigationBarItem(

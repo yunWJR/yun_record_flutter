@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/homeTab/HomeTab.dart';
 
 import 'config/GlobalConfig.dart';
 import 'config/GlobalConfigNoti.dart';
 import 'routes/login/LoginScreen.dart';
-import 'states/profile_change_notifier.dart';
 
 final ThemeGcn themeGcn = ThemeGcn();
 
@@ -26,10 +24,10 @@ class MyApp extends StatelessWidget {
       create: (context) => themeGcn,
       child: Consumer<ThemeGcn>(
         builder: (context, model, child) => MaterialApp(
-          title: 'SpaceX GO!',
+          title: 'YUN RECORD',
 //          theme: model.requestTheme(Brightness.light),
 //          darkTheme: model.requestTheme(Brightness.dark),
-          home: GlobalConfig.isLogin ? LoginScreen() : LoginScreen(),
+          home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
             "login": (context) => LoginScreen(),

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:yun_record/common/log/LogHelper.dart';
 
 class AlertHelper {
   static void showErr(BuildContext context, String error) {
     // hide loading
+
+    Log.log("ERROR", error);
 
     showDialog<bool>(
       context: context,
@@ -27,7 +30,5 @@ class AlertHelper {
         );
       },
     );
-
-//    notifyListeners();
   }
 }
