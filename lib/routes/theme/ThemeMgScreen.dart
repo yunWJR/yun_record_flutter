@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/page/YunBasePage.dart';
+import 'package:yun_base/page/YunBasePage.dart';
 import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';

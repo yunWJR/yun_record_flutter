@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
-import 'package:yun_record/models/RecordDto.dart';
+import 'package:yun_base/model/YunPageBaseNotiModel.dart';
 import 'package:yun_record/models/Api.dart';
+import 'package:yun_record/models/RecordDto.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
 class AddRecordModel extends YunPageBaseNotiModel {

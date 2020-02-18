@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:yun_record/common/page/YunBasePage.dart';
-import 'package:yun_record/common/toast/YunToast.dart';
+import 'package:yun_base/page/YunBasePage.dart';
+import 'package:yun_base/toast/YunToast.dart';
 import 'package:yun_record/models/RecordDto.dart';
 
 import '../../index.dart';

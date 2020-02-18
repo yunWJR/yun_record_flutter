@@ -34,9 +34,7 @@ class ItemSnippet extends StatelessWidget {
               fontSize: 15,
               fontFamily: 'ProductSans',
               color: Theme.of(context).textTheme.caption.color,
-              decoration: onTap == null
-                  ? TextDecoration.none
-                  : TextDecoration.underline,
+              decoration: onTap == null ? TextDecoration.none : TextDecoration.underline,
             ),
           ),
         ],

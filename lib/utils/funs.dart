@@ -2,8 +2,8 @@
 // Created by yun on 2020-02-18.
 //
 
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 Widget gmAvatar(

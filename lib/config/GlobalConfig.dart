@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yun_record/common/http/YunHttp.dart';
-import 'package:yun_record/common/util/YunValue.dart';
+import 'package:yun_base/http/YunHttp.dart';
+import 'package:yun_base/util/YunValue.dart';
 
 import 'colors.dart';
 

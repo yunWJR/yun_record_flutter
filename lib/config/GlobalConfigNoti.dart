@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/util/YunValue.dart';
+import 'package:yun_base/util/YunValue.dart';
 
 import 'GlobalConfig.dart';
 

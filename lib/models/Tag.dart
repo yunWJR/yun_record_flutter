@@ -1,4 +1,4 @@
-import 'package:yun_record/common/model/YunBaseModel.dart';
+import 'package:yun_base/model/YunBaseModel.dart';
 
 import 'Prop.dart';
 

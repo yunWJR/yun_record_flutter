@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
-import 'package:yun_record/common/util/YunDate.dart';
+import 'package:yun_base/model/YunPageBaseNotiModel.dart';
+import 'package:yun_base/util/YunDate.dart';
 import 'package:yun_record/models/Api.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';

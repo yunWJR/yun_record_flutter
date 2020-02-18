@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:yun_record/common/util/YunDate.dart';
-import 'package:yun_record/common/util/YunValue.dart';
+import 'package:yun_base/util/YunDate.dart';
+import 'package:yun_base/util/YunValue.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
 class RecordDto {

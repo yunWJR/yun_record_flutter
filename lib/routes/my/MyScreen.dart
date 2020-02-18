@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
-import 'package:yun_record/common/page/YunBasePage.dart';
+import 'package:yun_base/model/YunPageBaseNotiModel.dart';
+import 'package:yun_base/page/YunBasePage.dart';
 import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';
@@ -60,7 +60,7 @@ class MyScreenState extends State<MyScreen> {
       appBar: AppBar(
         title: new Text('个人中心'),
         backgroundColor: Theme.of(context).accentColor, // 主题
-        ),
+      ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -69,9 +69,11 @@ class MyScreenState extends State<MyScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new RaisedButton(child: new Text('设置'), onPressed: (){
-              Navigator.pushNamed(context, "SettingsScreen");
-            }),
+            new RaisedButton(
+                child: new Text('设置'),
+                onPressed: () {
+                  Navigator.pushNamed(context, "SettingsScreen");
+                }),
             new RaisedButton(child: new Text('退出登录'), onPressed: _logOut),
             new Container(
               padding: EdgeInsets.all(10.0),

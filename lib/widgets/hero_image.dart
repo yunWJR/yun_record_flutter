@@ -42,9 +42,7 @@ class HeroImage extends StatelessWidget {
               : SvgPicture.asset(
                   'assets/icons/patch.svg',
                   colorBlendMode: BlendMode.srcATop,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.black45
-                      : Colors.black26,
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.black45 : Colors.black26,
                 ),
         ),
       ),

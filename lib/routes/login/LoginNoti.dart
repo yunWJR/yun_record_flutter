@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
+import 'package:yun_base/model/YunPageBaseNotiModel.dart';
 
 /// Storages essencial data from the next scheduled UserVo.
 /// Used in the 'Home' tab, under the SpaceX screen.
