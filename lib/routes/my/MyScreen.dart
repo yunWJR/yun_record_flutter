@@ -59,7 +59,7 @@ class MyScreenState extends State<MyScreen> {
     return Scaffold(
       appBar: AppBar(
         title: new Text('个人中心'),
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).accentColor, // 主题
         ),
       body: new Container(
         width: MediaQuery.of(context).size.width,

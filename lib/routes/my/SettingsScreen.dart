@@ -83,8 +83,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _changeTheme(Themes theme) {
-    print(theme);
-
     ThemeGcn gcn = Provider.of<ThemeGcn>(context, listen: false);
 
     gcn.setThemeIndex(theme);

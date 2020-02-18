@@ -5,9 +5,9 @@ import 'package:yun_record/common/util/ValueUtils.dart';
 
 import 'colors.dart';
 
-enum Themes { light, dark, black, system }
-
 enum Items { loginToken, userName, themeId }
+
+enum Themes { light, dark, black, system }
 
 class GlobalConfig {
   static bool saveSelf = true; // true：自己检查是否改变，自己保存到 Prefs
@@ -63,6 +63,43 @@ class GlobalConfig {
       ),
     )
   ];
+
+  static final List<ThemeData> systemThemes = [
+    ThemeData(
+      brightness: Brightness.light,
+      primaryColor: lightPrimaryColor,
+      accentColor: lightAccentColor,
+      popupMenuTheme: PopupMenuThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+      ),
+    ),
+    ThemeData(
+      brightness: Brightness.dark,
+      primaryColor: darkPrimaryColor,
+      accentColor: darkAccentColor,
+      canvasColor: darkCanvasColor,
+      scaffoldBackgroundColor: darkBackgroundColor,
+      cardColor: darkCardColor,
+      dividerColor: darkDividerColor,
+      dialogBackgroundColor: darkCardColor,
+      popupMenuTheme: PopupMenuThemeData(
+        color: darkCardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+      ),
+    ),
+  ];
+
+  static ThemeData currentTheme(Brightness fallback) {
+    if (theme == Themes.system) {
+      return fallback == Brightness.dark ? systemThemes[1] : systemThemes[0];
+    }
+
+    return themeData;
+  }
 
   // region field
 
@@ -132,7 +169,6 @@ class GlobalConfig {
   static Themes theme = Themes.dark;
 
   static ThemeData themeData = themes[1];
-
 
   static savePref(Items item) {
     if (_prefs == null || item == null) {
@@ -217,7 +253,7 @@ class GlobalConfig {
     theme = themeId;
     themeData = themes[themeId.index];
 
+    print('updateTheme');
     print(theme);
-    print(themeData);
   }
 }

@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
       create: (context) => themeGcn,
       child: Consumer<ThemeGcn>(
         builder: (context, model, child) => MaterialApp(
-          title: 'YUN RECORD',
-          theme: themeGcn.themeData,
-          darkTheme: themeGcn.themeData,
+          title: 'YUN 随记',
+          theme: themeGcn.currentTheme(Brightness.light),
+          darkTheme: themeGcn.currentTheme(Brightness.dark),
           home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
