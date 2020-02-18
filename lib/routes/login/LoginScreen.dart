@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/Http/YunHttp.dart';
 import 'package:yun_record/common/model/YunPageNotiInterface.dart';
-import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/common/page/YunBasePage.dart';
 import 'package:yun_record/config/GlobalConfig.dart';
 import 'package:yun_record/models/UserVo.dart';
 
@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
     return ChangeNotifierProvider<LoginNoti>(
         create: (context) => LoginNoti(context),
         child: Consumer<LoginNoti>(
-          builder: (context, model, child) => BasePage<LoginNoti>.page(
+          builder: (context, model, child) => YunBasePage<LoginNoti>.page(
             body: bodyWidget(model),
             model: model,
           ),
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
 //            lazy: false,
             child: Consumer<LoginNoti>(
               builder: (context, model, child) => Scaffold(
-                body: BasePage<LoginNoti>.page(
+                body: YunBasePage<LoginNoti>.page(
                   body: bodyWidget(model),
                   model: model,
                 ),
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
         ],
         child: Consumer<LoginNoti>(
           builder: (context, model, child) => Scaffold(
-            body: BasePage<LoginNoti>.page(
+            body: YunBasePage<LoginNoti>.page(
               body: bodyWidget(model),
               model: model,
             ),

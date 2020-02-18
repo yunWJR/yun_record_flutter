@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_record/common/action/YunAction.dart';
-import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/common/page/YunBasePage.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
@@ -21,7 +21,7 @@ class _RecordScreenState extends State<RecordScreen> {
   Widget build(BuildContext context) {
     return Consumer<RecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<RecordModel>.page(
+        body: YunBasePage<RecordModel>.page(
           body: bodyWidget(model),
           model: model,
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/common/page/YunBasePage.dart';
 import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';
@@ -14,7 +14,7 @@ class ThemeMgScreenState extends State<ThemeMgScreen> {
   Widget build(BuildContext context) {
     return Consumer<AddRecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<AddRecordModel>.page(
+        body: YunBasePage<AddRecordModel>.page(
           body: bodyWidget(model),
           model: model,
         ),

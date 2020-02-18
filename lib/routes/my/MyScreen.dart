@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
-import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/common/page/YunBasePage.dart';
 import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';
@@ -17,7 +17,7 @@ class MyScreenState extends State<MyScreen> {
   Widget build(BuildContext context) {
     return Consumer<AddRecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<AddRecordModel>.page(
+        body: YunBasePage<AddRecordModel>.page(
           body: ctWidget(model),
           model: model,
         ),

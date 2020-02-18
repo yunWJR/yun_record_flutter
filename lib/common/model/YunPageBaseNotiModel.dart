@@ -15,6 +15,8 @@ abstract class YunPageBaseNotiModel with ChangeNotifier {
 
   PageStatus _status;
 
+  String loadText;
+
   BuildContext _context;
 
   YunPageBaseNotiModel(BuildContext context, {bool initLoadData = true}) {

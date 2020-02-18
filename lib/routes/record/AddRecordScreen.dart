@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:yun_record/common/page/BasePage.dart';
+import 'package:yun_record/common/page/YunBasePage.dart';
 import 'package:yun_record/common/toast/ToastHelper.dart';
 import 'package:yun_record/models/RecordDto.dart';
 
@@ -25,7 +25,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
         value: newModel,
         child: Consumer<AddRecordModel>(
           builder: (context, model, child) => Scaffold(
-            body: BasePage<AddRecordModel>.page(
+            body: YunBasePage<AddRecordModel>.page(
               body: bodyWidget(model),
               model: model,
             ),
