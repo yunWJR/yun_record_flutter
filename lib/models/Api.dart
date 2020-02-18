@@ -4,7 +4,7 @@ import 'package:yun_record/common/model/BaseMapModel.dart';
 import 'package:yun_record/common/util/ValueUtils.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
-import '../common/http/HttpHelper.dart';
+import '../common/http/YunHttp.dart';
 import '../common/model/PageBaseNotiModel.dart';
 import 'ThemeDataVo.dart';
 import 'UserVo.dart';
@@ -16,14 +16,14 @@ class Api {
     qP["acctName"] = name;
     qP["password"] = pwd;
 
-    UserVo user = await HttpHelper(model).post(UserVo(), "/v1/api/login/login", null, qP);
+    UserVo user = await YunHttp(model).post(UserVo(), "/v1/api/login/login", null, qP);
 
     return user;
   }
 
   static Future<BaseMapModel> saveThemeData<N extends PageBaseNotiModel>(N model, data) async {
     data ={}; // todo
-    BaseMapModel rst = await HttpHelper(model).post(BaseMapModel(), "/v1/api/record/themeTagData", data, null);
+    BaseMapModel rst = await YunHttp(model).post(BaseMapModel(), "/v1/api/record/themeTagData", data, null);
 
     return rst;
   }
@@ -35,14 +35,14 @@ class Api {
       qP['name'] = name;
     }
 
-    List<ThemeVo> rst = await HttpHelper(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);
+    List<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);
 
     return rst;
   }
 
   /// 获取主题详情
   static Future<ThemeVo> getThemeDetails<N extends PageBaseNotiModel>(N model, int themeId) async {
-    ThemeVo rst = await HttpHelper(model).get(ThemeVo(), "/v1/api/record/theme/${themeId.toString()}", null);
+    ThemeVo rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/${themeId.toString()}", null);
 
     return rst;
   }
@@ -62,7 +62,7 @@ class Api {
     }
 
     List<ThemeDataVo> rst =
-        await HttpHelper(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
+        await YunHttp(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
 
     return rst;
   }

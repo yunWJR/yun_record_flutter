@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/alert/AlertHelper.dart';
+import 'package:yun_record/common/alert/YunAlert.dart';
 
 /// General model used to help retrieve, parse & storage
 /// information from a public REST API
@@ -65,7 +65,7 @@ abstract class PageBaseNotiModel with ChangeNotifier {
   void showErr(String error) {
     // hide loading
 
-    AlertHelper.showErr(context, error);
+    YunAlert.showErr(context, error);
   }
 
   void finishLoading() {

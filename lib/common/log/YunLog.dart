@@ -1,8 +1,12 @@
+//
+// Created by yun on 2020-02-18.
+//
+
 import 'package:yun_record/common/config/YunConfig.dart';
 import 'package:yun_record/common/model/BaseModel.dart';
 import 'package:yun_record/common/model/RstData.dart';
 
-class Log {
+class YunLog {
   // region common
 
   static log(String tag, data) {

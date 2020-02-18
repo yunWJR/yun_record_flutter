@@ -5,9 +5,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/config/YunConfig.dart';
-import 'package:yun_record/common/log/LogHelper.dart';
+import 'package:yun_record/common/log/YunLog.dart';
 
-class AlertHelper {
+class YunAlert {
   static void showErr(BuildContext context, String error) {
     if (YunConfig.iOSMode()) {
       return showIOSErr(context, error);
@@ -18,7 +18,7 @@ class AlertHelper {
   }
 
   static void showIOSErr(BuildContext context, String error) {
-    Log.log("ERROR", error);
+    YunLog.log("ERROR", error);
 
     showDialog<bool>(
       context: context,

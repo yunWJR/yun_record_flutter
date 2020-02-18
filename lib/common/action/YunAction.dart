@@ -5,7 +5,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:yun_record/common/config/YunConfig.dart';
 
-class ActionHelper {
+class YunAction {
   static Future<int> showAction(
     BuildContext context,
     List<String> actions, {

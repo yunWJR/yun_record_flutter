@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yun_record/common/http/HttpHelper.dart';
+import 'package:yun_record/common/http/YunHttp.dart';
 import 'package:yun_record/common/util/ValueUtils.dart';
 
 import 'colors.dart';
@@ -159,7 +159,7 @@ class GlobalConfig {
     if (!_saveSelf(Items.loginToken)) {
       // 更新 token
       _loginToken = value;
-      HttpHelper.addHeader(HttpHeaders.authorizationHeader, _loginToken);
+      YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
       return;
     }
 
@@ -169,7 +169,7 @@ class GlobalConfig {
 
     // 更新 token
     _loginToken = value;
-    HttpHelper.addHeader(HttpHeaders.authorizationHeader, _loginToken);
+    YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
 
     savePref(Items.loginToken);
   }
@@ -296,8 +296,8 @@ class GlobalConfig {
 //    _itemsSaveMap = {};
 //    _itemsSaveMap[Items.loginToken.index] = false;
 
-    var rst = HttpHelper.addHeader(HttpHeaders.authorizationHeader, _loginToken);
-    HttpHelper.baseUrl = "http://fffy.api.yunsoho.cn";
+    var rst = YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
+    YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
   }
 
   static void setSaveSelf(Items item, bool saveSelf) {

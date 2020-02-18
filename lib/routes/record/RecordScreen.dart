@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:yun_record/common/action/ActionHelper.dart';
+import 'package:yun_record/common/action/YunAction.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';
@@ -78,7 +78,7 @@ class _RecordScreenState extends State<RecordScreen> {
   }
 
   Future<void> _changeTheme(RecordModel model) async {
-    int index = await ActionHelper.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
+    int index = await YunAction.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
 
     if (index != null) {
       model.selectTheme(model.themeList[index].id);
@@ -113,7 +113,7 @@ class _RecordScreenState extends State<RecordScreen> {
     if (th.tagList.length == 1) {
       tagIndex = 0;
     } else {
-      tagIndex = await ActionHelper.showAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
+      tagIndex = await YunAction.showAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
     }
 
     if (tagIndex != null) {

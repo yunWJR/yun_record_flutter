@@ -3,12 +3,12 @@
 //
 
 import 'package:dio/dio.dart';
-import 'package:yun_record/common/log/LogHelper.dart';
+import 'package:yun_record/common/log/YunLog.dart';
 import 'package:yun_record/common/model/BaseModel.dart';
 import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 import 'package:yun_record/common/model/RstData.dart';
 
-class HttpHelper<N extends PageBaseNotiModel> {
+class YunHttp<N extends PageBaseNotiModel> {
   // region static
 
   // base url
@@ -54,7 +54,7 @@ class HttpHelper<N extends PageBaseNotiModel> {
 
   RspData rstData;
 
-  HttpHelper(N noti) {
+  YunHttp(N noti) {
     this._noti = noti;
 
     if (defHeaders == null) {
@@ -104,7 +104,7 @@ class HttpHelper<N extends PageBaseNotiModel> {
 
   dynamic _handleRspError(e, String path, Map<String, dynamic> queryParameters) {
     // 日志
-    Log.logRsp(e.toString(), path: path, headers: null, qParams: queryParameters);
+    YunLog.logRsp(e.toString(), path: path, headers: null, qParams: queryParameters);
 
     rstData = RspData.fromRspError(e);
 
@@ -115,7 +115,7 @@ class HttpHelper<N extends PageBaseNotiModel> {
 
   dynamic _handleRsp<D extends BaseModel>(D d, Response<Map<String, dynamic>> rsp, dIsList) {
     if (rsp != null) {
-      Log.logRsp(rsp.data, path: rsp.request.path, headers: rsp.request.headers, qParams: rsp.request.queryParameters);
+      YunLog.logRsp(rsp.data, path: rsp.request.path, headers: rsp.request.headers, qParams: rsp.request.queryParameters);
     }
 
     RspData<D> vo = dIsList ? RspData.fromListJson(d, rsp.data) : RspData.fromJson(d, rsp.data);
@@ -140,7 +140,7 @@ class HttpHelper<N extends PageBaseNotiModel> {
       return;
     }
 
-    Log.logRstData(rst);
+    YunLog.logRstData(rst);
 
     // 根据模式显示信息
     showError(rst.errorMsg);
