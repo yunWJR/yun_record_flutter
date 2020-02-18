@@ -1,4 +1,10 @@
-class ValueUtils {
+//
+// Created by yun on 2020-02-18.
+//
+
+class YunValue {
+  // region string
+
   static bool hasContent(String str, {bool enableEmpty = false}) {
     if (str == null) {
       return false;
@@ -39,6 +45,10 @@ class ValueUtils {
     }
   }
 
+  // endregion
+
+  // region int
+
   static bool isSameInt(int a, int b) {
     if (a == null) {
       if (b == null) {
@@ -54,4 +64,7 @@ class ValueUtils {
       return a == b;
     }
   }
+
+// endregion
+
 }

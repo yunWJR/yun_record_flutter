@@ -1,6 +1,10 @@
+//
+// Created by yun on 2020-02-18.
+//
+
 import 'package:intl/intl.dart';
 
-class DateUtils {
+class YunDate {
   static String ymdHmsStr(DateTime dateTime) {
     if (dateTime != null) {
       return ymdHmsDf().format(dateTime);
@@ -36,6 +40,22 @@ class DateUtils {
   static bool sameYmd(DateTime selDate, DateTime date) {
     if (selDate != null && date != null) {
       return ymdDf().format(selDate) == ymdDf().format(date);
+    }
+
+    return false;
+  }
+
+  static bool sameHms(DateTime selDate, DateTime date) {
+    if (selDate != null && date != null) {
+      return hmsDf().format(selDate) == hmsDf().format(date);
+    }
+
+    return false;
+  }
+
+  static bool sameYmdHms(DateTime selDate, DateTime date) {
+    if (selDate != null && date != null) {
+      return ymdHmsDf().format(selDate) == ymdHmsDf().format(date);
     }
 
     return false;

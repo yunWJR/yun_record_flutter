@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/util/ValueUtils.dart';
+import 'package:yun_record/common/util/YunValue.dart';
 
 import 'GlobalConfig.dart';
 
@@ -20,13 +20,13 @@ class LoginTokenGcn extends GlobalConfigNoti {
 
   Items item = Items.loginToken;
 
-  bool get isLogin => ValueUtils.hasContent(GlobalConfig.loginToken);
+  bool get isLogin => YunValue.hasContent(GlobalConfig.loginToken);
 
   String get loginToken => GlobalConfig.loginToken;
 
   //用户信息发生变化，更新用户信息并通知依赖它的子孙Widgets更新
   set loginToken(String loginToken) {
-    if (ValueUtils.isSame(loginToken, GlobalConfig.loginToken)) {
+    if (YunValue.isSame(loginToken, GlobalConfig.loginToken)) {
       return null;
     }
 

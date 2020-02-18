@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:yun_record/common/model/YunBaseMapModel.dart';
-import 'package:yun_record/common/util/ValueUtils.dart';
+import 'package:yun_record/common/util/YunValue.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
 import '../common/http/YunHttp.dart';
@@ -22,7 +22,6 @@ class Api {
   }
 
   static Future<YunBaseMapModel> saveThemeData<N extends YunPageBaseNotiModel>(N model, data) async {
-    data ={}; // todo
     YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/themeTagData", data, null);
 
     return rst;
@@ -31,7 +30,7 @@ class Api {
   /// 获取主题列表
   static Future<List<ThemeVo>> getThemeList<N extends YunPageBaseNotiModel>(N model, String name) async {
     var qP = Map<String, dynamic>();
-    if (ValueUtils.hasContent(name)) {
+    if (YunValue.hasContent(name)) {
       qP['name'] = name;
     }
 
@@ -51,7 +50,7 @@ class Api {
   static Future<List<ThemeDataVo>> getThemeDataList<N extends YunPageBaseNotiModel>(
       N model, String date, int tagId, int themeId) async {
     var qP = Map<String, dynamic>();
-    if (ValueUtils.hasContent(date)) {
+    if (YunValue.hasContent(date)) {
       qP['date'] = date;
     }
     if (tagId != null) {

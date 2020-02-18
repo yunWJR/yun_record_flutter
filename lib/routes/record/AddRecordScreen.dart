@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:yun_record/common/page/YunBasePage.dart';
-import 'package:yun_record/common/toast/ToastHelper.dart';
+import 'package:yun_record/common/toast/YunToast.dart';
 import 'package:yun_record/models/RecordDto.dart';
 
 import '../../index.dart';
@@ -67,7 +67,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   void _saveOn(AddRecordModel model) {
     model.saveRecord().then((suc) {
       if (suc) {
-        ToastHelper.showToast("保存成功");
+        YunToast.showToast("保存成功");
         Navigator.of(context).pop(1);
       }
     });

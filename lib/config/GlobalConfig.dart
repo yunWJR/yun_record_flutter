@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yun_record/common/http/YunHttp.dart';
-import 'package:yun_record/common/util/ValueUtils.dart';
+import 'package:yun_record/common/util/YunValue.dart';
 
 import 'colors.dart';
 
@@ -163,7 +163,7 @@ class GlobalConfig {
       return;
     }
 
-    if (ValueUtils.isSame(_loginToken, value)) {
+    if (YunValue.isSame(_loginToken, value)) {
       return null;
     }
 
@@ -174,7 +174,7 @@ class GlobalConfig {
     savePref(Items.loginToken);
   }
 
-  static bool get isLogin => ValueUtils.hasContent(_loginToken);
+  static bool get isLogin => YunValue.hasContent(_loginToken);
 
   static String _userName;
 
@@ -186,7 +186,7 @@ class GlobalConfig {
       return;
     }
 
-    if (ValueUtils.isSame(_userName, value)) {
+    if (YunValue.isSame(_userName, value)) {
       return null;
     }
 
@@ -205,7 +205,7 @@ class GlobalConfig {
       return;
     }
 
-    if (ValueUtils.isSameInt(_themeId, value)) {
+    if (YunValue.isSameInt(_themeId, value)) {
       return null;
     }
 

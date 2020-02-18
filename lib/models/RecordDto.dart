@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:yun_record/common/util/DateUtils.dart';
-import 'package:yun_record/common/util/ValueUtils.dart';
+import 'package:yun_record/common/util/YunDate.dart';
+import 'package:yun_record/common/util/YunValue.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
 class RecordDto {
@@ -21,9 +21,9 @@ class RecordDto {
     RecordDto dto = RecordDto();
     dto.tagId = tag.id;
 
-    String y = DateUtils.ymdStr(date);
-    String t = DateUtils.hmsStr(date);
-    dto.selDate = DateUtils.ymdHmsDate("${y} ${t}");
+    String y = YunDate.ymdStr(date);
+    String t = YunDate.hmsStr(date);
+    dto.selDate = YunDate.ymdHmsDate("${y} ${t}");
 
     dto.propList = List();
     for (var value in tag.propList) {
@@ -103,7 +103,7 @@ class PropDto {
   }
 
   bool checkAndReform() {
-    if (ValueUtils.hasContent(input.text)) {
+    if (YunValue.hasContent(input.text)) {
       dataValue = input.text;
       return true;
     }

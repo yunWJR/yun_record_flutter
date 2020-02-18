@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
-import 'package:yun_record/common/util/DateUtils.dart';
+import 'package:yun_record/common/util/YunDate.dart';
 import 'package:yun_record/models/Api.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';
@@ -41,7 +41,7 @@ class RecordModel extends YunPageBaseNotiModel {
         selDate = DateTime.now();
       }
 
-      String date = DateUtils.ymdStr(selDate);
+      String date = YunDate.ymdStr(selDate);
 
       themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
 
@@ -53,7 +53,7 @@ class RecordModel extends YunPageBaseNotiModel {
     if (canLoadData()) {
       // Add parsed item
 
-      String date = DateUtils.ymdStr(selDate);
+      String date = YunDate.ymdStr(selDate);
 
       themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
 
@@ -81,7 +81,7 @@ class RecordModel extends YunPageBaseNotiModel {
 
   String dateText() {
     if (selDate != null) {
-      return DateUtils.ymdStr(selDate);
+      return YunDate.ymdStr(selDate);
     }
 
     return "请选择日期";
@@ -101,7 +101,7 @@ class RecordModel extends YunPageBaseNotiModel {
   }
 
   void selectDate(DateTime date) {
-    if (selTheme == null || !DateUtils.sameYmd(selDate, date)) {
+    if (selTheme == null || !YunDate.sameYmd(selDate, date)) {
       selDate = date;
 
       loadList();

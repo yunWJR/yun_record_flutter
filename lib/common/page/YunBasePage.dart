@@ -1,6 +1,13 @@
+//
+// Created by yun on 2020-02-18.
+//
+
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
 
-import '../../index.dart';
 
 typedef pageConfig = YunBasePageConfig Function();
 

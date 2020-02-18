@@ -2,7 +2,7 @@
 // Created by yun on 2020-02-18.
 //
 
-import 'package:yun_record/common/util/ValueUtils.dart';
+import 'package:yun_record/common/util/YunValue.dart';
 
 import 'YunBaseModel.dart';
 
@@ -44,7 +44,7 @@ class YunRspData<T extends YunBaseModel> {
       // 错误
       if (item.code != YunRstDataDefine.sucCode) {
         item.errorMsg = map[YunRstDataDefine.msgName];
-        if (ValueUtils.isNullOrEmpty(item.errorMsg)) {
+        if (YunValue.isNullOrEmpty(item.errorMsg)) {
           item.errorMsg = '未知错误';
         }
 
@@ -75,7 +75,7 @@ class YunRspData<T extends YunBaseModel> {
       // 错误
       if (item.code != YunRstDataDefine.sucCode) {
         item.errorMsg = map[YunRstDataDefine.msgName];
-        if (ValueUtils.isNullOrEmpty(item.errorMsg)) {
+        if (YunValue.isNullOrEmpty(item.errorMsg)) {
           item.errorMsg = '未知错误';
         }
 
