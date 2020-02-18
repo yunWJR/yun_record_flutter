@@ -69,7 +69,7 @@ class MyScreenState extends State<MyScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new RaisedButton(child: new Text('设置主题'), onPressed: (){
+            new RaisedButton(child: new Text('设置'), onPressed: (){
               Navigator.pushNamed(context, "SettingsScreen");
             }),
             new RaisedButton(child: new Text('退出登录'), onPressed: _logOut),
