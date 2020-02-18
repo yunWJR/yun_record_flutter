@@ -78,7 +78,7 @@ class _RecordScreenState extends State<RecordScreen> {
   }
 
   Future<void> _changeTheme(RecordModel model) async {
-    int index = await ActionHelper.showIOSAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
+    int index = await ActionHelper.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
 
     if (index != null) {
       model.selectTheme(model.themeList[index].id);
@@ -113,7 +113,7 @@ class _RecordScreenState extends State<RecordScreen> {
     if (th.tagList.length == 1) {
       tagIndex = 0;
     } else {
-      tagIndex = await ActionHelper.showIOSAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
+      tagIndex = await ActionHelper.showAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
     }
 
     if (tagIndex != null) {

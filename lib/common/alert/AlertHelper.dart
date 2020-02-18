@@ -1,11 +1,23 @@
+//
+// Created by yun on 2020-02-16.
+//
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:yun_record/common/config/YunConfig.dart';
 import 'package:yun_record/common/log/LogHelper.dart';
 
 class AlertHelper {
   static void showErr(BuildContext context, String error) {
-    // hide loading
+    if (YunConfig.iOSMode()) {
+      return showIOSErr(context, error);
+    } else {
+      // todo 后期增加
+      return showIOSErr(context, error);
+    }
+  }
 
+  static void showIOSErr(BuildContext context, String error) {
     Log.log("ERROR", error);
 
     showDialog<bool>(

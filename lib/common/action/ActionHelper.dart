@@ -1,6 +1,25 @@
+//
+// Created by yun on 2020-02-16.
+//
+
 import 'package:flutter/cupertino.dart';
+import 'package:yun_record/common/config/YunConfig.dart';
 
 class ActionHelper {
+  static Future<int> showAction(
+    BuildContext context,
+    List<String> actions, {
+    String title,
+    String message,
+  }) async {
+    if (YunConfig.iOSMode()) {
+      return showIOSAction(context, actions, title: title, message: message);
+    } else {
+      // todo 后期增加
+      return showIOSAction(context, actions, title: title, message: message);
+    }
+  }
+
   static Future<int> showIOSAction(
     BuildContext context,
     List<String> actions, {
