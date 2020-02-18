@@ -57,10 +57,6 @@ class ThemeGcn extends GlobalConfigNoti {
       return null;
     }
 
-    if (theme == Themes.system) {
-      return;
-    }
-
     GlobalConfig.updateTheme(theme);
 
     notifyListeners();

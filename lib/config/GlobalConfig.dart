@@ -7,7 +7,14 @@ import 'colors.dart';
 
 enum Items { loginToken, userName, themeId }
 
-enum Themes { light, dark, black, system }
+enum Themes {
+  system,
+  blue,
+  cyan,
+  teal,
+  green,
+  red,
+}
 
 class GlobalConfig {
   static bool saveSelf = true; // true：自己检查是否改变，自己保存到 Prefs
@@ -18,8 +25,35 @@ class GlobalConfig {
 
   static SharedPreferences _prefs;
 
-  // Light, dark & OLED themes
-  static final List<ThemeData> themes = [
+  static final List<ThemeData> _themes = [
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.blue,
+      primaryColor: Colors.blue,
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.cyan,
+      primaryColor: Colors.cyan,
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.teal,
+      primaryColor: Colors.teal,
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.green,
+      primaryColor: Colors.green,
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.red,
+      primaryColor: Colors.red,
+    ),
+  ];
+
+  static final List<ThemeData> _themesBack = [
     ThemeData(
       brightness: Brightness.light,
       primaryColor: lightPrimaryColor,
@@ -64,41 +98,49 @@ class GlobalConfig {
     )
   ];
 
-  static final List<ThemeData> systemThemes = [
+  static final List<ThemeData> _systemThemes = [
     ThemeData(
       brightness: Brightness.light,
-      primaryColor: lightPrimaryColor,
-      accentColor: lightAccentColor,
-      popupMenuTheme: PopupMenuThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-        ),
-      ),
+      //      primaryColor: lightPrimaryColor,
+      //      accentColor: lightAccentColor,
+      //      popupMenuTheme: PopupMenuThemeData(
+      //        shape: RoundedRectangleBorder(
+      //          borderRadius: BorderRadius.circular(6),
+      //        ),
+      //      ),
     ),
     ThemeData(
       brightness: Brightness.dark,
-      primaryColor: darkPrimaryColor,
-      accentColor: darkAccentColor,
-      canvasColor: darkCanvasColor,
-      scaffoldBackgroundColor: darkBackgroundColor,
-      cardColor: darkCardColor,
-      dividerColor: darkDividerColor,
-      dialogBackgroundColor: darkCardColor,
-      popupMenuTheme: PopupMenuThemeData(
-        color: darkCardColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-        ),
-      ),
+      //      primaryColor: darkPrimaryColor,
+      //      accentColor: darkAccentColor,
+      //      canvasColor: darkCanvasColor,
+      //      scaffoldBackgroundColor: darkBackgroundColor,
+      //      cardColor: darkCardColor,
+      //      dividerColor: darkDividerColor,
+      //      dialogBackgroundColor: darkCardColor,
+      //      popupMenuTheme: PopupMenuThemeData(
+      //        color: darkCardColor,
+      //        shape: RoundedRectangleBorder(
+      //          borderRadius: BorderRadius.circular(6),
+      //        ),
+      //      ),
     ),
   ];
 
   static ThemeData currentTheme(Brightness fallback) {
     if (theme == Themes.system) {
-      return fallback == Brightness.dark ? systemThemes[1] : systemThemes[0];
+      return fallback == Brightness.dark ? _systemThemes[1] : _systemThemes[0];
     }
 
     return themeData;
+  }
+
+  static void updateTheme(Themes themeId) {
+    theme = themeId;
+
+    if (theme != Themes.system) {
+      themeData = _themes[theme.index - 1];
+    }
   }
 
   // region field
@@ -166,9 +208,9 @@ class GlobalConfig {
 
   static FlutterLocalNotificationsPlugin get notifications => _notifications;
 
-  static Themes theme = Themes.dark;
+  static Themes theme = Themes.cyan;
 
-  static ThemeData themeData = themes[1];
+  static ThemeData themeData = _themes[0];
 
   static savePref(Items item) {
     if (_prefs == null || item == null) {
@@ -208,7 +250,7 @@ class GlobalConfig {
     try {
       theme = Themes.values[_prefs.getInt('theme')];
     } catch (e) {
-      _prefs.setInt('theme', Themes.light.index);
+      _prefs.setInt('theme', Themes.blue.index);
     }
 
     // Loads loginToken
@@ -247,13 +289,5 @@ class GlobalConfig {
     }
 
     _itemsSaveMap[Items.loginToken.index] = saveSelf;
-  }
-
-  static void updateTheme(Themes themeId) {
-    theme = themeId;
-    themeData = themes[themeId.index];
-
-    print('updateTheme');
-    print(theme);
   }
 }

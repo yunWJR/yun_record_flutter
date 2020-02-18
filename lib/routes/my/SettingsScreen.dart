@@ -36,7 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           style: TextStyle(fontFamily: 'ProductSans'),
         ),
         centerTitle: true,
-        backgroundColor: Theme.of(context).accentColor,
+        //        backgroundColor: Theme.of(context).accentColor,
       ),
       body: Consumer<ThemeGcn>(
         builder: (context, model, child) => ListView(
@@ -48,38 +48,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       context: context,
                       builder: (context) => RoundDialog(
                         title: "选择主题",
-                        children: <Widget>[
-                          RadioCell<Themes>(
-                            title: 'dark',
-                            groupValue: _themeIndex,
-                            value: Themes.dark,
-                            onChanged: (value) => _changeTheme(value),
-                          ),
-                          RadioCell<Themes>(
-                            title: 'black',
-                            groupValue: _themeIndex,
-                            value: Themes.black,
-                            onChanged: (value) => _changeTheme(value),
-                          ),
-                          RadioCell<Themes>(
-                            title: 'light',
-                            groupValue: _themeIndex,
-                            value: Themes.light,
-                            onChanged: (value) => _changeTheme(value),
-                          ),
-                          RadioCell<Themes>(
-                            title: 'system',
-                            groupValue: _themeIndex,
-                            value: Themes.system,
-                            onChanged: (value) => _changeTheme(value),
-                          ),
-                        ],
+                        children: themItems(),
                       ),
                     )),
           ],
         ),
       ),
     );
+  }
+
+  List<Widget> themItems() {
+    List<Widget> items = List();
+
+    for (var value in Themes.values) {
+      var cell = RadioCell<Themes>(
+        title: value.toString().substring(7),
+        groupValue: _themeIndex,
+        value: value,
+        onChanged: (value) => _changeTheme(value),
+      );
+
+      items.add(cell);
+    }
+
+    return items;
   }
 
   void _changeTheme(Themes theme) {
