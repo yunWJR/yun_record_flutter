@@ -1,6 +1,6 @@
-import 'package:yun_record/common/model/BaseModel.dart';
+import 'package:yun_record/common/model/YunBaseModel.dart';
 
-class ThemeVo implements BaseModel {
+class ThemeVo implements YunBaseModel {
   int createTime; // 0
   int id; // 0
   String name;
@@ -34,7 +34,7 @@ class ThemeVo implements BaseModel {
   }
 }
 
-class Tag implements BaseModel {
+class Tag implements YunBaseModel {
   int createTime; // 0
   int id; // 0
   String name;
@@ -66,7 +66,7 @@ class Tag implements BaseModel {
   }
 }
 
-class Prop implements BaseModel {
+class Prop implements YunBaseModel {
   int createTime; // 0
   int dataType; // 0
   int dataTypeId; // 0

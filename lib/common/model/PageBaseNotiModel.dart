@@ -1,10 +1,13 @@
+//
+// Created by yun on 2020-02-18.
+//
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:yun_record/common/alert/YunAlert.dart';
 
-/// General model used to help retrieve, parse & storage
-/// information from a public REST API
+
 enum Status { loading, error, loaded }
 
 abstract class PageBaseNotiModel with ChangeNotifier {

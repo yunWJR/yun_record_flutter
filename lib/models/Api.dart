@@ -21,9 +21,9 @@ class Api {
     return user;
   }
 
-  static Future<BaseMapModel> saveThemeData<N extends PageBaseNotiModel>(N model, data) async {
+  static Future<YunBaseMapModel> saveThemeData<N extends PageBaseNotiModel>(N model, data) async {
     data ={}; // todo
-    BaseMapModel rst = await YunHttp(model).post(BaseMapModel(), "/v1/api/record/themeTagData", data, null);
+    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/themeTagData", data, null);
 
     return rst;
   }

@@ -1,8 +1,8 @@
-import 'package:yun_record/common/model/BaseModel.dart';
+import 'package:yun_record/common/model/YunBaseModel.dart';
 
 import 'Prop.dart';
 
-class Tag implements BaseModel {
+class Tag implements YunBaseModel {
   int createTime; // 0
   int id; // 0
   String name;

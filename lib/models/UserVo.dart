@@ -1,6 +1,6 @@
-import '../common/model/BaseModel.dart';
+import '../common/model/YunBaseModel.dart';
 
-class UserVo implements BaseModel {
+class UserVo implements YunBaseModel {
   String acctName;
   int createTime; // 0
   String email;

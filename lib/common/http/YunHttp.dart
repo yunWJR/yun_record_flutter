@@ -4,7 +4,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:yun_record/common/log/YunLog.dart';
-import 'package:yun_record/common/model/BaseModel.dart';
+import 'package:yun_record/common/model/YunBaseModel.dart';
 import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 import 'package:yun_record/common/model/RstData.dart';
 
@@ -69,7 +69,7 @@ class YunHttp<N extends PageBaseNotiModel> {
 
   // region rqt
 
-  Future post<D extends BaseModel>(D d, String path, data, Map<String, dynamic> queryParameters,
+  Future post<D extends YunBaseModel>(D d, String path, data, Map<String, dynamic> queryParameters,
       {bool dIsList = false}) async {
     Response<Map<String, dynamic>> rsp;
 
@@ -86,7 +86,7 @@ class YunHttp<N extends PageBaseNotiModel> {
     return _handleRsp(d, rsp, dIsList);
   }
 
-  Future get<D extends BaseModel>(D d, String path, Map<String, dynamic> queryParameters,
+  Future get<D extends YunBaseModel>(D d, String path, Map<String, dynamic> queryParameters,
       {bool dIsList = false}) async {
     Response<Map<String, dynamic>> rsp;
 
@@ -113,7 +113,7 @@ class YunHttp<N extends PageBaseNotiModel> {
     return handleState ? null : rstData;
   }
 
-  dynamic _handleRsp<D extends BaseModel>(D d, Response<Map<String, dynamic>> rsp, dIsList) {
+  dynamic _handleRsp<D extends YunBaseModel>(D d, Response<Map<String, dynamic>> rsp, dIsList) {
     if (rsp != null) {
       YunLog.logRsp(rsp.data, path: rsp.request.path, headers: rsp.request.headers, qParams: rsp.request.queryParameters);
     }

@@ -1,6 +1,6 @@
-import 'package:yun_record/common/model/BaseModel.dart';
+import 'package:yun_record/common/model/YunBaseModel.dart';
 
-class ThemeDataVo implements BaseModel {
+class ThemeDataVo implements YunBaseModel {
   int createTime; // 0
   int creatorId; // 0
   String date;
@@ -77,7 +77,7 @@ class ThemeDataVo implements BaseModel {
   }
 }
 
-class ThemeV implements BaseModel {
+class ThemeV implements YunBaseModel {
   int createTime; // 0
   int id; // 0
   String name;
@@ -166,7 +166,7 @@ class Prop {
   }
 }
 
-class PropDataVo implements BaseModel {
+class PropDataVo implements YunBaseModel {
   bool hasData; // true
   Prop prop;
   PropData propData;
@@ -194,7 +194,7 @@ class PropDataVo implements BaseModel {
   }
 }
 
-class PropData implements BaseModel {
+class PropData implements YunBaseModel {
   int bigDecimalValue; // 0
   int createTime; // 0
   int creatorId; // 0

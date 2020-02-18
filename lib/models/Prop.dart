@@ -1,6 +1,6 @@
-import 'package:yun_record/common/model/BaseModel.dart';
+import 'package:yun_record/common/model/YunBaseModel.dart';
 
-class Prop implements BaseModel {
+class Prop implements YunBaseModel {
   int createTime; // 0
   int dataType; // 0
   int dataTypeId; // 0

@@ -1,12 +1,17 @@
-import 'BaseModel.dart';
+//
+// Created by yun on 2020-02-18.
+//
 
-class BaseMapModel implements BaseModel {
+import 'YunBaseModel.dart';
+
+/// 基础 map model
+class YunBaseMapModel implements YunBaseModel {
   Map<String, dynamic> json;
 
-  BaseMapModel({this.json});
+  YunBaseMapModel({this.json});
 
-  BaseMapModel fromJson(Map<String, dynamic> json) {
-    return BaseMapModel(
+  YunBaseMapModel fromJson(Map<String, dynamic> json) {
+    return YunBaseMapModel(
       json: json,
     );
   }

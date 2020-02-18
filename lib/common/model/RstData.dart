@@ -1,10 +1,15 @@
+//
+// Created by yun on 2020-02-18.
+//
+
 import 'package:yun_record/common/util/ValueUtils.dart';
 
-import 'BaseModel.dart';
+import 'YunBaseModel.dart';
 
-enum RspDataType { BaseModel, HTTP }
+///
+enum YunRspDataType { BaseModel, HTTP }
 
-class RstDataDefine {
+class YunRstDataDefine {
   static final codeName = 'code';
   static final dataName = 'data';
   static final msgName = 'errorMsg';
@@ -13,10 +18,10 @@ class RstDataDefine {
   static final int commonErrorCode = -1;
 }
 
-class RspData<T extends BaseModel> {
+class RspData<T extends YunBaseModel> {
   /// 返回类型：1-HTTP状态数据;2-业务数据;
   /// 默认值：2
-  RspDataType type;
+  YunRspDataType type;
 
   int code;
   dynamic orgData; // Map<String, dynamic> 或者 list
@@ -25,21 +30,21 @@ class RspData<T extends BaseModel> {
   T data;
   List<T> dataList;
 
-  RspData({this.type: RspDataType.BaseModel});
+  RspData({this.type: YunRspDataType.BaseModel});
 
   factory RspData.fromJson(T d, Map<String, dynamic> map) {
-    var item = new RspData<T>(type: RspDataType.BaseModel);
+    var item = new RspData<T>(type: YunRspDataType.BaseModel);
 
     try {
-      if (map[RstDataDefine.codeName] == null) {
-        return item.updateError(RstDataDefine.commonErrorCode, "数据格式不正确");
+      if (map[YunRstDataDefine.codeName] == null) {
+        return item.updateError(YunRstDataDefine.commonErrorCode, "数据格式不正确");
       }
 
-      item.code = map[RstDataDefine.codeName];
+      item.code = map[YunRstDataDefine.codeName];
 
       // 错误
-      if (item.code != RstDataDefine.sucCode) {
-        item.errorMsg = map[RstDataDefine.msgName];
+      if (item.code != YunRstDataDefine.sucCode) {
+        item.errorMsg = map[YunRstDataDefine.msgName];
         if (ValueUtils.isNullOrEmpty(item.errorMsg)) {
           item.errorMsg = '未知错误';
         }
@@ -48,29 +53,29 @@ class RspData<T extends BaseModel> {
       }
 
       // 成功-解析 data
-      item.orgData = map[RstDataDefine.dataName];
+      item.orgData = map[YunRstDataDefine.dataName];
 
       item.data = d.fromJson(item.orgData);
     } catch (e) {
-      return item.updateError(RstDataDefine.commonErrorCode, e.toString(), orgData: e);
+      return item.updateError(YunRstDataDefine.commonErrorCode, e.toString(), orgData: e);
     }
 
     return item;
   }
 
   factory RspData.fromListJson(T d, Map<String, dynamic> map) {
-    var item = new RspData<T>(type: RspDataType.BaseModel);
+    var item = new RspData<T>(type: YunRspDataType.BaseModel);
 
     try {
-      if (map[RstDataDefine.codeName] == null) {
-        return item.updateError(RstDataDefine.commonErrorCode, "数据格式不正确");
+      if (map[YunRstDataDefine.codeName] == null) {
+        return item.updateError(YunRstDataDefine.commonErrorCode, "数据格式不正确");
       }
 
-      item.code = map[RstDataDefine.codeName];
+      item.code = map[YunRstDataDefine.codeName];
 
       // 错误
-      if (item.code != RstDataDefine.sucCode) {
-        item.errorMsg = map[RstDataDefine.msgName];
+      if (item.code != YunRstDataDefine.sucCode) {
+        item.errorMsg = map[YunRstDataDefine.msgName];
         if (ValueUtils.isNullOrEmpty(item.errorMsg)) {
           item.errorMsg = '未知错误';
         }
@@ -79,13 +84,13 @@ class RspData<T extends BaseModel> {
       }
 
       // 成功-解析 data
-      List list = map[RstDataDefine.dataName];
+      List list = map[YunRstDataDefine.dataName];
 
       item.orgData = list;
 
       item.dataList = list.map<T>((e) => d.fromJson(e)).toList();
     } catch (e) {
-      return item.updateError(RstDataDefine.commonErrorCode, e.toString(), orgData: e);
+      return item.updateError(YunRstDataDefine.commonErrorCode, e.toString(), orgData: e);
     }
 
     return item;
@@ -95,7 +100,7 @@ class RspData<T extends BaseModel> {
     print('fromRspError');
     print(e);
 
-    var item = new RspData<T>(type: RspDataType.HTTP);
+    var item = new RspData<T>(type: YunRspDataType.HTTP);
     item.orgData = e;
 
     if (e.response?.statusCode == 401) {
@@ -132,6 +137,6 @@ class RspData<T extends BaseModel> {
   }
 
   bool isSuc() {
-    return code == RstDataDefine.sucCode;
+    return code == YunRstDataDefine.sucCode;
   }
 }
