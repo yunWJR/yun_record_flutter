@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/PageBaseNotiModel.dart';
 import 'package:yun_record/common/page/BasePage.dart';
-import 'package:yun_record/routes/record/RecordModel.dart';
+import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';
 
@@ -15,9 +12,9 @@ class ThemeMgScreen extends StatefulWidget {
 class ThemeMgScreenState extends State<ThemeMgScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<RecordModel>(
+    return Consumer<AddRecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<RecordModel>.page(
+        body: BasePage<AddRecordModel>.page(
           body: bodyWidget(model),
           model: model,
         ),
@@ -25,7 +22,7 @@ class ThemeMgScreenState extends State<ThemeMgScreen> {
     );
   }
 
-  Widget bodyWidget(RecordModel model) {
+  Widget bodyWidget(AddRecordModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('Home'),
@@ -41,13 +38,6 @@ class ThemeMgScreenState extends State<ThemeMgScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Container(
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 70.0, bottom: 20.0),
-              child: new Text(
-                model.themeDataList != null ? model.themeDataList.length.toString() : "loading",
-                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-            ),
-            new Container(
               padding: EdgeInsets.all(10.0),
               child: new Icon(
                 Icons.bubble_chart,
@@ -60,27 +50,4 @@ class ThemeMgScreenState extends State<ThemeMgScreen> {
       ),
     );
   }
-
-  Future<void> _onRefresh(BuildContext context, PageBaseNotiModel model) {
-    print('_onRefresh');
-    final Completer<void> completer = Completer<void>();
-    model.refreshData().then((_) {
-      if (model.loadingFailed) {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text('spacex.other.loading_error.message'),
-            action: SnackBarAction(
-              label: 'spacex.other.loading_error.reload',
-              onPressed: () => _onRefresh(context, model),
-            ),
-          ),
-        );
-      }
-      completer.complete();
-    });
-
-    return completer.future;
-  }
-
-  Widget _loadingIndicator() => Center(child: const CircularProgressIndicator());
 }

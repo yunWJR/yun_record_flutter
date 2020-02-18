@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/PageBaseNotiModel.dart';
+import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
 import 'package:yun_record/common/page/BasePage.dart';
-import 'package:yun_record/routes/record/RecordModel.dart';
+import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';
 
@@ -15,9 +15,9 @@ class MyScreen extends StatefulWidget {
 class MyScreenState extends State<MyScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<RecordModel>(
+    return Consumer<AddRecordModel>(
       builder: (context, model, child) => Scaffold(
-        body: BasePage<RecordModel>.page(
+        body: BasePage<AddRecordModel>.page(
           body: ctWidget(model),
           model: model,
         ),
@@ -25,7 +25,7 @@ class MyScreenState extends State<MyScreen> {
     );
   }
 
-  Widget bodyWidget(RecordModel model) {
+  Widget bodyWidget(AddRecordModel model) {
     print(model.isLoading);
 
     bool isLoading = model.isLoading;
@@ -42,7 +42,7 @@ class MyScreenState extends State<MyScreen> {
     return new Stack(children: widgets);
   }
 
-  Widget loadingWidget(RecordModel model) {
+  Widget loadingWidget(AddRecordModel model) {
     return new Container(
 //          width: MediaQuery.of(context).size.width,
 //          height: MediaQuery.of(context).size.height,
@@ -55,7 +55,7 @@ class MyScreenState extends State<MyScreen> {
     );
   }
 
-  Widget ctWidget(RecordModel model) {
+  Widget ctWidget(AddRecordModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('个人中心'),
@@ -87,7 +87,7 @@ class MyScreenState extends State<MyScreen> {
     );
   }
 
-  Future<void> _onRefresh(BuildContext context, PageBaseNotiModel model) {
+  Future<void> _onRefresh(BuildContext context, YunPageBaseNotiModel model) {
     print('_onRefresh');
     final Completer<void> completer = Completer<void>();
     model.refreshData().then((_) {

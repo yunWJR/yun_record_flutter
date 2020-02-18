@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:yun_record/common/model/PageBaseNotiModel.dart';
+import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
 import 'package:yun_record/models/RecordDto.dart';
 import 'package:yun_record/models/Api.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
-class AddRecordModel extends PageBaseNotiModel {
+class AddRecordModel extends YunPageBaseNotiModel {
   AddRecordModel(BuildContext context) : super(context, initLoadData: false);
 
   ThemeVo _theme;

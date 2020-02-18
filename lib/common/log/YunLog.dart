@@ -4,7 +4,7 @@
 
 import 'package:yun_record/common/config/YunConfig.dart';
 import 'package:yun_record/common/model/YunBaseModel.dart';
-import 'package:yun_record/common/model/RstData.dart';
+import 'package:yun_record/common/model/YunRstData.dart';
 
 class YunLog {
   // region common
@@ -65,7 +65,7 @@ class YunLog {
     logDivide("HTTP RQT:" + DateTime.now().toString(), false);
   }
 
-  static logRstData<T extends YunBaseModel>(RspData<T> data) {
+  static logRstData<T extends YunBaseModel>(YunRspData<T> data) {
     if (_logOff()) {
       return;
     }

@@ -1,8 +1,8 @@
-import 'package:yun_record/common/model/PageBaseNotiModel.dart';
+import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
 
 import '../../index.dart';
 
-class BasePage<T extends PageBaseNotiModel> extends StatelessWidget {
+class BasePage<T extends YunPageBaseNotiModel> extends StatelessWidget {
   final Widget body;
 
   T model;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/common/model/PageBaseNotiModel.dart';
+import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
 import 'package:yun_record/common/util/DateUtils.dart';
 import 'package:yun_record/models/Api.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
-class RecordModel extends PageBaseNotiModel {
+class RecordModel extends YunPageBaseNotiModel {
   RecordModel(BuildContext context) : super(context);
 
   List<ThemeVo> themeList;
@@ -29,7 +29,7 @@ class RecordModel extends PageBaseNotiModel {
       }
 
       if (themeList.length == 0) {
-        finishLoading();
+        // 自动隐藏加载框
         showErr("主题不存在，请添加主题");
         return;
       }

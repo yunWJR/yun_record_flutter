@@ -5,10 +5,10 @@
 import 'package:dio/dio.dart';
 import 'package:yun_record/common/log/YunLog.dart';
 import 'package:yun_record/common/model/YunBaseModel.dart';
-import 'package:yun_record/common/model/PageBaseNotiModel.dart';
-import 'package:yun_record/common/model/RstData.dart';
+import 'package:yun_record/common/model/YunPageBaseNotiModel.dart';
+import 'package:yun_record/common/model/YunRstData.dart';
 
-class YunHttp<N extends PageBaseNotiModel> {
+class YunHttp<N extends YunPageBaseNotiModel> {
   // region static
 
   // base url
@@ -52,7 +52,7 @@ class YunHttp<N extends PageBaseNotiModel> {
   Dio dio;
   N _noti;
 
-  RspData rstData;
+  YunRspData rstData;
 
   YunHttp(N noti) {
     this._noti = noti;
@@ -106,7 +106,7 @@ class YunHttp<N extends PageBaseNotiModel> {
     // 日志
     YunLog.logRsp(e.toString(), path: path, headers: null, qParams: queryParameters);
 
-    rstData = RspData.fromRspError(e);
+    rstData = YunRspData.fromRspError(e);
 
     showRspError(rstData);
 
@@ -118,7 +118,7 @@ class YunHttp<N extends PageBaseNotiModel> {
       YunLog.logRsp(rsp.data, path: rsp.request.path, headers: rsp.request.headers, qParams: rsp.request.queryParameters);
     }
 
-    RspData<D> vo = dIsList ? RspData.fromListJson(d, rsp.data) : RspData.fromJson(d, rsp.data);
+    YunRspData<D> vo = dIsList ? YunRspData.fromListJson(d, rsp.data) : YunRspData.fromJson(d, rsp.data);
     rstData = vo;
 
     if (rstData.isSuc()) {
@@ -135,7 +135,7 @@ class YunHttp<N extends PageBaseNotiModel> {
 
   // region handleState
 
-  void showRspError(RspData rst) {
+  void showRspError(YunRspData rst) {
     if (!handleState) {
       return;
     }
