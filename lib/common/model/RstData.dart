@@ -2,6 +2,8 @@ import 'package:yun_record/common/util/ValueUtils.dart';
 
 import 'BaseModel.dart';
 
+enum RspDataType { BaseModel, HTTP }
+
 class RstDataDefine {
   static final codeName = 'code';
   static final dataName = 'data';
@@ -14,7 +16,7 @@ class RstDataDefine {
 class RspData<T extends BaseModel> {
   /// 返回类型：1-HTTP状态数据;2-业务数据;
   /// 默认值：2
-  int type;
+  RspDataType type;
 
   int code;
   dynamic orgData; // Map<String, dynamic> 或者 list
@@ -23,10 +25,10 @@ class RspData<T extends BaseModel> {
   T data;
   List<T> dataList;
 
-  RspData({type: 2});
+  RspData({type: RspDataType.BaseModel});
 
   factory RspData.fromJson(T d, Map<String, dynamic> map) {
-    var item = new RspData<T>();
+    var item = new RspData<T>(type: RspDataType.BaseModel);
 
     try {
       if (map[RstDataDefine.codeName] == null) {
@@ -57,7 +59,7 @@ class RspData<T extends BaseModel> {
   }
 
   factory RspData.fromListJson(T d, Map<String, dynamic> map) {
-    var item = new RspData<T>();
+    var item = new RspData<T>(type: RspDataType.BaseModel);
 
     try {
       if (map[RstDataDefine.codeName] == null) {
@@ -84,6 +86,24 @@ class RspData<T extends BaseModel> {
       item.dataList = list.map<T>((e) => d.fromJson(e)).toList();
     } catch (e) {
       return item.updateError(RstDataDefine.commonErrorCode, e.toString());
+    }
+
+    return item;
+  }
+
+  factory RspData.fromRspError(e) {
+    print('fromRspError');
+    print(e);
+
+    var item = new RspData<T>(type: RspDataType.HTTP);
+    item.orgData = e;
+
+    if (e.response?.statusCode == 401) {
+      item.code = 401;
+      item.errorMsg = "登录已经过期，请重新登录";
+    } else {
+      item.code = -1;
+      item.errorMsg = e.toString();
     }
 
     return item;

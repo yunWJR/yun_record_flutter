@@ -15,7 +15,7 @@ abstract class GlobalConfigNoti extends ChangeNotifier {
 
 class LoginTokenGcn extends GlobalConfigNoti {
   LoginTokenGcn() : super() {
-    GlobalConfig.setSaveSelf(item, false);
+//    GlobalConfig.setSaveSelf(item, false); todo
   }
 
   Items item = Items.loginToken;
