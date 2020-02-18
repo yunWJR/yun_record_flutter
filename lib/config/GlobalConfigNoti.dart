@@ -3,7 +3,7 @@ import 'package:yun_record/common/util/ValueUtils.dart';
 
 import 'GlobalConfig.dart';
 
-class GlobalConfigNoti extends ChangeNotifier {
+abstract class GlobalConfigNoti extends ChangeNotifier {
   Items item;
 
   @override
@@ -36,7 +36,6 @@ class LoginTokenGcn extends GlobalConfigNoti {
   }
 }
 
-
 class ThemeGcn extends GlobalConfigNoti {
   ThemeGcn() : super() {
     GlobalConfig.setSaveSelf(item, false);
@@ -44,13 +43,21 @@ class ThemeGcn extends GlobalConfigNoti {
 
   Items item = Items.themeId;
 
+  Themes get theme => GlobalConfig.theme;
+
+  ThemeData get themeData => GlobalConfig.themeData;
+
   //用户信息发生变化，更新用户信息并通知依赖它的子孙Widgets更新
-  set loginToken(int themeId) {
-    if (ValueUtils.isSameInt(themeId, GlobalConfig.themeId)) {
+  setThemeIndex(Themes theme) {
+    if (theme == GlobalConfig.theme) {
       return null;
     }
 
-    GlobalConfig.themeId = themeId;
+    if (theme == Themes.system) {
+      return;
+    }
+
+    GlobalConfig.updateTheme(theme);
 
     notifyListeners();
   }

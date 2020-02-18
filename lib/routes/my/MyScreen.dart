@@ -58,8 +58,9 @@ class MyScreenState extends State<MyScreen> {
   Widget ctWidget(RecordModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('my'),
-      ),
+        title: new Text('个人中心'),
+        backgroundColor: Theme.of(context).accentColor,
+        ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -68,6 +69,9 @@ class MyScreenState extends State<MyScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            new RaisedButton(child: new Text('设置主题'), onPressed: (){
+              Navigator.pushNamed(context, "SettingsScreen");
+            }),
             new RaisedButton(child: new Text('退出登录'), onPressed: _logOut),
             new Container(
               padding: EdgeInsets.all(10.0),

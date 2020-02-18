@@ -10,7 +10,7 @@ class ThemeDataVo implements BaseModel {
   List<PropDataVo> propDataList;
   String remark;
   int tagId; // 0
-  Theme theme;
+  ThemeV theme;
   int themeId; // 0
   String time;
   int updateTime; // 0
@@ -45,7 +45,7 @@ class ThemeDataVo implements BaseModel {
           : null,
       remark: json['remark'],
       tagId: json['tagId'],
-      theme: json['theme'] != null ? Theme().fromJson(json['theme']) : null,
+      theme: json['theme'] != null ? ThemeV().fromJson(json['theme']) : null,
       themeId: json['themeId'],
       time: json['time'],
       updateTime: json['updateTime'],
@@ -77,7 +77,7 @@ class ThemeDataVo implements BaseModel {
   }
 }
 
-class Theme implements BaseModel {
+class ThemeV implements BaseModel {
   int createTime; // 0
   int id; // 0
   String name;
@@ -85,10 +85,10 @@ class Theme implements BaseModel {
   int updateTime; // 0
   int userId; // 0
 
-  Theme({this.createTime, this.id, this.name, this.remark, this.updateTime, this.userId});
+  ThemeV({this.createTime, this.id, this.name, this.remark, this.updateTime, this.userId});
 
-  Theme fromJson(Map<String, dynamic> json) {
-    return Theme(
+  ThemeV fromJson(Map<String, dynamic> json) {
+    return ThemeV(
       createTime: json['createTime'],
       id: json['id'],
       name: json['name'],

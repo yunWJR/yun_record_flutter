@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_record/routes/homeTab/HomeTab.dart';
+import 'package:yun_record/routes/my/SettingsScreen.dart';
 
 import 'config/GlobalConfig.dart';
 import 'config/GlobalConfigNoti.dart';
@@ -25,14 +26,15 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeGcn>(
         builder: (context, model, child) => MaterialApp(
           title: 'YUN RECORD',
-//          theme: model.requestTheme(Brightness.light),
-//          darkTheme: model.requestTheme(Brightness.dark),
+          theme: themeGcn.themeData,
+          darkTheme: themeGcn.themeData,
           home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
             "Login": (context) => LoginScreen(),
             "HomeTab": (context) => HomeTab(),
             "AddRecordScreen": (context) => AddRecordScreen(),
+            "SettingsScreen": (context) => SettingsScreen(),
           },
           //          localizationsDelegates: [
           //            FlutterI18nDelegate(fallbackFile: 'en'),

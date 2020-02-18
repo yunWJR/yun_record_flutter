@@ -133,6 +133,7 @@ class GlobalConfig {
 
   static ThemeData themeData = themes[1];
 
+
   static savePref(Items item) {
     if (_prefs == null || item == null) {
       return;
@@ -210,5 +211,13 @@ class GlobalConfig {
     }
 
     _itemsSaveMap[Items.loginToken.index] = saveSelf;
+  }
+
+  static void updateTheme(Themes themeId) {
+    theme = themeId;
+    themeData = themes[themeId.index];
+
+    print(theme);
+    print(themeData);
   }
 }

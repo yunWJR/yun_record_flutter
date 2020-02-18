@@ -110,10 +110,22 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "flutter_svg",
+      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/flutter_svg-0.17.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/yun/development/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "flutter_web_browser",
+      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/flutter_web_browser-0.11.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "flutter_web_plugins",
@@ -176,6 +188,18 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "path_drawing",
+      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_drawing-0.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_parsing-0.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
+    },
+    {
       "name": "path_provider",
       "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider-1.6.0",
       "packageUri": "lib/",
@@ -222,6 +246,12 @@
       "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/quiver-2.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.0"
+    },
+    {
+      "name": "row_collection",
+      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.flutter-io.cn/row_collection-0.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
     },
     {
       "name": "shared_preferences",
@@ -329,10 +359,10 @@
       "name": "yun_record",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.3"
     }
   ],
-  "generated": "2020-02-17T13:18:19.077231Z",
+  "generated": "2020-02-18T06:51:54.810845Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

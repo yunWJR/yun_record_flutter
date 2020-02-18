@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:yun_record/common/page/BasePage.dart';
 import 'package:yun_record/common/toast/ToastHelper.dart';
-import 'package:yun_record/generated/RecordDto.dart';
+import 'package:yun_record/models/RecordDto.dart';
 
 import '../../index.dart';
 import 'AddRecordModel.dart';
@@ -21,8 +21,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     AddRecordModel newModel = AddRecordModel(context);
     newModel.setArgu(argu);
 
-    return ChangeNotifierProvider<AddRecordModel>(
-        create: (context) => newModel,
+    return ChangeNotifierProvider<AddRecordModel>.value(
+        value: newModel,
         child: Consumer<AddRecordModel>(
           builder: (context, model, child) => Scaffold(
             body: BasePage<AddRecordModel>.page(
