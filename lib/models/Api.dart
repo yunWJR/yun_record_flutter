@@ -22,6 +22,7 @@ class Api {
   }
 
   static Future<BaseMapModel> saveThemeData<N extends PageBaseNotiModel>(N model, data) async {
+    data ={}; // todo
     BaseMapModel rst = await HttpHelper(model).post(BaseMapModel(), "/v1/api/record/themeTagData", data, null);
 
     return rst;

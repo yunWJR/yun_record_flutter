@@ -117,6 +117,7 @@ class HttpHelper<N extends PageBaseNotiModel> {
     if (rsp != null) {
       Log.logRsp(rsp.data, path: rsp.request.path, headers: rsp.request.headers, qParams: rsp.request.queryParameters);
     }
+
     RspData<D> vo = dIsList ? RspData.fromListJson(d, rsp.data) : RspData.fromJson(d, rsp.data);
     rstData = vo;
 
@@ -138,6 +139,8 @@ class HttpHelper<N extends PageBaseNotiModel> {
     if (!handleState) {
       return;
     }
+
+    Log.logRstData(rst);
 
     // 根据模式显示信息
     showError(rst.errorMsg);

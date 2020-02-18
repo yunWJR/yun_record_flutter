@@ -25,7 +25,7 @@ class RspData<T extends BaseModel> {
   T data;
   List<T> dataList;
 
-  RspData({type: RspDataType.BaseModel});
+  RspData({this.type: RspDataType.BaseModel});
 
   factory RspData.fromJson(T d, Map<String, dynamic> map) {
     var item = new RspData<T>(type: RspDataType.BaseModel);
@@ -52,7 +52,7 @@ class RspData<T extends BaseModel> {
 
       item.data = d.fromJson(item.orgData);
     } catch (e) {
-      return item.updateError(RstDataDefine.commonErrorCode, e.toString());
+      return item.updateError(RstDataDefine.commonErrorCode, e.toString(), orgData: e);
     }
 
     return item;
@@ -85,7 +85,7 @@ class RspData<T extends BaseModel> {
 
       item.dataList = list.map<T>((e) => d.fromJson(e)).toList();
     } catch (e) {
-      return item.updateError(RstDataDefine.commonErrorCode, e.toString());
+      return item.updateError(RstDataDefine.commonErrorCode, e.toString(), orgData: e);
     }
 
     return item;
@@ -115,13 +115,18 @@ class RspData<T extends BaseModel> {
     data['errorMsg'] = this.errorMsg;
     data['data'] = this.data?.toJson(); // todo ?. 检查
 
+    // 自定义字段
+    data['type'] = this.type;
+    data['orgData'] = this.orgData;
+
     return data;
   }
 
-  RspData<T> updateError(int code, String errorMsg) {
+  RspData<T> updateError(int code, String errorMsg, {orgData}) {
     this.code = code;
     this.errorMsg = errorMsg;
     this.data = null;
+    this.orgData = orgData;
 
     return this;
   }
