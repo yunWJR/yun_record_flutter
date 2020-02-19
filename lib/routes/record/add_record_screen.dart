@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
+import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/record_dto.dart';
 
 import '../../index.dart';
@@ -49,9 +50,11 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.white70, Colors.white])),
+//        decoration: BoxDecoration(
+//            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+//          GlobalConfig.currentTheme().dividerColor.withOpacity(0.1),
+//          GlobalConfig.currentTheme().dividerColor.withOpacity(0.2)
+//        ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,7 +103,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
             child: Container(
 //              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
 //              height: 30.0,
-              color: Colors.amber[300],
+              color: Colors.amber[200],
               child: FlatButton.icon(
                 icon: Icon(Icons.date_range),
                 label: Text(model.timeText()),
@@ -127,6 +130,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
           color: Colors.blue,
+          thickness: 2,
           height: 2,
         );
       },

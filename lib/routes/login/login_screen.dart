@@ -174,6 +174,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
 
     UserVo user = await Api.login(model, _nameController.text, _pwdController.text);
     if (user != null) {
+      GlobalConfig.userVo = user;
       GlobalConfig.loginToken = user.loginToken;
 
       Navigator.pushNamedAndRemoveUntil(context, "HomeTab", (Route<dynamic> route) => false);

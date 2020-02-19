@@ -39,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Consumer<ThemeGcn>(
         builder: (context, model, child) => ListView(
           children: <Widget>[
-            _header("主题"),
+            _header("主题颜色"),
             Wrap(
               spacing: 8.0, // 主轴(水平)方向间距
               runSpacing: 4.0, // 纵轴（垂直）方向间距
@@ -50,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 10,
               child: null,
             ),
-            _header("字体"),
+            _header("文字大小"),
             Wrap(
               spacing: 8.0, // 主轴(水平)方向间距
               runSpacing: 4.0, // 纵轴（垂直）方向间距
@@ -74,7 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _header(String title) {
     return Container(
-        color: GlobalConfig.themeData.primaryColor,
+        color: GlobalConfig.currentTheme().primaryColorLight,
         margin: EdgeInsets.only(top: 0, bottom: 10),
         padding: EdgeInsets.all(10),
         child: Center(child: Text(title)));
@@ -135,7 +135,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       var cell = Container(
           width: itemW,
           decoration: BoxDecoration(
-              color: i == _fontIndex ? GlobalConfig.themeData.primaryColor : Colors.grey[300],
+              color: i == _fontIndex ? GlobalConfig.currentTheme().primaryColor : Colors.grey[300],
               border: Border.all(color: i == _fontIndex ? Colors.black : Colors.transparent, width: 4)),
           child: FlatButton(
             child: Text(value.toString() + "号"),

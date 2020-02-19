@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       child: Consumer2<ThemeGcn, LoginTokenGcn>(
         builder: (BuildContext context, themeGcn, loginTokenGcn, Widget child) => MaterialApp(
           title: 'YUN 随记',
-          theme: themeGcn.currentTheme(Brightness.light),
-          darkTheme: themeGcn.currentTheme(Brightness.dark),
+          theme: themeGcn.currentTheme(brightness: Brightness.light),
+          darkTheme: themeGcn.currentTheme(brightness: Brightness.dark),
           home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeGcn>(
         builder: (context, model, child) => MaterialApp(
           title: 'YUN 随记',
-          theme: themeGcn.currentTheme(Brightness.light),
-          darkTheme: themeGcn.currentTheme(Brightness.dark),
+          theme: themeGcn.currentTheme(brightness: Brightness.light),
+          darkTheme: themeGcn.currentTheme(brightness: Brightness.dark),
           home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{

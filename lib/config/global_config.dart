@@ -10,6 +10,7 @@ import 'package:yun_base/model/yun_rst_data.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/config/theme_config.dart';
+import 'package:yun_record/models/user_vo.dart';
 
 import 'colors.dart';
 
@@ -34,6 +35,8 @@ class GlobalConfig {
   static SharedPreferences _prefs;
 
   static YunPageNavigatorOn nanOn;
+
+  static UserVo userVo; // todo
 
   static final List<ThemeData> _themes = [
     ThemeData(
@@ -138,11 +141,11 @@ class GlobalConfig {
     ),
   ];
 
-  static ThemeData currentTheme(Brightness fallback) {
+  static ThemeData currentTheme({Brightness brightness}) {
     ThemeData fT;
 
     if (theme == Themes.system) {
-      fT = fallback == Brightness.dark ? _systemThemes[1] : _systemThemes[0];
+      fT = (brightness == null || brightness == Brightness.light) ? _systemThemes[0] : _systemThemes[1];
     } else {
       fT = themeData;
     }

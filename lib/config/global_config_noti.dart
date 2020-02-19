@@ -49,8 +49,8 @@ class ThemeGcn extends GlobalConfigNoti {
 
   ThemeData get themeData => GlobalConfig.themeData;
 
-  ThemeData currentTheme(Brightness brightness) {
-    return GlobalConfig.currentTheme(brightness);
+  ThemeData currentTheme({Brightness brightness}) {
+    return GlobalConfig.currentTheme(brightness: brightness);
   }
 
   //用户信息发生变化，更新用户信息并通知依赖它的子孙Widgets更新

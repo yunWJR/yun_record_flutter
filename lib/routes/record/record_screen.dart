@@ -6,6 +6,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/action/yun_action.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
@@ -29,7 +30,7 @@ class _RecordScreenState extends State<RecordScreen> {
         ),
         floatingActionButton: ClipOval(
             child: Container(
-          color: Colors.blue,
+          color: Colors.amber,
           child: IconButton(
             onPressed: () {
               _addOn();
@@ -45,13 +46,15 @@ class _RecordScreenState extends State<RecordScreen> {
   Widget bodyWidget(RecordModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('记录列表'),
+        title: new Text('记录'),
       ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.white70, Colors.white])),
+            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+          GlobalConfig.currentTheme().primaryColor.withOpacity(0.02),
+          GlobalConfig.currentTheme().primaryColor.withOpacity(0.02)
+        ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,8 +92,10 @@ class _RecordScreenState extends State<RecordScreen> {
 
   _onDate(RecordModel model) {
     DatePicker.showDatePicker(context,
-        showTitleActions: true, minTime: DateTime(1900, 1, 1), maxTime: DateTime(2100, 1, 1), onChanged: (date) {
-    }, onConfirm: (date) {
+        showTitleActions: true,
+        minTime: DateTime(1900, 1, 1),
+        maxTime: DateTime(2100, 1, 1),
+        onChanged: (date) {}, onConfirm: (date) {
       model.selectDate(date);
     }, currentTime: model.selDate ?? DateTime.now(), locale: LocaleType.zh);
   }
@@ -142,11 +147,11 @@ class _RecordScreenState extends State<RecordScreen> {
         direction: Axis.horizontal,
         children: <Widget>[
           Expanded(
-            flex: 1,
+            flex: 100,
             child: Container(
 //              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
 //              height: 30.0,
-              color: Colors.blueGrey[200],
+              color: Colors.amber[200],
               child: FlatButton.icon(
                 icon: Icon(Icons.book),
                 label: Text(model.themeText()),
@@ -159,9 +164,15 @@ class _RecordScreenState extends State<RecordScreen> {
           Expanded(
             flex: 1,
             child: Container(
+              color: Colors.red,
+            ),
+          ),
+          Expanded(
+            flex: 100,
+            child: Container(
 //              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
 //              height: 30.0,
-              color: Colors.amber[300],
+              color: Colors.amber[200],
               child: FlatButton.icon(
                 icon: Icon(Icons.date_range),
                 label: Text(model.dateText()),
@@ -197,8 +208,9 @@ class _RecordScreenState extends State<RecordScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: Colors.blue,
+          color: GlobalConfig.currentTheme().primaryColor,
           height: 2,
+          thickness: 2,
         );
       },
     );
@@ -217,13 +229,17 @@ class _RecordScreenState extends State<RecordScreen> {
             direction: Axis.horizontal,
             children: <Widget>[
               Expanded(
-                child: new Text(item.time),
+                child: new Text("主题:" + item.theme.name),
               ),
               Expanded(
-                child: new Text(item.theme.name),
+                child: new Text("标签:" + item.name),
               ),
               Expanded(
-                child: new Text(item.name),
+                child: new Text(
+                  item.time,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontWeight: FontWeight.normal),
+                ),
               ),
             ],
           ),
@@ -243,7 +259,10 @@ class _RecordScreenState extends State<RecordScreen> {
                   ),
                   Expanded(
                     flex: 4,
-                    child: new Text(f.propData.orgValue),
+                    child: new Text(
+                      f.propData.orgValue,
+                      style: TextStyle(fontWeight: FontWeight.normal, color: GlobalConfig.currentTheme().primaryColor),
+                    ),
                   ),
                 ],
               ),

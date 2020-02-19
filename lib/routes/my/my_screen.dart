@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/routes/record/add_record_model.dart';
 
 import '../../index.dart';
@@ -22,7 +20,7 @@ class MyScreenState extends State<MyScreen> {
     return Consumer<AddRecordModel>(
       builder: (context, model, child) => Scaffold(
         body: YunBasePage<AddRecordModel>.page(
-          body: ctWidget(model),
+          body: bodyWidget(model),
           model: model,
         ),
       ),
@@ -30,55 +28,58 @@ class MyScreenState extends State<MyScreen> {
   }
 
   Widget bodyWidget(AddRecordModel model) {
-    print(model.isLoading);
-
-    bool isLoading = model.isLoading;
-
-    List<Widget> widgets = new List();
-
-    widgets.add(ctWidget(model));
-
-    widgets.add(Visibility(
-      visible: isLoading,
-      child: loadingWidget(model),
-    ));
-
-    return new Stack(children: widgets);
-  }
-
-  Widget loadingWidget(AddRecordModel model) {
-    return new Container(
-//          width: MediaQuery.of(context).size.width,
-//          height: MediaQuery.of(context).size.height,
-      color: Color.fromRGBO(100, 100, 100, 0.5),
-      child: Center(
-        child: const CircularProgressIndicator(
-//              backgroundColor: Color.fromRGBO(100, 100, 100, 1),
-            ),
-      ),
-    );
-  }
-
-  Widget ctWidget(AddRecordModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('个人中心'),
-        backgroundColor: Theme.of(context).accentColor, // 主题
+        //        backgroundColor: Theme.of(context).accentColor, // 主题
       ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.teal, Colors.white])),
+            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+          GlobalConfig.currentTheme().primaryColor.withOpacity(0.04),
+          GlobalConfig.currentTheme().primaryColor.withOpacity(0.08)
+        ])),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new RaisedButton(
-                child: new Text('设置'),
-                onPressed: () {
-                  Navigator.pushNamed(context, "SettingsScreen");
-                }),
-            new RaisedButton(child: new Text('退出登录'), onPressed: _logOut),
+            Container(
+              height: 40,
+            ),
+            ClipOval(
+              child: new Container(
+                child: Image(
+                  image: NetworkImage("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4"),
+                  width: 100.0,
+                ),
+                color: GlobalConfig.currentTheme().primaryColor,
+              ),
+            ),
+            Container(
+              height: 10,
+            ),
+            new Text(GlobalConfig.userVo?.name ?? "无名氏"),
+            Container(
+              height: 10,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.grey[400],
+              child: new FlatButton(
+                  child: new Text('设置'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "SettingsScreen");
+                  }),
+            ),
+            Container(
+              height: 4,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.grey[400],
+              child: new FlatButton(child: new Text('退出登录'), onPressed: _logOut),
+            ),
             new Container(
               padding: EdgeInsets.all(10.0),
               child: new Icon(
@@ -91,27 +92,6 @@ class MyScreenState extends State<MyScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _onRefresh(BuildContext context, YunPageBaseNotiModel model) {
-    print('_onRefresh');
-    final Completer<void> completer = Completer<void>();
-    model.refreshData().then((_) {
-      if (model.loadingFailed) {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text('spacex.other.loading_error.message'),
-            action: SnackBarAction(
-              label: 'spacex.other.loading_error.reload',
-              onPressed: () => _onRefresh(context, model),
-            ),
-          ),
-        );
-      }
-      completer.complete();
-    });
-
-    return completer.future;
   }
 
   void _logOut() {

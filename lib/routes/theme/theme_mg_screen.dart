@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/routes/record/add_record_model.dart';
 
 import '../../index.dart';
@@ -25,22 +26,23 @@ class ThemeMgScreenState extends State<ThemeMgScreen> {
   Widget bodyWidget(AddRecordModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('Home'),
+        title: new Text('主题'),
       ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.lightBlueAccent, Colors.white])),
+            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+          GlobalConfig.currentTheme().dividerColor.withOpacity(0.2),
+          GlobalConfig.currentTheme().dividerColor.withOpacity(0.1)
+        ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            new Text("待添加"),
             new Container(
               padding: EdgeInsets.all(10.0),
               child: new Icon(
-                Icons.bubble_chart,
+                Icons.bug_report,
                 color: Colors.white,
                 size: 130.0,
               ),
