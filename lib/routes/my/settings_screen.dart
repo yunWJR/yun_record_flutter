@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yun_record/config/GlobalConfig.dart';
-import 'package:yun_record/config/GlobalConfigNoti.dart';
+import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_config_noti.dart';
 import 'package:yun_record/config/theme_config.dart';
 import 'package:yun_record/widgets/dialog_round.dart';
 import 'package:yun_record/widgets/header_text.dart';

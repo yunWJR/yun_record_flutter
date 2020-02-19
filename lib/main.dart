@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:yun_record/routes/homeTab/HomeTab.dart';
-import 'package:yun_record/routes/my/SettingsScreen.dart';
+import 'package:yun_record/routes/homeTab/home_tab.dart';
+import 'package:yun_record/routes/my/settings_screen.dart';
 
-import 'config/GlobalConfig.dart';
-import 'config/GlobalConfigNoti.dart';
+import 'config/global_config.dart';
+import 'config/global_config_noti.dart';
 import 'model.dart';
-import 'routes/login/LoginScreen.dart';
-import 'routes/record/AddRecordScreen.dart';
+import 'routes/login/login_screen.dart';
+import 'routes/record/add_record_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

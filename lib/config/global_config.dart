@@ -11,7 +11,7 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/config/theme_config.dart';
 
-import 'Colors.dart';
+import 'colors.dart';
 
 enum Items { loginToken, userName, themeId }
 

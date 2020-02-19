@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/routes/record/AddRecordModel.dart';
+import 'package:yun_record/routes/record/add_record_model.dart';
 
 import '../../index.dart';
 

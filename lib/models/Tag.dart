@@ -1,6 +1,6 @@
 import 'package:yun_base/model/yun_base_model.dart';
 
-import 'Prop.dart';
+import 'prop.dart';
 
 class Tag implements YunBaseModel {
   int createTime; // 0

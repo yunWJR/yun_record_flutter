@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/config/GlobalConfig.dart';
-import 'package:yun_record/models/UserVo.dart';
+import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/models/user_vo.dart';
 
 import '../../index.dart';
-import 'LoginNoti.dart';
+import 'login_noti.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

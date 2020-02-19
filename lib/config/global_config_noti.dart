@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/util/yun_value.dart';
 
-import 'GlobalConfig.dart';
+import 'global_config.dart';
 
 abstract class GlobalConfigNoti extends ChangeNotifier {
   Items item;
