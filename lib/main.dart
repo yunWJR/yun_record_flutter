@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/homeTab/HomeTab.dart';
 import 'package:yun_record/routes/my/SettingsScreen.dart';
 
 import 'config/GlobalConfig.dart';
 import 'config/GlobalConfigNoti.dart';
+import 'model.dart';
 import 'routes/login/LoginScreen.dart';
 import 'routes/record/AddRecordScreen.dart';
-
-final ThemeGcn themeGcn = ThemeGcn();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +21,33 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: <SingleChildWidget>[
+        ChangeNotifierProvider<ThemeGcn>.value(value: themeGcn),
+        ChangeNotifierProvider<LoginTokenGcn>.value(value: loginTokenGcn),
+      ],
+      child: Consumer2<ThemeGcn, LoginTokenGcn>(
+        builder: (BuildContext context, themeGcn, loginTokenGcn, Widget child) => MaterialApp(
+          title: 'YUN 随记',
+          theme: themeGcn.currentTheme(Brightness.light),
+          darkTheme: themeGcn.currentTheme(Brightness.dark),
+          home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
+          debugShowCheckedModeBanner: false,
+          routes: <String, WidgetBuilder>{
+            "Login": (context) => LoginScreen(),
+            "HomeTab": (context) => HomeTab(),
+            "AddRecordScreen": (context) => AddRecordScreen(),
+            "SettingsScreen": (context) => SettingsScreen(),
+          },
+          //          localizationsDelegates: [
+          //            FlutterI18nDelegate(fallbackFile: 'en'),
+          //            GlobalMaterialLocalizations.delegate,
+          //            GlobalWidgetsLocalizations.delegate
+          //          ],
+        ),
+      ),
+    );
+
     return ChangeNotifierProvider<ThemeGcn>(
       create: (context) => themeGcn,
       child: Consumer<ThemeGcn>(

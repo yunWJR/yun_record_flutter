@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:yun_base/model/YunPageBaseNotiModel.dart';
-import 'package:yun_base/page/YunBasePage.dart';
+import 'package:yun_base/model/yun_page_base_noti_model.dart';
+import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_record/config/GlobalConfig.dart';
 import 'package:yun_record/routes/record/AddRecordModel.dart';
 
 import '../../index.dart';
@@ -15,6 +16,10 @@ class MyScreen extends StatefulWidget {
 class MyScreenState extends State<MyScreen> {
   @override
   Widget build(BuildContext context) {
+    GlobalConfig.nanOn = (String route, bool remove) {
+      _logOutGlobal(route, remove);
+    };
+
     return Consumer<AddRecordModel>(
       builder: (context, model, child) => Scaffold(
         body: YunBasePage<AddRecordModel>.page(
@@ -112,5 +117,15 @@ class MyScreenState extends State<MyScreen> {
 
   void _logOut() {
     Navigator.pushNamedAndRemoveUntil(context, "Login", (Route<dynamic> route) => false);
+  }
+
+  Future _logOutGlobal(String route, bool remove) async {
+    await Future.delayed(Duration.zero);
+
+    if (remove) {
+      Navigator.pushNamedAndRemoveUntil(context, route, (Route<dynamic> route) => false);
+    } else {
+      Navigator.pushNamed(context, route);
+    }
   }
 }

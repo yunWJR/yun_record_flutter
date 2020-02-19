@@ -4,21 +4,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:yun_base/action/YunAction.dart';
-import 'package:yun_base/page/YunBasePage.dart';
+import 'package:yun_base/action/yun_action.dart';
+import 'package:yun_base/model/yun_page_base_noti_model.dart';
+import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/models/ThemeDataVo.dart';
 import 'package:yun_record/models/ThemeVo.dart';
 
 import 'RecordModel.dart';
 
 class RecordScreen extends StatefulWidget {
+  RecordScreen({Key key}) : super(key: key) {
+    recordScreen = this;
+  }
+
+  static BuildContext context1;
+  static RecordScreen recordScreen;
+
   @override
   _RecordScreenState createState() => _RecordScreenState();
 }
 
 class _RecordScreenState extends State<RecordScreen> {
+  YunPageNavigatorOn yunPageOn;
+//
+//  void logOut() {
+//    print('my ctn');
+//    print(context);
+//    Navigator.pushNamedAndRemoveUntil(context, "Login", (Route<dynamic> route) => false);
+//  }
+
   @override
   Widget build(BuildContext context) {
+    RecordScreen.context1 = context;
     return Consumer<RecordModel>(
       builder: (context, model, child) => Scaffold(
         body: YunBasePage<RecordModel>.page(
@@ -71,6 +88,9 @@ class _RecordScreenState extends State<RecordScreen> {
   // 下拉刷新方法
   Future<Null> _handleRefresh() async {
     print('refresh');
+    print(RecordScreen.context1);
+    RecordScreen.context1 = context;
+    print(RecordScreen.context1);
   }
 
   _onTheme(RecordModel model) {
@@ -100,7 +120,6 @@ class _RecordScreenState extends State<RecordScreen> {
 
   void _setThemeTag() async {
     RecordModel model = Provider.of(context, listen: false);
-    print(model);
 
     ThemeVo th = await model.getValidThemeDetails();
     if (th == null || th.tagList.length == 0) {

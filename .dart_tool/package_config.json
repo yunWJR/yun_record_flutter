@@ -357,7 +357,7 @@
     },
     {
       "name": "yun_base",
-      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.dartlang.org/yun_base-0.0.2",
+      "rootUri": "file:///Users/yun/development/flutter/.pub-cache/hosted/pub.dartlang.org/yun_base-0.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.3"
     },
@@ -368,7 +368,7 @@
       "languageVersion": "2.3"
     }
   ],
-  "generated": "2020-02-18T16:20:54.253139Z",
+  "generated": "2020-02-19T08:34:13.540344Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

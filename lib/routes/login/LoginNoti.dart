@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yun_base/model/YunPageBaseNotiModel.dart';
+import 'package:yun_base/model/yun_page_base_noti_model.dart';
 
 class LoginNoti extends YunPageBaseNotiModel {
   LoginNoti(BuildContext context) : super(context, initLoadData: false) {

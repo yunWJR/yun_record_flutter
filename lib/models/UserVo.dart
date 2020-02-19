@@ -1,4 +1,4 @@
-import 'package:yun_base/model/YunBaseModel.dart';
+import 'package:yun_base/model/yun_base_model.dart';
 
 class UserVo implements YunBaseModel {
   String acctName;

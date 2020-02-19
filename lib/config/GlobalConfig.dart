@@ -3,8 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yun_base/http/YunHttp.dart';
-import 'package:yun_base/util/YunValue.dart';
+import 'package:yun_base/alert/yun_alert.dart';
+import 'package:yun_base/http/yun_http.dart';
+import 'package:yun_base/model/yun_page_base_noti_model.dart';
+import 'package:yun_base/model/yun_rst_data.dart';
+import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_base/util/yun_value.dart';
 
 import 'Colors.dart';
 
@@ -27,6 +31,8 @@ class GlobalConfig {
   static final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
 
   static SharedPreferences _prefs;
+
+  static YunPageNavigatorOn nanOn;
 
   static final List<ThemeData> _themes = [
     ThemeData(
@@ -153,9 +159,6 @@ class GlobalConfig {
   static String get loginToken => _loginToken;
 
   static set loginToken(String value) {
-    print('set loginToken');
-    print(value);
-
     if (!_saveSelf(Items.loginToken)) {
       // 更新 token
       _loginToken = value;
@@ -258,6 +261,41 @@ class GlobalConfig {
   }
 
   static Future init() async {
+    await _initItems();
+
+    notifications.initialize(const InitializationSettings(
+      AndroidInitializationSettings('notification_launch'),
+      IOSInitializationSettings(),
+    ));
+
+    // http config
+    var rst = YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
+    YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
+
+    // err config
+    YunAlert.rspErrHandle = (dynamic org, YunRspData data) {
+      if (data.type == YunRspDataType.HTTP) {
+        // 登录失效
+        if (data.code == 401) {
+          loginToken = null;
+
+          if (org is YunPageBaseNotiModel) {
+            if (org.nagOn != null) {
+              org.nagOn("Login", true);
+
+              return;
+            }
+          }
+
+          if (nanOn != null) {
+            nanOn("Login", true);
+          }
+        }
+      }
+    };
+  }
+
+  static Future _initItems() async {
     _prefs = await SharedPreferences.getInstance();
 
     // Loads the theme
@@ -281,11 +319,6 @@ class GlobalConfig {
       _prefs.remove('userName');
     }
 
-    notifications.initialize(const InitializationSettings(
-      AndroidInitializationSettings('notification_launch'),
-      IOSInitializationSettings(),
-    ));
-
     // inti itemsKeyMap
     _itemsKeyMap = {};
     _itemsKeyMap[Items.loginToken.index] = "loginToken";
@@ -295,9 +328,6 @@ class GlobalConfig {
 //    // inti _itemsSaveMap
 //    _itemsSaveMap = {};
 //    _itemsSaveMap[Items.loginToken.index] = false;
-
-    var rst = YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
-    YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
   }
 
   static void setSaveSelf(Items item, bool saveSelf) {
