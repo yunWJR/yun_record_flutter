@@ -45,6 +45,8 @@ class ThemeGcn extends GlobalConfigNoti {
 
   Themes get theme => GlobalConfig.theme;
 
+  int get fontIndex => GlobalConfig.fontSizeIndex;
+
   ThemeData get themeData => GlobalConfig.themeData;
 
   ThemeData currentTheme(Brightness brightness) {
@@ -58,6 +60,16 @@ class ThemeGcn extends GlobalConfigNoti {
     }
 
     GlobalConfig.updateTheme(theme);
+
+    notifyListeners();
+  }
+
+  setFontSizeIndex(int index) {
+    if (index == GlobalConfig.fontSizeIndex) {
+      return null;
+    }
+
+    GlobalConfig.fontSizeIndex = index;
 
     notifyListeners();
   }

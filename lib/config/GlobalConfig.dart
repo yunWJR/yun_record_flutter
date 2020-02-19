@@ -9,6 +9,7 @@ import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/model/yun_rst_data.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/config/theme_config.dart';
 
 import 'Colors.dart';
 
@@ -59,6 +60,7 @@ class GlobalConfig {
       brightness: Brightness.light,
       primarySwatch: Colors.red,
       primaryColor: Colors.red,
+      textTheme: TextTheme(),
     ),
   ];
 
@@ -137,11 +139,17 @@ class GlobalConfig {
   ];
 
   static ThemeData currentTheme(Brightness fallback) {
+    ThemeData fT;
+
     if (theme == Themes.system) {
-      return fallback == Brightness.dark ? _systemThemes[1] : _systemThemes[0];
+      fT = fallback == Brightness.dark ? _systemThemes[1] : _systemThemes[0];
+    } else {
+      fT = themeData;
     }
 
-    return themeData;
+    double ff = ThemeConfig.fontSizeItems[_fontSizeIndex];
+
+    return fT.copyWith(textTheme: ThemeConfig.newTextTheme(fT.textTheme, ff));
   }
 
   static void updateTheme(Themes themeId) {
@@ -215,6 +223,18 @@ class GlobalConfig {
     _themeId = value;
 
     savePref(Items.themeId);
+  }
+
+  static int _fontSizeIndex = 2;
+
+  static int get fontSizeIndex => _fontSizeIndex;
+
+  static set fontSizeIndex(int value) {
+    if (_fontSizeIndex == value) {
+      return null;
+    }
+
+    _fontSizeIndex = value;
   }
 
   // endregion
