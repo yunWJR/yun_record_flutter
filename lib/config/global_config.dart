@@ -22,6 +22,12 @@ enum Themes {
   cyan,
   teal,
   green,
+  purple,
+  indigo,
+  orange,
+  pink,
+  brown,
+  grey,
   red,
 }
 
@@ -58,6 +64,42 @@ class GlobalConfig {
       brightness: Brightness.light,
       primarySwatch: Colors.green,
       primaryColor: Colors.green,
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.deepPurple,
+      primaryColor: Colors.deepPurple,
+      textTheme: TextTheme(),
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.indigo,
+      primaryColor: Colors.indigo,
+      textTheme: TextTheme(),
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.orange,
+      primaryColor: Colors.orange,
+      textTheme: TextTheme(),
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.pink,
+      primaryColor: Colors.pink,
+      textTheme: TextTheme(),
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.brown,
+      primaryColor: Colors.brown,
+      textTheme: TextTheme(),
+    ),
+    ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.grey,
+      primaryColor: Colors.grey,
+      textTheme: TextTheme(),
     ),
     ThemeData(
       brightness: Brightness.light,
