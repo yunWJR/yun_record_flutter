@@ -5,18 +5,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeConfig {
-
-  static final List<double> fontSizeItems = [
-    0.5,
-    0.8,
-    1.0,
-    1.4,
-    1.8,
-    2.0,
-    2.5,
-    3.0
-  ];
-
+  static final List<double> fontSizeItems = [0.5, 0.8, 1.0, 1.4, 1.8, 2.0, 2.5, 3.0];
 
   static TextTheme newTextTheme(TextTheme txtTm, double fontSizeFactor) {
     TextTheme newItem = TextTheme(

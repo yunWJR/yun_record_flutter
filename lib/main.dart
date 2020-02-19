@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:yun_record/routes/homeTab/home_tab.dart';
+import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
 
 import 'config/global_config.dart';

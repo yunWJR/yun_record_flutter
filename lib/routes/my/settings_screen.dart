@@ -3,9 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/config/global_config_noti.dart';
 import 'package:yun_record/config/theme_config.dart';
-import 'package:yun_record/widgets/dialog_round.dart';
-import 'package:yun_record/widgets/header_text.dart';
-import 'package:yun_record/widgets/radio_cell.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key key}) : super(key: key);
@@ -42,42 +39,70 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Consumer<ThemeGcn>(
         builder: (context, model, child) => ListView(
           children: <Widget>[
-            HeaderText("主题"),
-            new RaisedButton(
-                child: new Text('设置主题'),
-                onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => RoundDialog(
-                        title: "选择主题",
-                        children: themItems(),
-                      ),
-                    )),
-            HeaderText("字体"),
-            new RaisedButton(
-                child: new Text('设置字体大小'),
-                onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => RoundDialog(
-                        title: "选择字体大小",
-                        children: fontSizeItems(),
-                      ),
-                    )),
+            _header("主题"),
+            Wrap(
+              spacing: 8.0, // 主轴(水平)方向间距
+              runSpacing: 4.0, // 纵轴（垂直）方向间距
+              alignment: WrapAlignment.center, //沿主轴方向居中
+              children: themItems(),
+            ),
+            Container(
+              height: 10,
+              child: null,
+            ),
+            _header("字体"),
+            Wrap(
+              spacing: 8.0, // 主轴(水平)方向间距
+              runSpacing: 4.0, // 纵轴（垂直）方向间距
+              alignment: WrapAlignment.center, //沿主轴方向居中
+              children: fontSizeItems(),
+            ),
+//            new RaisedButton(
+//                child: new Text('设置字体大小'),
+//                onPressed: () => showDialog(
+//                      context: context,
+//                      builder: (context) => RoundDialog(
+//                        title: "选择字体大小",
+//                        children: fontSizeItems(),
+//                      ),
+//                    )),
           ],
         ),
       ),
     );
   }
 
+  Widget _header(String title) {
+    return Container(
+        color: GlobalConfig.themeData.primaryColor,
+        margin: EdgeInsets.only(top: 0, bottom: 10),
+        padding: EdgeInsets.all(10),
+        child: Center(child: Text(title)));
+  }
+
   List<Widget> themItems() {
+    double sw = MediaQuery.of(context).size.width;
+    double itemW = (sw - 32) / 3;
+    if (itemW < 100) {
+      itemW = 100;
+    }
+
     List<Widget> items = List();
 
     for (var value in Themes.values) {
-      var cell = RadioCell<Themes>(
-        title: value.toString().substring(7),
-        groupValue: _themeIndex,
-        value: value,
-        onChanged: (value) => _changeTheme(value),
-      );
+      ThemeData themeData = GlobalConfig.themeOfIndex(value);
+
+      var cell = Container(
+          width: GlobalConfig.fontFactor() * itemW,
+          decoration: BoxDecoration(
+              color: themeData.primaryColor,
+              border: Border.all(color: value == _themeIndex ? Colors.black : Colors.transparent, width: 4)),
+          child: FlatButton(
+            child: Text(value.toString().substring(7)),
+//            color: themeData.primaryColor,
+            shape: RoundedRectangleBorder(),
+            onPressed: () => _changeTheme(value),
+          ));
 
       items.add(cell);
     }
@@ -92,20 +117,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     setState(() => _themeIndex = theme);
 
-    Navigator.of(context).pop();
+//    Navigator.of(context).pop();
   }
 
   List<Widget> fontSizeItems() {
+    double sw = MediaQuery.of(context).size.width;
+    double itemW = (sw - 40) / 4;
+    if (itemW < 60) {
+      itemW = 60;
+    }
+
     List<Widget> items = List();
 
     for (int i = 0; i < ThemeConfig.fontSizeItems.length; i++) {
-      double fs = ThemeConfig.fontSizeItems[i];
-      var cell = RadioCell<int>(
-        title: fs.toString(),
-        groupValue: _fontIndex,
-        value: i,
-        onChanged: (value) => _changeFont(value),
-      );
+      double value = ThemeConfig.fontSizeItems[i];
+
+      var cell = Container(
+          width: itemW,
+          decoration: BoxDecoration(
+              color: i == _fontIndex ? GlobalConfig.themeData.primaryColor : Colors.grey[300],
+              border: Border.all(color: i == _fontIndex ? Colors.black : Colors.transparent, width: 4)),
+          child: FlatButton(
+            child: Text(value.toString() + "号"),
+//            color: themeData.primaryColor,
+            shape: RoundedRectangleBorder(),
+            onPressed: () => _changeFont(i),
+          ));
 
       items.add(cell);
     }
@@ -120,6 +157,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     setState(() => _fontIndex = font);
 
-    Navigator.of(context).pop();
+//    Navigator.of(context).pop();
   }
 }

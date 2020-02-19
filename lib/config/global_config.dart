@@ -17,7 +17,7 @@ enum Items { loginToken, userName, themeId }
 
 enum Themes {
   system,
-  blue,
+  amber,
   cyan,
   teal,
   green,
@@ -38,8 +38,8 @@ class GlobalConfig {
   static final List<ThemeData> _themes = [
     ThemeData(
       brightness: Brightness.light,
-      primarySwatch: Colors.blue,
-      primaryColor: Colors.blue,
+      primarySwatch: Colors.amber,
+      primaryColor: Colors.amber,
     ),
     ThemeData(
       brightness: Brightness.light,
@@ -150,6 +150,24 @@ class GlobalConfig {
     double ff = ThemeConfig.fontSizeItems[_fontSizeIndex];
 
     return fT.copyWith(textTheme: ThemeConfig.newTextTheme(fT.textTheme, ff));
+  }
+
+  static ThemeData themeOfIndex(Themes theme) {
+    ThemeData fT;
+
+    if (theme == Themes.system) {
+      fT = _systemThemes[0];
+    } else {
+      fT = _themes[theme.index - 1];
+    }
+
+    return fT.copyWith(textTheme: ThemeConfig.newTextTheme(fT.textTheme, fontFactor()));
+  }
+
+  static double fontFactor() {
+    double ff = ThemeConfig.fontSizeItems[_fontSizeIndex];
+
+    return ff;
   }
 
   static void updateTheme(Themes themeId) {
@@ -319,7 +337,7 @@ class GlobalConfig {
     try {
       theme = Themes.values[_prefs.getInt('theme')];
     } catch (e) {
-      _prefs.setInt('theme', Themes.blue.index);
+      _prefs.setInt('theme', Themes.amber.index);
     }
 
     // Loads loginToken
