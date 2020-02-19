@@ -11,6 +11,17 @@ import 'user_vo.dart';
 
 class Api {
   /// 登录接口，登录成功后返回用户信息
+  static Future<UserVo> register<N extends YunPageBaseNotiModel>(N model, String name, String pwd) async {
+    var qP = Map<String, dynamic>();
+    qP["acctName"] = name;
+    qP["password"] = pwd;
+
+    UserVo user = await YunHttp(model).post(UserVo(), "/v1/api/login/register", null, qP);
+
+    return user;
+  }
+
+  /// 登录接口，登录成功后返回用户信息
   static Future<UserVo> login<N extends YunPageBaseNotiModel>(N model, String name, String pwd) async {
     var qP = Map<String, dynamic>();
     qP["acctName"] = name;
@@ -19,6 +30,12 @@ class Api {
     UserVo user = await YunHttp(model).post(UserVo(), "/v1/api/login/login", null, qP);
 
     return user;
+  }
+
+  static Future<YunBaseMapModel> checkTheme<N extends YunPageBaseNotiModel>(N model) async {
+    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/checkTemplate", null, null);
+
+    return rst;
   }
 
   static Future<YunBaseMapModel> saveThemeData<N extends YunPageBaseNotiModel>(N model, data) async {

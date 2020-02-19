@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/home_tab/home_tab.dart';
+import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
 
 import 'config/global_config.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
             "Login": (context) => LoginScreen(),
+            "Register": (context) => RegisterScreen(),
             "HomeTab": (context) => HomeTab(),
             "AddRecordScreen": (context) => AddRecordScreen(),
             "SettingsScreen": (context) => SettingsScreen(),
