@@ -14,12 +14,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  // Settings indexes
   Themes _themeIndex;
 
   @override
   void initState() {
-    // Get the app theme & image quality from the 'AppModel' model.
     Future.delayed(Duration.zero, () async {
       _themeIndex = Provider.of<ThemeGcn>(context, listen: false).theme;
     });
@@ -79,10 +77,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     gcn.setThemeIndex(theme);
 
-    // Updates UI
     setState(() => _themeIndex = theme);
 
-    // Hides dialog
     Navigator.of(context).pop();
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:yun_record/config/GlobalConfig.dart';
 import 'package:yun_record/routes/my/MyScreen.dart';
 import 'package:yun_record/routes/record/AddRecordModel.dart';
 import 'package:yun_record/routes/record/RecordModel.dart';
@@ -23,10 +22,6 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-//    GlobalConfig.nOn = (String route, bool remove) {
-//      logOutGlobal();
-//    };
-
     final List<SingleChildWidget> _models = [
       ChangeNotifierProvider<RecordModel>(
         create: (context) => RecordModel(context),
@@ -69,12 +64,5 @@ class _HomeTabState extends State<HomeTab> {
         ),
       ),
     );
-  }
-
-  Future logOutGlobal() async {
-    await Future.delayed(Duration.zero);
-    print('my ctn logOut2');
-    print(context);
-    Navigator.pushNamedAndRemoveUntil(context, "Login", (Route<dynamic> route) => false);
   }
 }

@@ -232,10 +232,6 @@ class GlobalConfig {
 
     String key = _itemsKeyMap[item.index];
 
-    print('savePref');
-    print(key);
-    print(_loginToken);
-
     switch (item) {
       case Items.loginToken:
         _loginToken == null ? _prefs.remove(key) : _prefs.setString(key, _loginToken);
@@ -263,6 +259,7 @@ class GlobalConfig {
   static Future init() async {
     await _initItems();
 
+    // noti
     notifications.initialize(const InitializationSettings(
       AndroidInitializationSettings('notification_launch'),
       IOSInitializationSettings(),

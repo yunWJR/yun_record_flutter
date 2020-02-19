@@ -12,7 +12,7 @@ class AddRecordModel extends YunPageBaseNotiModel {
   Tag _tag;
   DateTime _date;
 
-  // dto
+  /// dto
   RecordDto dto = RecordDto();
 
   @override
