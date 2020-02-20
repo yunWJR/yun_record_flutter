@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/config/global_config.dart';
-import 'package:yun_record/routes/record/add_record_model.dart';
 
 import '../../index.dart';
+import 'my_model.dart';
 
 class MyScreen extends StatefulWidget {
   @override
@@ -17,9 +17,9 @@ class MyScreenState extends State<MyScreen> {
 //      _logOutGlobal(route, remove);
 //    };
 
-    return Consumer<AddRecordModel>(
+    return Consumer<MyModel>(
       builder: (context, model, child) => Scaffold(
-        body: YunBasePage<AddRecordModel>.page(
+        body: YunBasePage<MyModel>.page(
           body: bodyWidget(model),
           model: model,
         ),
@@ -27,7 +27,7 @@ class MyScreenState extends State<MyScreen> {
     );
   }
 
-  Widget bodyWidget(AddRecordModel model) {
+  Widget bodyWidget(MyModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('个人中心'),

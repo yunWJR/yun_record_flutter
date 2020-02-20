@@ -4,6 +4,7 @@ import 'package:yun_base/http/yun_http.dart';
 import 'package:yun_base/model/yun_base_map_model.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/models/theme_temp_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 import 'theme_data_vo.dart';
@@ -78,6 +79,18 @@ class Api {
     }
 
     List<ThemeDataVo> rst = await YunHttp(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
+
+    return rst;
+  }
+
+  /// 获取主题模板列表
+  static Future<List<ThemeTempVo>> getThemeTempList<N extends YunPageBaseNotiModel>(N model, String name) async {
+    var qP = Map<String, dynamic>();
+    if (YunValue.hasContent(name)) {
+      qP['name'] = name;
+    }
+
+    List<ThemeTempVo> rst = await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/list", qP, dIsList: true);
 
     return rst;
   }

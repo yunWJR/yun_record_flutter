@@ -4,6 +4,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
+import 'package:yun_record/routes/theme/add_theme_screen.dart';
 
 import 'config/global_config.dart';
 import 'config/global_config_noti.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
             "Register": (context) => RegisterScreen(),
             "HomeTab": (context) => HomeTab(),
             "AddRecordScreen": (context) => AddRecordScreen(),
+            "AddThemeScreen": (context) => AddThemeScreen(),
             "SettingsScreen": (context) => SettingsScreen(),
           },
           //          localizationsDelegates: [

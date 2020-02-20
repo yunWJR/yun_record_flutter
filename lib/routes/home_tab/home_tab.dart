@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:yun_record/routes/my/my_model.dart';
 import 'package:yun_record/routes/my/my_screen.dart';
 import 'package:yun_record/routes/record/add_record_model.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 import 'package:yun_record/routes/record/record_screen.dart';
-import 'package:yun_record/routes/theme/theme_mg_screen.dart';
+import 'package:yun_record/routes/theme/theme_screen.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -27,12 +28,12 @@ class _HomeTabState extends State<HomeTab> {
         create: (context) => RecordModel(context),
         child: RecordScreen(),
       ),
-      ChangeNotifierProvider<AddRecordModel>(
-        create: (context) => AddRecordModel(context),
-        child: ThemeMgScreen(),
+      ChangeNotifierProvider<RecordModel>(
+        create: (context) => RecordModel(context),
+        child: ThemeScreen(),
       ),
-      ChangeNotifierProvider<AddRecordModel>(
-        create: (context) => AddRecordModel(context),
+      ChangeNotifierProvider<MyModel>(
+        create: (context) => MyModel(context),
         child: MyScreen(),
       ),
     ];

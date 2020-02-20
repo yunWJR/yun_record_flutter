@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yun_base/log/yun_log.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/util/yun_date.dart';
 import 'package:yun_record/models/http_api.dart';
@@ -6,7 +7,9 @@ import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 class RecordModel extends YunPageBaseNotiModel {
-  RecordModel(BuildContext context) : super(context);
+  RecordModel(BuildContext context) : super(context) {
+    YunLog.logData('RecordModel inti');
+  }
 
   List<ThemeVo> themeList;
   List<ThemeDataVo> themeDataList;
@@ -19,6 +22,8 @@ class RecordModel extends YunPageBaseNotiModel {
 
   @override
   Future loadData([BuildContext context]) async {
+    YunLog.logData('RecordModel loadData');
+    YunLog.logData(selDate?.toIso8601String() ?? "null");
     if (canLoadData()) {
       // 获取主题列表
       themeList = await Api.getThemeList(this, null);
