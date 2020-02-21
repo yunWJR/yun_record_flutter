@@ -9,17 +9,18 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
+import 'package:yun_record/routes/record/theme/theme_list_screen.dart';
 
 import 'record_model.dart';
 
-class RecordScreen extends StatefulWidget {
-  RecordScreen({Key key}) : super(key: key);
+class RecordHomeScreen extends StatefulWidget {
+  RecordHomeScreen({Key key}) : super(key: key);
 
   @override
-  _RecordScreenState createState() => _RecordScreenState();
+  _RecordHomeScreenState createState() => _RecordHomeScreenState();
 }
 
-class _RecordScreenState extends State<RecordScreen> {
+class _RecordHomeScreenState extends State<RecordHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<RecordModel>(
@@ -33,7 +34,7 @@ class _RecordScreenState extends State<RecordScreen> {
           color: Colors.amber,
           child: IconButton(
             onPressed: () {
-              _addOn();
+              _addRecordOn();
             },
             icon: Icon(Icons.add),
             color: Colors.white,
@@ -47,6 +48,14 @@ class _RecordScreenState extends State<RecordScreen> {
     return Scaffold(
       appBar: AppBar(
         title: new Text('记录'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.widgets),
+            onPressed: () {
+              _gotoThemeMg(model);
+            },
+          )
+        ],
       ),
       body: new Container(
         width: MediaQuery.of(context).size.width,
@@ -100,7 +109,7 @@ class _RecordScreenState extends State<RecordScreen> {
     }, currentTime: model.selDate ?? DateTime.now(), locale: LocaleType.zh);
   }
 
-  void _addOn() {
+  void _addRecordOn() {
     _setThemeTag();
   }
 
@@ -132,6 +141,13 @@ class _RecordScreenState extends State<RecordScreen> {
         model.loadList(context);
       }
     }
+  }
+
+  void _gotoThemeMg(RecordModel model) async {
+    var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName, arguments: model);
+//    if (rst != null) {
+//      model.loadList(context);
+//    }
   }
 
   // endregion
@@ -282,5 +298,4 @@ class _RecordScreenState extends State<RecordScreen> {
   }
 
 // endregion
-
 }

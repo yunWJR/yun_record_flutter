@@ -1,33 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
+import 'package:yun_record/routes/record/theme/theme_list_model.dart';
+import 'package:yun_record/routes/record/theme/theme_temp_screen.dart';
 
-import '../../index.dart';
+class ThemeListScreen extends StatefulWidget {
+  static const routeName = "MgThemeScreen";
 
-class ThemeScreen extends StatefulWidget {
   @override
-  ThemeScreenState createState() => ThemeScreenState();
+  ThemeListScreenState createState() => ThemeListScreenState();
 }
 
-class ThemeScreenState extends State<ThemeScreen> {
+class ThemeListScreenState extends State<ThemeListScreen> {
+  RecordModel recordModel;
+
+  ThemeListModel themeListModel;
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<RecordModel>(
-      builder: (context, model, child) => Scaffold(
-        body: YunBasePage<RecordModel>.page(
-          body: bodyWidget(model),
-          model: model,
+    if (recordModel == null) {
+      recordModel = ModalRoute.of(context).settings.arguments;
+    }
+
+    if (themeListModel == null) {
+      themeListModel = ThemeListModel(context, recordModel.themeList);
+    }
+
+    return ChangeNotifierProvider<ThemeListModel>(
+      create: (context) => themeListModel,
+      child: Consumer<ThemeListModel>(
+        builder: (context, model, child) => Scaffold(
+          body: YunBasePage<ThemeListModel>.page(
+            body: bodyWidget(themeListModel),
+            model: model,
+          ),
         ),
       ),
     );
   }
 
-  Widget bodyWidget(RecordModel model) {
+  Widget bodyWidget(ThemeListModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('主题'),
+        title: new Text('我的主题'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -39,11 +57,11 @@ class ThemeScreenState extends State<ThemeScreen> {
       ),
       body: new Container(
         padding: EdgeInsets.all(10),
-//        decoration: BoxDecoration(
-//            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-//          GlobalConfig.currentTheme().dividerColor.withOpacity(0.2),
-//          GlobalConfig.currentTheme().dividerColor.withOpacity(0.1)
-//        ])),
+        //        decoration: BoxDecoration(
+        //            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+        //          GlobalConfig.currentTheme().dividerColor.withOpacity(0.2),
+        //          GlobalConfig.currentTheme().dividerColor.withOpacity(0.1)
+        //        ])),
         width: MediaQuery.of(context).size.width,
         child: GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,7 +76,9 @@ class ThemeScreenState extends State<ThemeScreen> {
     );
   }
 
-  List<Widget> themItems(RecordModel model) {
+  // region Widget
+
+  List<Widget> themItems(ThemeListModel model) {
     double sw = MediaQuery.of(context).size.width;
     double itemW = (sw - 32) / 3;
 
@@ -89,16 +109,26 @@ class ThemeScreenState extends State<ThemeScreen> {
     return items;
   }
 
+  // endregion
+
+  // region Action
+
   void _themeOn(ThemeVo theme) {
     print(theme.name);
-//    Navigator.of(context).pop();
+    //    Navigator.of(context).pop();
   }
 
-  _gotoAddTheme(RecordModel model) async {
-    var rst = await Navigator.pushNamed(context, "AddThemeScreen", arguments: null);
+  _gotoAddTheme(ThemeListModel model) async {
+    var rst = await Navigator.pushNamed(context, ThemeTempScreen.routeName, arguments: null);
     if (rst != null) {
-      print('model.loadData(context);');
-      model.loadData(context);
+      model.loadData();
+      recordModel.loadData();
     }
   }
+
+// endregion
+
+// region private
+
+// endregion
 }

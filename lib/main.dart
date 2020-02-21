@@ -4,14 +4,15 @@ import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
-import 'package:yun_record/routes/theme/add_theme_details_screen.dart';
-import 'package:yun_record/routes/theme/add_theme_screen.dart';
+import 'package:yun_record/routes/record/theme/add_temp_theme_screen.dart';
+import 'package:yun_record/routes/record/theme/theme_temp_screen.dart';
+import 'package:yun_record/routes/record/theme/theme_list_screen.dart';
 
 import 'config/global_config.dart';
 import 'config/global_config_noti.dart';
 import 'model.dart';
 import 'routes/login/login_screen.dart';
-import 'routes/record/add_record_screen.dart';
+import 'routes/record/record/add_record_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +45,9 @@ class MyApp extends StatelessWidget {
             "Register": (context) => RegisterScreen(),
             "HomeTab": (context) => homeTab,
             "AddRecordScreen": (context) => AddRecordScreen(),
-            "AddThemeScreen": (context) => AddThemeScreen(),
-            "AddThemeDetailsScreen": (context) => AddThemeDetailsScreen(),
+            ThemeListScreen.routeName: (context) => ThemeListScreen(),
+            ThemeTempScreen.routeName: (context) => ThemeTempScreen(),
+            AddTempThemeScreen.routeName: (context) => AddTempThemeScreen(),
             "SettingsScreen": (context) => SettingsScreen(),
           },
           //          localizationsDelegates: [

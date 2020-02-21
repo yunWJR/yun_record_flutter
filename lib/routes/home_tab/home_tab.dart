@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/my/my_model.dart';
 import 'package:yun_record/routes/my/my_screen.dart';
+import 'package:yun_record/routes/record/record_home_screen.dart';
 import 'package:yun_record/routes/record/record_model.dart';
-import 'package:yun_record/routes/record/record_screen.dart';
-import 'package:yun_record/routes/theme/theme_screen.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -31,12 +30,12 @@ class _HomeTabState extends State<HomeTab> {
       _models = [
         ChangeNotifierProvider.value(
           value: m,
-          child: RecordScreen(),
+          child: RecordHomeScreen(),
         ),
-        ChangeNotifierProvider.value(
-          value: m,
-          child: ThemeScreen(),
-        ),
+//        ChangeNotifierProvider.value(
+//          value: m,
+//          child: ThemeScreen(),
+//        ),
 
 //        ChangeNotifierProvider<RecordModel>(
 //          create: (context) => RecordModel(context),
@@ -68,10 +67,10 @@ class _HomeTabState extends State<HomeTab> {
               title: Text('记录'),
               icon: Icon(Icons.home),
             ),
-            BottomNavigationBarItem(
-              title: Text('主题'),
-              icon: Icon(Icons.access_time),
-            ),
+//            BottomNavigationBarItem(
+//              title: Text('主题'),
+//              icon: Icon(Icons.access_time),
+//            ),
             BottomNavigationBarItem(
               title: Text('个人中心'),
               icon: Icon(Icons.library_books),

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 
-import '../../index.dart';
-import 'add_theme_details_model.dart';
+import 'add_theme_model.dart';
 
-class AddThemeDetailsScreen extends StatefulWidget {
+class AddTempThemeScreen extends StatefulWidget {
+  static const routeName = "AddTempThemeScreen";
+
   @override
-  AddThemeDetailsScreenState createState() => AddThemeDetailsScreenState();
+  AddTempThemeScreenState createState() => AddTempThemeScreenState();
 }
 
-class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
+class AddTempThemeScreenState extends State<AddTempThemeScreen> {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final TextEditingController _nameController = new TextEditingController();
   bool _autoValidate = false;
@@ -34,14 +37,16 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
         child: Consumer<AddThemeDetailsModel>(
           builder: (context, model, child) => Scaffold(
             body: YunBasePage<AddThemeDetailsModel>.page(
-              body: bodyWidget(model, title),
+              body: _bodyWidget(model, title),
               model: model,
             ),
           ),
         ));
   }
 
-  Widget bodyWidget(AddThemeDetailsModel model, String title) {
+  // region Widget
+
+  Widget _bodyWidget(AddThemeDetailsModel model, String title) {
     return Scaffold(
       appBar: AppBar(
         title: new Text(title),
@@ -106,7 +111,7 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
         ),
         const SizedBox(height: 10.0),
         Container(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 2, bottom: 2),
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
           color: GlobalConfig.currentTheme().primaryColorLight,
           child: Flex(
             direction: Axis.horizontal,
@@ -122,18 +127,18 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
                   ],
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      _addTagOn();
-                    },
-                  ),
-                ),
-              ),
+//              Expanded(
+//                flex: 1,
+//                child: Align(
+//                  alignment: Alignment.centerRight,
+//                  child: IconButton(
+//                    icon: Icon(Icons.add),
+//                    onPressed: () {
+//                      _addTagOn();
+//                    },
+//                  ),
+//                ),
+//              ),
             ],
           ),
         ),
@@ -147,7 +152,7 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
     Widget tH = Container(
       color: Colors.grey[300],
       child: Container(
-        padding: EdgeInsets.only(left: 20, right: 10, top: 2, bottom: 2),
+        padding: EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 10),
         child: Flex(
           direction: Axis.horizontal,
           children: [
@@ -162,18 +167,18 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
                 ],
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                    _addTagOn();
-                  },
-                ),
-              ),
-            ),
+//            Expanded(
+//              flex: 1,
+//              child: Align(
+//                alignment: Alignment.centerRight,
+//                child: IconButton(
+//                  icon: Icon(Icons.add),
+//                  onPressed: () {
+//                    _addTagOn();
+//                  },
+//                ),
+//              ),
+//            ),
           ],
         ),
       ),
@@ -251,15 +256,9 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
     return null;
   }
 
-  void _themeOn(ThemeTempVo theme) {
-    print(theme.name);
-//    Navigator.of(context).pop();
-  }
+  // endregion
 
-  void _newThemeOn() {
-    print('_newThemeOn');
-//    Navigator.of(context).pop();
-  }
+  // region Action
 
   void _saveOn(AddThemeDetailsModel model) {
     FocusScope.of(context).requestFocus(new FocusNode());
@@ -271,10 +270,15 @@ class AddThemeDetailsScreenState extends State<AddThemeDetailsScreen> {
       if (suc) {
         YunToast.showToast("主题创建成功");
 //        Navigator.pushReplacementNamed(context, "HomeTab"); // todo
-        Navigator.pop(context, true); // todo
+        Navigator.pop(context, true);
       }
     });
   }
 
-  void _addTagOn() {}
+// endregion
+
+// region private
+
+// endregion
+
 }

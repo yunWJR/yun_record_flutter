@@ -5,7 +5,7 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/models/record_dto.dart';
 
-import '../../index.dart';
+import '../../../index.dart';
 import 'add_record_model.dart';
 
 class AddRecordScreen extends StatefulWidget {

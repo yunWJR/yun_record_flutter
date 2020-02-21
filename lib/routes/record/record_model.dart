@@ -23,7 +23,6 @@ class RecordModel extends YunPageBaseNotiModel {
   @override
   Future loadData([BuildContext context]) async {
     if (canLoadData()) {
-
       // 获取主题列表
       themeList = await Api.getThemeList(this, null);
 
