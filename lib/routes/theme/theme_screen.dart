@@ -68,24 +68,22 @@ class ThemeScreenState extends State<ThemeScreen> {
       return items;
     }
 
-    for (int i = 0; i < 10; i++) {
-      for (var value in model.themeList) {
-        var cell = Container(
-            color: GlobalConfig.currentTheme().primaryColor.withOpacity(0.4),
-            child: FlatButton(
-              onPressed: () => _themeOn(value),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(Icons.ac_unit),
-                  const SizedBox(height: 8.0),
-                  Text(value.name),
-                ],
-              ),
-            ));
+    for (var value in model.themeList) {
+      var cell = Container(
+          color: GlobalConfig.currentTheme().primaryColor.withOpacity(0.4),
+          child: FlatButton(
+            onPressed: () => _themeOn(value),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.ac_unit),
+                const SizedBox(height: 8.0),
+                Text(value.name),
+              ],
+            ),
+          ));
 
-        items.add(cell);
-      }
+      items.add(cell);
     }
 
     return items;
@@ -99,6 +97,7 @@ class ThemeScreenState extends State<ThemeScreen> {
   _gotoAddTheme(RecordModel model) async {
     var rst = await Navigator.pushNamed(context, "AddThemeScreen", arguments: null);
     if (rst != null) {
+      print('model.loadData(context);');
       model.loadData(context);
     }
   }

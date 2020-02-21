@@ -22,9 +22,8 @@ class RecordModel extends YunPageBaseNotiModel {
 
   @override
   Future loadData([BuildContext context]) async {
-    YunLog.logData('RecordModel loadData');
-    YunLog.logData(selDate?.toIso8601String() ?? "null");
     if (canLoadData()) {
+
       // 获取主题列表
       themeList = await Api.getThemeList(this, null);
 
@@ -40,7 +39,9 @@ class RecordModel extends YunPageBaseNotiModel {
       }
 
       // todo 选中项，可以缓存本地
-      selTheme = themeList[0];
+      if (selTheme == null) {
+        selTheme = themeList[0];
+      }
 
       if (selDate == null) {
         selDate = DateTime.now();

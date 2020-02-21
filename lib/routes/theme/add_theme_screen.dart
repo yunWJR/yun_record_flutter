@@ -34,7 +34,7 @@ class AddThemeScreenState extends State<AddThemeScreen> {
   Widget bodyWidget(AddThemeModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('添加主题'),
+        title: new Text('主题模板列表'),
       ),
       body: new Container(
           padding: EdgeInsets.all(10),
@@ -116,7 +116,9 @@ class AddThemeScreenState extends State<AddThemeScreen> {
                 alignment: Alignment.centerRight,
                 child: IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: () => _themeOn(value),
+                  onPressed: () {
+                    _themeOn(value);
+                  },
                 ),
               ),
             ),
@@ -126,9 +128,12 @@ class AddThemeScreenState extends State<AddThemeScreen> {
     return cell;
   }
 
-  void _themeOn(ThemeTempVo theme) {
-    print(theme.name);
-//    Navigator.of(context).pop();
+  void _themeOn(ThemeTempVo theme) async {
+    var rst = await Navigator.pushNamed(context, "AddThemeDetailsScreen", arguments: theme);
+    if (rst != null) {
+      Navigator.pop(context, true);
+//      model.loadData(context);
+    }
   }
 
   void _newThemeOn() {

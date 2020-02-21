@@ -1,4 +1,5 @@
 import 'package:yun_base/model/yun_base_model.dart';
+import 'package:yun_base/util/yun_value.dart';
 
 class ThemeTempVo implements YunBaseModel {
   int createTime; // 0
@@ -100,6 +101,10 @@ class Prop implements YunBaseModel {
     data['id'] = this.id;
     data['name'] = this.name;
     return data;
+  }
+
+  String dataUnitName() {
+    return YunValue.hasContent(dataUnit) ? dataUnit : "无";
   }
 }
 

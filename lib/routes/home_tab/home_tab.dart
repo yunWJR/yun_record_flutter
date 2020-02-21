@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/my/my_model.dart';
 import 'package:yun_record/routes/my/my_screen.dart';
-import 'package:yun_record/routes/record/add_record_model.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 import 'package:yun_record/routes/record/record_screen.dart';
 import 'package:yun_record/routes/theme/theme_screen.dart';
@@ -16,6 +15,8 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   int _currentIndex = 0;
 
+  List<SingleChildWidget> _models;
+
   @override
   void initState() {
     super.initState();
@@ -23,20 +24,34 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    final List<SingleChildWidget> _models = [
-      ChangeNotifierProvider<RecordModel>(
-        create: (context) => RecordModel(context),
-        child: RecordScreen(),
-      ),
-      ChangeNotifierProvider<RecordModel>(
-        create: (context) => RecordModel(context),
-        child: ThemeScreen(),
-      ),
-      ChangeNotifierProvider<MyModel>(
-        create: (context) => MyModel(context),
-        child: MyScreen(),
-      ),
-    ];
+    print('tab_build');
+
+    if (_models == null) {
+      RecordModel m = RecordModel(context);
+      _models = [
+        ChangeNotifierProvider.value(
+          value: m,
+          child: RecordScreen(),
+        ),
+        ChangeNotifierProvider.value(
+          value: m,
+          child: ThemeScreen(),
+        ),
+
+//        ChangeNotifierProvider<RecordModel>(
+//          create: (context) => RecordModel(context),
+//          child: RecordScreen(),
+//        ),
+//        ChangeNotifierProvider<RecordModel>(
+//          create: (context) => RecordModel(context),
+//          child: ThemeScreen(),
+//        ),
+        ChangeNotifierProvider<MyModel>(
+          create: (context) => MyModel(context),
+          child: MyScreen(),
+        ),
+      ];
+    }
 
     return MultiProvider(
       providers: _models,

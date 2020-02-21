@@ -4,6 +4,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
+import 'package:yun_record/routes/theme/add_theme_details_screen.dart';
 import 'package:yun_record/routes/theme/add_theme_screen.dart';
 
 import 'config/global_config.dart';
@@ -23,6 +24,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomeTab homeTab = HomeTab();
+    LoginScreen loginScreen = LoginScreen();
+
     return MultiProvider(
       providers: <SingleChildWidget>[
         ChangeNotifierProvider<ThemeGcn>.value(value: themeGcn),
@@ -33,14 +37,15 @@ class MyApp extends StatelessWidget {
           title: 'YUN 随记',
           theme: themeGcn.currentTheme(brightness: Brightness.light),
           darkTheme: themeGcn.currentTheme(brightness: Brightness.dark),
-          home: GlobalConfig.isLogin ? HomeTab() : LoginScreen(),
+          home: GlobalConfig.isLogin ? homeTab : loginScreen,
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
-            "Login": (context) => LoginScreen(),
+            "Login": (context) => loginScreen,
             "Register": (context) => RegisterScreen(),
-            "HomeTab": (context) => HomeTab(),
+            "HomeTab": (context) => homeTab,
             "AddRecordScreen": (context) => AddRecordScreen(),
             "AddThemeScreen": (context) => AddThemeScreen(),
+            "AddThemeDetailsScreen": (context) => AddThemeDetailsScreen(),
             "SettingsScreen": (context) => SettingsScreen(),
           },
           //          localizationsDelegates: [

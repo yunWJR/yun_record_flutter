@@ -34,7 +34,8 @@ class Api {
   }
 
   static Future<YunBaseMapModel> checkTheme<N extends YunPageBaseNotiModel>(N model) async {
-    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/checkTemplate", null, null);
+    YunBaseMapModel rst =
+        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/checkTemplate", null, null);
 
     return rst;
   }
@@ -90,7 +91,23 @@ class Api {
       qP['name'] = name;
     }
 
-    List<ThemeTempVo> rst = await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/list", qP, dIsList: true);
+    List<ThemeTempVo> rst =
+        await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/list", qP, dIsList: true);
+
+    return rst;
+  }
+
+  /// 获取主题详情
+  static Future<ThemeTempVo> getThemeTempDetails<N extends YunPageBaseNotiModel>(N model, int themeTempId) async {
+    ThemeTempVo rst =
+        await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/${themeTempId.toString()}", null);
+
+    return rst;
+  }
+
+  static Future<YunBaseMapModel> createThemeByTemplate<N extends YunPageBaseNotiModel>(N model, data) async {
+    YunBaseMapModel rst =
+        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/createByTemplate", data, null);
 
     return rst;
   }
