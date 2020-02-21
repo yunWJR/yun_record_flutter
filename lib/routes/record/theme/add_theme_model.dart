@@ -3,8 +3,8 @@ import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_record/models/http_api.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 
-class AddThemeDetailsModel extends YunPageBaseNotiModel {
-  AddThemeDetailsModel(BuildContext context, ThemeTempVo tmpVo) : super(context, initLoadData: false) {
+class AddTempThemeModel extends YunPageBaseNotiModel {
+  AddTempThemeModel(BuildContext context, ThemeTempVo tmpVo) : super(context, initLoadData: false) {
     this.tmpVo = tmpVo;
 
     if (tmpVo != null && tmpVo.id != null) {

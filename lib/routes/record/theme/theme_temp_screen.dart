@@ -4,6 +4,7 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 
+import 'add_custom_theme_screen.dart';
 import 'add_temp_theme_screen.dart';
 import 'theme_temp_model.dart';
 
@@ -150,9 +151,11 @@ class ThemeTempScreenState extends State<ThemeTempScreen> {
     }
   }
 
-  void _customThemeOn() {
-    print('_newThemeOn');
-//    Navigator.of(context).pop();
+  void _customThemeOn() async {
+    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
+    if (rst != null) {
+      Navigator.pop(context, true);
+    }
   }
 
 // endregion

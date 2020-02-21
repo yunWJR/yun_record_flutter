@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yun_base/alert/yun_alert.dart';
+import 'package:yun_base/config/yun_config.dart';
 import 'package:yun_base/http/yun_http.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/model/yun_rst_data.dart';
@@ -340,6 +341,8 @@ class GlobalConfig {
   }
 
   static Future init() async {
+    YunConfig.isProp = false;
+
     await _initItems();
 
     // noti
@@ -351,6 +354,11 @@ class GlobalConfig {
     // http config
     var rst = YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
     YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
+    if (YunConfig.isProp) {
+      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
+    } else {
+      YunHttp.baseUrl = "http://127.0.0.1:11010";
+    }
 
     // err config
     YunAlert.rspErrHandle = (dynamic org, YunRspData data) {

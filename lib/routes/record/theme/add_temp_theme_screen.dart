@@ -29,14 +29,14 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
       _nameController.text = tmpVo.name;
     }
 
-    AddThemeDetailsModel newModel = AddThemeDetailsModel(context, tmpVo);
+    AddTempThemeModel newModel = AddTempThemeModel(context, tmpVo);
 //    newModel.setArgu(argu);
 
-    return ChangeNotifierProvider<AddThemeDetailsModel>.value(
+    return ChangeNotifierProvider<AddTempThemeModel>.value(
         value: newModel,
-        child: Consumer<AddThemeDetailsModel>(
+        child: Consumer<AddTempThemeModel>(
           builder: (context, model, child) => Scaffold(
-            body: YunBasePage<AddThemeDetailsModel>.page(
+            body: YunBasePage<AddTempThemeModel>.page(
               body: _bodyWidget(model, title),
               model: model,
             ),
@@ -46,7 +46,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
 
   // region Widget
 
-  Widget _bodyWidget(AddThemeDetailsModel model, String title) {
+  Widget _bodyWidget(AddTempThemeModel model, String title) {
     return Scaffold(
       appBar: AppBar(
         title: new Text(title),
@@ -81,7 +81,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
     );
   }
 
-  Widget _itemWidget(AddThemeDetailsModel model, int index) {
+  Widget _itemWidget(AddTempThemeModel model, int index) {
     // 自定义主题
     if (index == 0) {
       return _headerWidget(model);
@@ -92,7 +92,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
     return _itemTagWidget(value);
   }
 
-  Widget _headerWidget(AddThemeDetailsModel model) {
+  Widget _headerWidget(AddTempThemeModel model) {
     return Column(
       children: <Widget>[
         Container(
@@ -260,7 +260,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
 
   // region Action
 
-  void _saveOn(AddThemeDetailsModel model) {
+  void _saveOn(AddTempThemeModel model) {
     FocusScope.of(context).requestFocus(new FocusNode());
     if (!_formKey.currentState.validate()) {
       return;

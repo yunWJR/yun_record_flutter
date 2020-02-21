@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:yun_base/model/yun_base_model.dart';
+import 'package:yun_base/util/yun_value.dart';
 
 class ThemeVo implements YunBaseModel {
   int createTime; // 0
@@ -32,21 +35,75 @@ class ThemeVo implements YunBaseModel {
     }
     return data;
   }
+
+  // dto
+  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+
+  final TextEditingController nameController = new TextEditingController();
+  TextFormField nameTf;
+
+  factory ThemeVo.dto() {
+    ThemeVo dto = ThemeVo();
+
+    dto.nameTf = new TextFormField(
+        controller: dto.nameController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请输入主题名称" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "主题名称*",
+          hintText: "请输入主题名称",
+        ));
+
+    dto.tagList = [];
+    dto.tagList.add(Tag.dto());
+
+    return dto;
+  }
 }
 
 class Tag implements YunBaseModel {
   int createTime; // 0
   int id; // 0
+  int themeId; // 0
   String name;
   List<Prop> propList;
   String remark;
 
-  Tag({this.createTime, this.id, this.name, this.propList, this.remark});
+  Tag({this.createTime, this.id, this.themeId, this.name, this.propList, this.remark});
+
+  // dto
+  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+
+  final TextEditingController nameController = new TextEditingController();
+  TextFormField nameTf;
+
+  factory Tag.dto() {
+    Tag dtoTag = Tag();
+
+    dtoTag.nameTf = new TextFormField(
+        controller: dtoTag.nameController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请输入记录项名称" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "记录项名称*",
+          hintText: "请输入记录项名称",
+        ));
+
+    dtoTag.propList = [];
+    dtoTag.propList.add(Prop.dto());
+
+    return dtoTag;
+  }
 
   Tag fromJson(Map<String, dynamic> json) {
     return Tag(
       createTime: json['createTime'],
       id: json['id'],
+      themeId: json['themeId'],
       name: json['name'],
       propList: json['propList'] != null ? (json['propList'] as List).map((i) => Prop().fromJson(i)).toList() : null,
       remark: json['remark'],
@@ -57,6 +114,7 @@ class Tag implements YunBaseModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['createTime'] = this.createTime;
     data['id'] = this.id;
+    data['themeId'] = this.themeId;
     data['name'] = this.name;
     data['remark'] = this.remark;
     if (this.propList != null) {
@@ -67,34 +125,92 @@ class Tag implements YunBaseModel {
 }
 
 class Prop implements YunBaseModel {
+  int id; // 0
+  int tagId; // 0
   int createTime; // 0
   int dataType; // 0
   int dataTypeId; // 0
   String dataUnit;
-  int id; // 0
   String name;
 
-  Prop({this.createTime, this.dataType, this.dataTypeId, this.dataUnit, this.id, this.name});
+  Prop({this.id, this.tagId, this.createTime, this.dataType, this.dataTypeId, this.dataUnit, this.name});
+
+  // dto
+  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+
+  final TextEditingController nameController = new TextEditingController();
+  TextFormField nameTf;
+
+  final TextEditingController dataTypeController = new TextEditingController();
+  TextFormField dataTypeTf;
+
+  final TextEditingController dataUnitController = new TextEditingController();
+  TextFormField dataUnitTf;
+
+  factory Prop.dto() {
+    Prop propDtp = Prop();
+
+    propDtp.nameTf = new TextFormField(
+        controller: propDtp.nameController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请输入条目名称" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "条目名称*",
+          hintText: "请输入条目名称",
+        ));
+
+    propDtp.dataTypeTf = new TextFormField(
+        controller: propDtp.dataTypeController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请选择类型" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "类型*",
+          hintText: "请选择类型",
+        ));
+
+    propDtp.dataUnitTf = new TextFormField(
+        controller: propDtp.dataUnitController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请输入单位" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "单位",
+          hintText: "请输入单位",
+        ));
+
+    return propDtp;
+  }
 
   Prop fromJson(Map<String, dynamic> json) {
     return Prop(
+      id: json['id'],
+      tagId: json['tagId'],
       createTime: json['createTime'],
       dataType: json['dataType'],
       dataTypeId: json['dataTypeId'],
       dataUnit: json['dataUnit'],
-      id: json['id'],
       name: json['name'],
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['tagId'] = this.tagId;
     data['createTime'] = this.createTime;
     data['dataType'] = this.dataType;
     data['dataTypeId'] = this.dataTypeId;
     data['dataUnit'] = this.dataUnit;
-    data['id'] = this.id;
     data['name'] = this.name;
     return data;
+  }
+
+  String dataUnitName() {
+    return YunValue.hasContent(dataUnit) ? dataUnit : "无";
   }
 }
