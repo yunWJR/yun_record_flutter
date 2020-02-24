@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:yun_base/model/yun_base_model.dart';
 import 'package:yun_base/util/yun_value.dart';
 
+typedef ValidErr = Function(String errMsg);
+
 class ThemeVo implements YunBaseModel {
   int createTime; // 0
   int id; // 0
@@ -60,6 +62,33 @@ class ThemeVo implements YunBaseModel {
     dto.tagList.add(Tag.dto());
 
     return dto;
+  }
+
+  bool valid(ValidErr validErr) {
+    if (!formKey.currentState.validate()) {
+      return false;
+    }
+
+    if (tagList == null || tagList.length == 0) {
+      validErr("至少添加一个记录项");
+      return false;
+    }
+
+    for (var value in tagList) {
+      if (!value.valid(validErr)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  void getData() {
+    this.name = nameController.text;
+
+    for (var value in tagList) {
+      value.getData();
+    }
   }
 }
 
@@ -122,6 +151,33 @@ class Tag implements YunBaseModel {
     }
     return data;
   }
+
+  bool valid(ValidErr validErr) {
+    if (!formKey.currentState.validate()) {
+      return false;
+    }
+
+    if (propList == null || propList.length == 0) {
+      validErr("记录项${name}至少添加一个属性");
+      return false;
+    }
+
+    for (var value in propList) {
+      if (!value.valid(validErr)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  void getData() {
+    this.name = nameController.text;
+
+    for (var value in propList) {
+      value.getData();
+    }
+  }
 }
 
 class Prop implements YunBaseModel {
@@ -175,7 +231,7 @@ class Prop implements YunBaseModel {
     propDtp.dataUnitTf = new TextFormField(
         controller: propDtp.dataUnitController,
         validator: (String value) {
-          return YunValue.isNullOrEmpty(value) ? "请输入单位" : null;
+          return null;
         },
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
@@ -212,5 +268,19 @@ class Prop implements YunBaseModel {
 
   String dataUnitName() {
     return YunValue.hasContent(dataUnit) ? dataUnit : "无";
+  }
+
+  bool valid(ValidErr validErr) {
+    if (!formKey.currentState.validate()) {
+      return false;
+    }
+
+    return true;
+  }
+
+  void getData() {
+    this.name = nameController.text;
+    this.dataType = int.parse(dataTypeController.text); // todo
+    this.dataUnit = dataUnitController.text;
   }
 }

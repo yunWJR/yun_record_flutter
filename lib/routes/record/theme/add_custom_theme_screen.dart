@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/theme/add_custom_theme_model.dart';
@@ -43,7 +44,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),
-            tooltip: '保存记录',
+            tooltip: '保存主题',
             onPressed: () {
               _saveOn(model);
             },
@@ -226,17 +227,16 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
 
   void _saveOn(AddCustomThemeModel model) {
     FocusScope.of(context).requestFocus(new FocusNode());
-//    if (!_formKey.currentState.validate()) {
-//      return;
-//    }
+    if (!model.valid()) {
+      return;
+    }
 
-//    model.createThemeByTemplate(model.themeDto.id, _nameController.text).then((suc) {
-//      if (suc) {
-//        YunToast.showToast("主题创建成功");
-////        Navigator.pushReplacementNamed(context, "HomeTab"); // todo
-//        Navigator.pop(context, true);
-//      }
-//    });
+    model.saveTheme().then((suc) {
+      if (suc) {
+        YunToast.showToast("保存成功");
+        Navigator.of(context).pop(1);
+      }
+    });
   }
 
   void _addTagOn() {

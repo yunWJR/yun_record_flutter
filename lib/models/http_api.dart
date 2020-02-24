@@ -111,4 +111,10 @@ class Api {
 
     return rst;
   }
+
+  static Future<YunBaseMapModel> saveCustomTheme<N extends YunPageBaseNotiModel>(N model, data) async {
+    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme", data, null);
+
+    return rst;
+  }
 }
