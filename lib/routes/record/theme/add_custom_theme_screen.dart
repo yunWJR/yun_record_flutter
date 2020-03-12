@@ -186,7 +186,11 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
                           child: prop.nameTf,
                         ),
                         Expanded(
-                          child: prop.dataTypeTf,
+                          child: FlatButton.icon(
+                            icon: Icon(Icons.send),
+                            label: Text("发送"),
+                            onPressed: () => {},
+                          ),
                         ),
                         Expanded(
                           child: prop.dataUnitTf,
