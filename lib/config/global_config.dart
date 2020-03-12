@@ -342,6 +342,7 @@ class GlobalConfig {
 
   static Future init() async {
     YunConfig.isProp = false;
+    YunConfig.logOnMode = YunOnMode.OFF; // todo sdk 错误
 
     await _initItems();
 
@@ -357,7 +358,8 @@ class GlobalConfig {
     if (YunConfig.isProp) {
       YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     } else {
-      YunHttp.baseUrl = "http://127.0.0.1:11010";
+//      YunHttp.baseUrl = "http://127.0.0.1:11010";
+      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     }
 
     // err config

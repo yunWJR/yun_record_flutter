@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/models/prop_data_type.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/theme/add_custom_theme_model.dart';
+import 'package:yun_record/widgets/data_type_popup_menu.dart';
 
 class AddCustomThemeScreen extends StatefulWidget {
   static const routeName = "AddCustomThemeScreen";
@@ -20,8 +22,10 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    model = AddCustomThemeModel(context);
-//    newModel.setArgu(argu);
+    // 避免 model重置
+    if (model == null) {
+      model = AddCustomThemeModel(context);
+    }
 
     return ChangeNotifierProvider<AddCustomThemeModel>.value(
         value: model,
@@ -54,7 +58,9 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
       body: new Container(
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
-            itemCount: model.themeDto?.tagList?.length != null ? model.themeDto.tagList.length + 1 : 1,
+            itemCount: model.themeDto?.tagList?.length != null
+                ? model.themeDto.tagList.length + 1
+                : 1,
             itemBuilder: (BuildContext context, int index) {
               return _itemWidget(model, index);
             },
@@ -186,11 +192,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
                           child: prop.nameTf,
                         ),
                         Expanded(
-                          child: FlatButton.icon(
-                            icon: Icon(Icons.send),
-                            label: Text("发送"),
-                            onPressed: () => {},
-                          ),
+                          child: prop.dataTypePopupMenu,
                         ),
                         Expanded(
                           child: prop.dataUnitTf,

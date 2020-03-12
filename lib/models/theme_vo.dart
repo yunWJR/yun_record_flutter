@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yun_base/model/yun_base_model.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/index.dart';
+import 'package:yun_record/widgets/data_type_popup_menu.dart';
 
 typedef ValidErr = Function(String errMsg);
 
@@ -20,7 +22,9 @@ class ThemeVo implements YunBaseModel {
       id: json['id'],
       name: json['name'],
       remark: json['remark'],
-      tagList: json['tagList'] != null ? (json['tagList'] as List).map((i) => Tag().fromJson(i)).toList() : null,
+      tagList: json['tagList'] != null
+          ? (json['tagList'] as List).map((i) => Tag().fromJson(i)).toList()
+          : null,
     );
 
     return vo;
@@ -45,6 +49,8 @@ class ThemeVo implements YunBaseModel {
   TextFormField nameTf;
 
   factory ThemeVo.dto() {
+    YunLog.logTag("ThemeVo.dto");
+
     ThemeVo dto = ThemeVo();
 
     dto.nameTf = new TextFormField(
@@ -100,7 +106,13 @@ class Tag implements YunBaseModel {
   List<Prop> propList;
   String remark;
 
-  Tag({this.createTime, this.id, this.themeId, this.name, this.propList, this.remark});
+  Tag(
+      {this.createTime,
+      this.id,
+      this.themeId,
+      this.name,
+      this.propList,
+      this.remark});
 
   // dto
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
@@ -134,7 +146,9 @@ class Tag implements YunBaseModel {
       id: json['id'],
       themeId: json['themeId'],
       name: json['name'],
-      propList: json['propList'] != null ? (json['propList'] as List).map((i) => Prop().fromJson(i)).toList() : null,
+      propList: json['propList'] != null
+          ? (json['propList'] as List).map((i) => Prop().fromJson(i)).toList()
+          : null,
       remark: json['remark'],
     );
   }
@@ -189,7 +203,14 @@ class Prop implements YunBaseModel {
   String dataUnit;
   String name;
 
-  Prop({this.id, this.tagId, this.createTime, this.dataType, this.dataTypeId, this.dataUnit, this.name});
+  Prop(
+      {this.id,
+      this.tagId,
+      this.createTime,
+      this.dataType,
+      this.dataTypeId,
+      this.dataUnit,
+      this.name});
 
   // dto
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
@@ -200,11 +221,23 @@ class Prop implements YunBaseModel {
   final TextEditingController dataTypeController = new TextEditingController();
   TextFormField dataTypeTf;
 
+  GlobalKey<DataTypePopupMenuState> dataTypeKey =
+      new GlobalKey<DataTypePopupMenuState>();
+  DataTypePopupMenu dataTypePopupMenu;
+
   final TextEditingController dataUnitController = new TextEditingController();
   TextFormField dataUnitTf;
 
   factory Prop.dto() {
     Prop propDtp = Prop();
+
+    propDtp.dataTypePopupMenu = DataTypePopupMenu(
+      key: propDtp.dataTypeKey,
+      typeChanged: (int type) {
+        propDtp.dataType = type;
+//        propDtp.dataTypeKey.currentState.onChanged(type);
+      },
+    );
 
     propDtp.nameTf = new TextFormField(
         controller: propDtp.nameController,
@@ -275,12 +308,17 @@ class Prop implements YunBaseModel {
       return false;
     }
 
+    if (dataType == null) {
+      validErr("请选择数据类型");
+      return false;
+    }
+
     return true;
   }
 
   void getData() {
     this.name = nameController.text;
-    this.dataType = int.parse(dataTypeController.text); // todo
+    this.dataType = dataTypePopupMenu.typeValue; // todo
     this.dataUnit = dataUnitController.text;
   }
 }
