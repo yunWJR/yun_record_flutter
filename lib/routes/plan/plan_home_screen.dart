@@ -117,7 +117,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: GlobalConfig.currentTheme().primaryColor,
+//          color: Colors.grey.withOpacity(0.5),
           height: 2,
           thickness: 2,
         );
@@ -133,7 +133,9 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(_defPadding()),
-          color: Colors.black12,
+          color: item.isCmp()
+              ? GlobalConfig.currentTheme().primaryColor.withOpacity(0.3)
+              : GlobalConfig.currentTheme().cardColor.withOpacity(0.3),
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -141,7 +143,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
                 flex: 1,
                 child: Checkbox(
                   value: item.isCmp(),
-                  activeColor: item.isCmp() ? GlobalConfig.currentTheme().primaryColor : Colors.grey, //选中时的颜色
+//                  activeColor: item.isCmp() ? GlobalConfig.currentTheme().backgroundColor : Colors.grey, //选中时的颜色
                   onChanged: (value) {
                     itemStatusChanged(model, item);
                   },
