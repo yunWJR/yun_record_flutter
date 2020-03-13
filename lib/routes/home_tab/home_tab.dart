@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:yun_record/routes/my/my_model.dart';
 import 'package:yun_record/routes/my/my_screen.dart';
+import 'package:yun_record/routes/plan/plan_home_screen.dart';
+import 'package:yun_record/routes/plan/plan_model.dart';
 import 'package:yun_record/routes/record/record_home_screen.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 
@@ -23,8 +25,6 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    print('tab_build');
-
     if (_models == null) {
       RecordModel m = RecordModel(context);
       _models = [
@@ -41,10 +41,10 @@ class _HomeTabState extends State<HomeTab> {
 //          create: (context) => RecordModel(context),
 //          child: RecordScreen(),
 //        ),
-//        ChangeNotifierProvider<RecordModel>(
-//          create: (context) => RecordModel(context),
-//          child: ThemeScreen(),
-//        ),
+        ChangeNotifierProvider<PlanModel>(
+          create: (context) => PlanModel(context),
+          child: PlanHomeScreen(),
+        ),
         ChangeNotifierProvider<MyModel>(
           create: (context) => MyModel(context),
           child: MyScreen(),
@@ -67,10 +67,10 @@ class _HomeTabState extends State<HomeTab> {
               title: Text('记录'),
               icon: Icon(Icons.home),
             ),
-//            BottomNavigationBarItem(
-//              title: Text('主题'),
-//              icon: Icon(Icons.access_time),
-//            ),
+            BottomNavigationBarItem(
+              title: Text('计划'),
+              icon: Icon(Icons.access_time),
+            ),
             BottomNavigationBarItem(
               title: Text('个人中心'),
               icon: Icon(Icons.library_books),

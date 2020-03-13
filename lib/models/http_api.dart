@@ -4,6 +4,7 @@ import 'package:yun_base/http/yun_http.dart';
 import 'package:yun_base/model/yun_base_map_model.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/models/plan_vo.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
@@ -116,5 +117,32 @@ class Api {
     YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme", data, null);
 
     return rst;
+  }
+
+  /// ---- plan
+  /// 保存
+  static Future<PlanVo> savePlan<N extends YunPageBaseNotiModel>(N model, data) async {
+    PlanVo rst = await YunHttp(model).post(PlanVo(), "/v1/api/plan", data, null);
+
+    return rst;
+  }
+
+  /// 列表
+  static Future<List<PlanVo>> getPlanList<N extends YunPageBaseNotiModel>(N model, String name) async {
+    var qP = Map<String, dynamic>();
+    if (YunValue.hasContent(name)) {
+      qP['name'] = name;
+    }
+
+    List<PlanVo> rst = await YunHttp(model).get(PlanVo(), "/v1/api/plan/list", qP, dIsList: true);
+
+    return rst;
+  }
+
+  /// 更新状态
+  static Future<PlanVo> savePlanStatus<N extends YunPageBaseNotiModel>(N model, int id, int status) async {
+    PlanVo user = await YunHttp(model).post(PlanVo(), "/v1/api/plan/status/${id}/${status}", null, null);
+
+    return user;
   }
 }
