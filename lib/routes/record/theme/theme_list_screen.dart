@@ -8,7 +8,7 @@ import 'package:yun_record/routes/record/theme/theme_list_model.dart';
 import 'package:yun_record/routes/record/theme/theme_temp_screen.dart';
 
 class ThemeListScreen extends StatefulWidget {
-  static const routeName = "MgThemeScreen";
+  static const routeName = "ThemeListScreen";
 
   @override
   ThemeListScreenState createState() => ThemeListScreenState();
