@@ -8,6 +8,7 @@ import 'package:yun_record/models/plan_vo.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
+import 'custom_data_vo.dart';
 import 'theme_data_vo.dart';
 import 'user_vo.dart';
 
@@ -144,5 +145,24 @@ class Api {
     PlanVo user = await YunHttp(model).post(PlanVo(), "/v1/api/plan/status/${id}/${status}", null, null);
 
     return user;
+  }
+
+  /// 习惯
+  /// 获取列表
+  static Future<List<CustomDataVo>> getCustomDataList<N extends YunPageBaseNotiModel>(N model, String date) async {
+    var qP = Map<String, dynamic>();
+    if (YunValue.hasContent(date)) {
+      qP['date'] = date;
+    }
+
+    List<CustomDataVo> rst = await YunHttp(model).get(CustomDataVo(), "/v1/api/customData/list", qP, dIsList: true);
+
+    return rst;
+  }
+
+  static Future<YunBaseMapModel> saveCustomRecordData<N extends YunPageBaseNotiModel>(N model, data) async {
+    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/customData/saveData", data, null);
+
+    return rst;
   }
 }

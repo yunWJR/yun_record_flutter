@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:yun_record/routes/custom/custom_home_screen.dart';
+import 'package:yun_record/routes/custom/custom_model.dart';
 import 'package:yun_record/routes/my/my_model.dart';
 import 'package:yun_record/routes/my/my_screen.dart';
 import 'package:yun_record/routes/plan/plan_home_screen.dart';
@@ -41,6 +43,10 @@ class _HomeTabState extends State<HomeTab> {
 //          create: (context) => RecordModel(context),
 //          child: RecordScreen(),
 //        ),
+        ChangeNotifierProvider<CustomModel>(
+          create: (context) => CustomModel(context),
+          child: CustomHomeScreen(),
+        ),
         ChangeNotifierProvider<PlanModel>(
           create: (context) => PlanModel(context),
           child: PlanHomeScreen(),
@@ -66,6 +72,10 @@ class _HomeTabState extends State<HomeTab> {
             BottomNavigationBarItem(
               title: Text('记录'),
               icon: Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              title: Text('习惯'),
+              icon: Icon(Icons.blur_circular),
             ),
             BottomNavigationBarItem(
               title: Text('计划'),

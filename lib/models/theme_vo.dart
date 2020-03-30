@@ -22,9 +22,7 @@ class ThemeVo implements YunBaseModel {
       id: json['id'],
       name: json['name'],
       remark: json['remark'],
-      tagList: json['tagList'] != null
-          ? (json['tagList'] as List).map((i) => Tag().fromJson(i)).toList()
-          : null,
+      tagList: json['tagList'] != null ? (json['tagList'] as List).map((i) => Tag().fromJson(i)).toList() : null,
     );
 
     return vo;
@@ -106,13 +104,7 @@ class Tag implements YunBaseModel {
   List<Prop> propList;
   String remark;
 
-  Tag(
-      {this.createTime,
-      this.id,
-      this.themeId,
-      this.name,
-      this.propList,
-      this.remark});
+  Tag({this.createTime, this.id, this.themeId, this.name, this.propList, this.remark});
 
   // dto
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
@@ -146,9 +138,7 @@ class Tag implements YunBaseModel {
       id: json['id'],
       themeId: json['themeId'],
       name: json['name'],
-      propList: json['propList'] != null
-          ? (json['propList'] as List).map((i) => Prop().fromJson(i)).toList()
-          : null,
+      propList: json['propList'] != null ? (json['propList'] as List).map((i) => Prop().fromJson(i)).toList() : null,
       remark: json['remark'],
     );
   }
@@ -203,14 +193,7 @@ class Prop implements YunBaseModel {
   String dataUnit;
   String name;
 
-  Prop(
-      {this.id,
-      this.tagId,
-      this.createTime,
-      this.dataType,
-      this.dataTypeId,
-      this.dataUnit,
-      this.name});
+  Prop({this.id, this.tagId, this.createTime, this.dataType, this.dataTypeId, this.dataUnit, this.name});
 
   // dto
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
@@ -221,8 +204,7 @@ class Prop implements YunBaseModel {
   final TextEditingController dataTypeController = new TextEditingController();
   TextFormField dataTypeTf;
 
-  GlobalKey<DataTypePopupMenuState> dataTypeKey =
-      new GlobalKey<DataTypePopupMenuState>();
+  GlobalKey<DataTypePopupMenuState> dataTypeKey = new GlobalKey<DataTypePopupMenuState>();
   DataTypePopupMenu dataTypePopupMenu;
 
   final TextEditingController dataUnitController = new TextEditingController();
