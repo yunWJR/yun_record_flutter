@@ -180,13 +180,22 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   // region Widget
 
   Widget _statusWidget(RecordModel model) {
-    return Container(
-      color: Theme.of(context).primaryColor.withOpacity(0.3),
-//      width: MediaQuery.of(context).size.width,
-      child: HomeCalendar(model.selDate, (DateTime dateTime) {
-        model.selectDate(dateTime);
-      }),
-      //      color: Colors.amber,
+    return Column(
+      children: <Widget>[
+        Container(
+//      color: Theme.of(context).primaryColor.withOpacity(0.3),
+          child: HomeCalendar(model.selDate, (DateTime dateTime) {
+            model.selectDate(dateTime);
+          }),
+        ),
+        SizedBox(
+          height: 6,
+        ),
+        Container(
+          height: 0.5,
+          color: Colors.grey[400],
+        ),
+      ],
     );
   }
 
