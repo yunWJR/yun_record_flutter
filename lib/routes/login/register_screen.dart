@@ -10,7 +10,8 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterface<LoginNoti> {
+class _RegisterScreenState extends State<RegisterScreen>
+    with YunPageNotiInterface<LoginNoti> {
   var divWidth;
   bool _autoValidate = false;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -44,19 +45,18 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
         title: Text('注册'),
       ),
       body: Container(
-        color: GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.2),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Form(
-                key: _formKey,
-                autovalidate: _autoValidate,
-                child: Column(
-                  children: <Widget>[_buildSignUpForm(model)],
-                )),
-          ),
+        padding: EdgeInsets.only(top: 60, bottom: 60),
+//        color: Theme.of(context).primaryColor.withOpacity(0.3),
+        child: SingleChildScrollView(
+          child: Form(
+              key: _formKey,
+              autovalidate: _autoValidate,
+              child: Column(
+                children: <Widget>[_buildSignUpForm(model)],
+              )),
         ),
       ),
-      backgroundColor: Colors.white, // todo
+//      backgroundColor: Colors.white, // todo
     );
   }
 
@@ -66,11 +66,13 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new Container(
-          margin: EdgeInsets.only(top: 0.0, left: 15.0, right: 15.0),
-          child: new Text(
-            "注册 - YUN随记",
-            maxLines: 1,
+        ClipOval(
+          child: new Container(
+            color: Theme.of(context).primaryColor.withOpacity(0.5),
+            child: Image(
+              image: new AssetImage('assets/def_avr.png'),
+              width: 100.0,
+            ),
           ),
         ),
         new Container(
@@ -80,8 +82,10 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
               controller: _nameController,
               validator: _validateUserName,
               keyboardType: TextInputType.emailAddress,
-              decoration:
-                  InputDecoration(labelText: "用户名*", hintText: "请输入用户名", labelStyle: new TextStyle(fontSize: 13))),
+              decoration: InputDecoration(
+                  labelText: "用户名*",
+                  hintText: "请输入用户名",
+                  labelStyle: new TextStyle(fontSize: 13))),
         ),
         SizedBox(
           height: 10.0,
@@ -90,7 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new TextFormField(
-              style: new TextStyle(fontSize: kMarginPadding, color: Colors.black38),
+              style: new TextStyle(
+                  fontSize: kMarginPadding, color: Colors.black38),
               obscureText: true,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -100,8 +105,10 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
                 }
               },
               controller: _pwdController,
-              decoration:
-                  InputDecoration(labelText: "密码*", hintText: "请输入密码", labelStyle: new TextStyle(fontSize: kFontSize))),
+              decoration: InputDecoration(
+                  labelText: "密码*",
+                  hintText: "请输入密码",
+                  labelStyle: new TextStyle(fontSize: kFontSize))),
         ),
         SizedBox(
           height: 20.0,
@@ -137,7 +144,8 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
 
     model.startLoading();
 
-    UserVo user = await Api.register(model, _nameController.text, _pwdController.text);
+    UserVo user =
+        await Api.register(model, _nameController.text, _pwdController.text);
     if (user != null) {
       Navigator.of(context).pop();
 

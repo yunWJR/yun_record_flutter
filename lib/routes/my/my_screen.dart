@@ -64,16 +64,14 @@ class MyScreenState extends State<MyScreen> {
 //            ),
             ClipOval(
               child: new Container(
-                child: new Container(
-                  color: Theme.of(context).primaryColor.withOpacity(0.5),
-                  child: CachedNetworkImage(
-                    width: 100,
-                    imageUrl: model.userVo.headerUrl ?? "",
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Image(
-                      image: new AssetImage('assets/def_avr.png'),
-                      width: 100.0,
-                    ),
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                child: CachedNetworkImage(
+                  width: 100,
+                  imageUrl: model.userVo.headerUrl ?? "",
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Image(
+                    image: new AssetImage('assets/def_avr.png'),
+                    width: 100.0,
                   ),
                 ),
               ),
