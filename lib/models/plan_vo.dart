@@ -68,12 +68,12 @@ class PlanVo extends YunBaseModel {
     dto.nameTf = new TextFormField(
         controller: dto.nameController,
         validator: (String value) {
-          return YunValue.isNullOrEmpty(value) ? "请输入计划内容" : null;
+          return YunValue.isNullOrEmpty(value) ? "请输入待办内容" : null;
         },
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
-          labelText: "计划*",
-          hintText: "请输入计划内容",
+          labelText: "待办*",
+          hintText: "请输入待办内容",
         ));
 
     return dto;
@@ -85,6 +85,6 @@ class PlanVo extends YunBaseModel {
       return null;
     }
 
-    return "请填写计划";
+    return "请填写待办内容";
   }
 }

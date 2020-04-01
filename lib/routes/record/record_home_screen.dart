@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/action/yun_action.dart';
 import 'package:yun_base/page/yun_base_page.dart';
@@ -57,13 +56,13 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
         drawer: new RecordDrawerLeft(model),
         floatingActionButton: ClipOval(
             child: Container(
-          color: Colors.amber,
+          color: Theme.of(context).primaryColor,
           child: IconButton(
             onPressed: () {
               _addRecordOn();
             },
             icon: Icon(Icons.add),
-            color: Colors.white,
+            color: Theme.of(context).selectedRowColor,
           ),
         )),
       ),
@@ -98,28 +97,6 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   // 下拉刷新方法
   Future<Null> _handleRefresh() async {
     print('refresh');
-  }
-
-  _onTheme(RecordModel model) {
-    _changeTheme(model);
-  }
-
-  Future<void> _changeTheme(RecordModel model) async {
-    int index = await YunAction.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
-
-    if (index != null) {
-      model.selectTheme(model.themeList[index].id);
-    }
-  }
-
-  _onDate(RecordModel model) {
-    DatePicker.showDatePicker(context,
-        showTitleActions: true,
-        minTime: DateTime(1900, 1, 1),
-        maxTime: DateTime(2100, 1, 1),
-        onChanged: (date) {}, onConfirm: (date) {
-      model.selectDate(date);
-    }, currentTime: model.selDate ?? DateTime.now(), locale: LocaleType.zh);
   }
 
   void _addRecordOn() {

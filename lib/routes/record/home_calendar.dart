@@ -122,7 +122,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
 
     if (types.contains(RCalendarType.selected)) {
       childStyle = TextStyle(
-        color: tD.textSelectionColor,
+        color: tD.selectedRowColor,
         fontSize: tStyle.fontSize,
       );
       decoration = BoxDecoration(
@@ -248,6 +248,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.title),
+          color: tStyle.color.withOpacity(0.4),
           onPressed: () {
             controller.updateSelected(DateTime.now());
 //            controller.selectedDate = DateTime.now();
@@ -283,6 +284,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
         ),
         IconButton(
           icon: Icon(Icons.calendar_today),
+          color: tStyle.color.withOpacity(0.4),
           onPressed: () {
             _onDate(context, controller);
           },

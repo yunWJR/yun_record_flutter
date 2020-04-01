@@ -78,7 +78,7 @@ class _HomeTabState extends State<HomeTab> {
               icon: Icon(Icons.blur_circular),
             ),
             BottomNavigationBarItem(
-              title: Text('计划'),
+              title: Text('待办'),
               icon: Icon(Icons.access_time),
             ),
             BottomNavigationBarItem(

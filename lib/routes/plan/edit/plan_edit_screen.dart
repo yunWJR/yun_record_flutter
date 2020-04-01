@@ -37,11 +37,11 @@ class _PlanEditScreenState extends State<PlanEditScreen> {
   Widget bodyWidget(PlanEditModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('添加计划'),
+        title: new Text('添加待办事项'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),
-            tooltip: '保存计划',
+            tooltip: '保存',
             onPressed: () {
               _saveOn(model);
             },

@@ -44,7 +44,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
   Widget bodyWidget(PlanModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('计划'),
+        title: new Text('待办'),
         //        actions: <Widget>[
         //          IconButton(
         //            icon: Icon(Icons.widgets),
