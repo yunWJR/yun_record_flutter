@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 
 import '../../index.dart';
 import 'my_model.dart';
@@ -37,8 +38,8 @@ class MyScreenState extends State<MyScreen> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-          GlobalConfig.currentTheme().primaryColor.withOpacity(0.04),
-          GlobalConfig.currentTheme().primaryColor.withOpacity(0.08)
+          GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.04),
+          GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.08)
         ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +54,7 @@ class MyScreenState extends State<MyScreen> {
                   image: NetworkImage("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4"),
                   width: 100.0,
                 ),
-                color: GlobalConfig.currentTheme().primaryColor,
+                color: GlobalThemeConfig.currentTheme().primaryColor,
               ),
             ),
             Container(

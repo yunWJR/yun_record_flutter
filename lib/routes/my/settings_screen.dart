@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/config/global_config_noti.dart';
-import 'package:yun_record/config/theme_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key key}) : super(key: key);
@@ -12,14 +11,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Themes _themeIndex;
-  int _fontIndex;
+  num _fontFactor;
+  ThemeType _themeIndex;
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      _themeIndex = Provider.of<ThemeGcn>(context, listen: false).theme;
-      _fontIndex = Provider.of<ThemeGcn>(context, listen: false).fontIndex;
+      setState(() {
+        _themeIndex = GlobalThemeConfig.themeType;
+        _fontFactor = GlobalThemeConfig.fontFactor;
+      });
     });
 
     super.initState();
@@ -57,15 +58,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               alignment: WrapAlignment.center, //沿主轴方向居中
               children: fontSizeItems(),
             ),
-//            new RaisedButton(
-//                child: new Text('设置字体大小'),
-//                onPressed: () => showDialog(
-//                      context: context,
-//                      builder: (context) => RoundDialog(
-//                        title: "选择字体大小",
-//                        children: fontSizeItems(),
-//                      ),
-//                    )),
           ],
         ),
       ),
@@ -74,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _header(String title) {
     return Container(
-        color: GlobalConfig.currentTheme().primaryColorLight,
+        color: GlobalThemeConfig.currentTheme().primaryColorLight,
         margin: EdgeInsets.only(top: 0, bottom: 10),
         padding: EdgeInsets.all(10),
         child: Center(child: Text(title)));
@@ -89,16 +81,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     List<Widget> items = List();
 
-    for (var value in Themes.values) {
-      ThemeData themeData = GlobalConfig.themeOfIndex(value);
+    for (var value in ThemeType.values) {
+      ThemeData themeData = GlobalThemeConfig.themeOfIndex(value);
 
       var cell = Container(
-          width: GlobalConfig.fontFactor() * itemW,
+          width: GlobalThemeConfig.fontFactor.toDouble() * itemW,
           decoration: BoxDecoration(
               color: themeData.primaryColor,
               border: Border.all(color: value == _themeIndex ? Colors.black : Colors.transparent, width: 4)),
           child: FlatButton(
-            child: Text(value.toString().substring(7)),
+            child: Text(value.toString().substring(10)),
 //            color: themeData.primaryColor,
             shape: RoundedRectangleBorder(),
             onPressed: () => _changeTheme(value),
@@ -110,14 +102,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return items;
   }
 
-  void _changeTheme(Themes theme) {
+  void _changeTheme(ThemeType theme) {
     ThemeGcn gcn = Provider.of<ThemeGcn>(context, listen: false);
 
     gcn.setThemeIndex(theme);
 
     setState(() => _themeIndex = theme);
-
-//    Navigator.of(context).pop();
   }
 
   List<Widget> fontSizeItems() {
@@ -129,19 +119,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     List<Widget> items = List();
 
-    for (int i = 0; i < ThemeConfig.fontSizeItems.length; i++) {
-      double value = ThemeConfig.fontSizeItems[i];
+    for (int i = 0; i < GlobalThemeConfig.fontSizeItems.length; i++) {
+      num value = GlobalThemeConfig.fontSizeItems[i];
 
       var cell = Container(
           width: itemW,
           decoration: BoxDecoration(
-              color: i == _fontIndex ? GlobalConfig.currentTheme().primaryColor : Colors.grey[300],
-              border: Border.all(color: i == _fontIndex ? Colors.black : Colors.transparent, width: 4)),
+              color: value == _fontFactor ? GlobalThemeConfig.currentTheme().primaryColor : Colors.grey[300],
+              border: Border.all(color: value == _fontFactor ? Colors.black : Colors.transparent, width: 4)),
           child: FlatButton(
             child: Text(value.toString() + "号"),
 //            color: themeData.primaryColor,
             shape: RoundedRectangleBorder(),
-            onPressed: () => _changeFont(i),
+            onPressed: () => _changeFont(value),
           ));
 
       items.add(cell);
@@ -150,12 +140,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return items;
   }
 
-  void _changeFont(int font) {
+  void _changeFont(num font) {
     ThemeGcn gcn = Provider.of<ThemeGcn>(context, listen: false);
 
-    gcn.setFontSizeIndex(font);
+    gcn.setFontFactor(font);
 
-    setState(() => _fontIndex = font);
+    setState(() => _fontFactor = font);
 
 //    Navigator.of(context).pop();
   }

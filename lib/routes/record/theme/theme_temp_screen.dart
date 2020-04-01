@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 
 import 'add_custom_theme_screen.dart';
@@ -50,7 +50,7 @@ class ThemeTempScreenState extends State<ThemeTempScreen> {
             //分割器构造器
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-//                color: GlobalConfig.currentTheme().primaryColor,
+//                color: GlobalThemeConfig.currentTheme().primaryColor,
                 height: 4,
                 thickness: 0,
               );
@@ -107,7 +107,7 @@ class ThemeTempScreenState extends State<ThemeTempScreen> {
   Widget _itemTheme(ThemeTempVo value) {
     var cell = Container(
         padding: EdgeInsets.all(10),
-        color: GlobalConfig.currentTheme().primaryColorLight,
+        color: GlobalThemeConfig.currentTheme().primaryColorLight,
         child: Flex(
           direction: Axis.horizontal,
           children: [

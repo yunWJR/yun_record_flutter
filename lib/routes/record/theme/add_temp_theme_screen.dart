@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
-import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/prop_data_type.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 
@@ -65,9 +65,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
 //          padding: EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
-            itemCount: model.tmpVo?.tagList?.length != null
-                ? model.tmpVo?.tagList?.length + 1
-                : 1,
+            itemCount: model.tmpVo?.tagList?.length != null ? model.tmpVo?.tagList?.length + 1 : 1,
 //                    itemExtent: 50.0, //强制高度为50.0
             itemBuilder: (BuildContext context, int index) {
               return _itemWidget(model, index);
@@ -75,7 +73,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
             //分割器构造器
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-//                color: GlobalConfig.currentTheme().primaryColor,
+//                color: GlobalThemeConfig.currentTheme().primaryColor,
                 height: 4,
                 thickness: 0,
               );
@@ -108,16 +106,14 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
                 controller: _nameController,
                 validator: _validateUserName,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    labelText: "主题名称*",
-                    hintText: "请输入主题名称",
-                    labelStyle: new TextStyle(fontSize: 13))),
+                decoration:
+                    InputDecoration(labelText: "主题名称*", hintText: "请输入主题名称", labelStyle: new TextStyle(fontSize: 13))),
           ),
         ),
         const SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-          color: GlobalConfig.currentTheme().primaryColorLight,
+          color: GlobalThemeConfig.currentTheme().primaryColorLight,
           child: Flex(
             direction: Axis.horizontal,
             children: [
@@ -271,9 +267,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
       return;
     }
 
-    model
-        .createThemeByTemplate(model.tmpVo.id, _nameController.text)
-        .then((suc) {
+    model.createThemeByTemplate(model.tmpVo.id, _nameController.text).then((suc) {
       if (suc) {
         YunToast.showToast("主题创建成功");
 //        Navigator.pushReplacementNamed(context, "HomeTab"); // todo

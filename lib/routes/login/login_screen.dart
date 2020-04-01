@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/user_vo.dart';
 
 import '../../index.dart';
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
 //        title: Text('123'),
 //      ),
       body: Container(
-        color: GlobalConfig.currentTheme().primaryColor.withOpacity(0.2),
+        color: GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.2),
         child: Center(
           child: SingleChildScrollView(
             child: Form(
@@ -142,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new RaisedButton(
-//          color: GlobalConfig.currentTheme().primaryColor,
+//          color: GlobalThemeConfig.currentTheme().primaryColor,
             onPressed: () => _loginButtonTapped(model),
             child: new Text("登  录"),
           ),
@@ -214,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
       YunBaseMapModel cRst = await Api.checkTheme(model);
       print("cRst");
       print(cRst);
-      
+
       Navigator.pushNamedAndRemoveUntil(context, "HomeTab", (Route<dynamic> route) => false);
 
 //      Navigator.push(

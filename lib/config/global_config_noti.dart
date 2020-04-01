@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/config/global_theme_config.dart';
+import 'package:yun_record/index.dart';
 
 import 'global_config.dart';
 
@@ -41,35 +43,27 @@ class ThemeGcn extends GlobalConfigNoti {
     GlobalConfig.setSaveSelf(item, false);
   }
 
-  Items item = Items.themeId;
-
-  Themes get theme => GlobalConfig.theme;
-
-  int get fontIndex => GlobalConfig.fontSizeIndex;
-
-  ThemeData get themeData => GlobalConfig.themeData;
-
   ThemeData currentTheme({Brightness brightness}) {
-    return GlobalConfig.currentTheme(brightness: brightness);
+    return GlobalThemeConfig.currentTheme(brightness: brightness);
   }
 
   //用户信息发生变化，更新用户信息并通知依赖它的子孙Widgets更新
-  setThemeIndex(Themes theme) {
-    if (theme == GlobalConfig.theme) {
+  setThemeIndex(ThemeType theme) {
+    if (theme == GlobalThemeConfig.themeType) {
       return null;
     }
 
-    GlobalConfig.updateTheme(theme);
+    GlobalThemeConfig.updateTheme(theme);
 
     notifyListeners();
   }
 
-  setFontSizeIndex(int index) {
-    if (index == GlobalConfig.fontSizeIndex) {
+  setFontFactor(num fFactor) {
+    if (fFactor == GlobalThemeConfig.fontFactor) {
       return null;
     }
 
-    GlobalConfig.fontSizeIndex = index;
+    GlobalThemeConfig.fontFactor = fFactor;
 
     notifyListeners();
   }

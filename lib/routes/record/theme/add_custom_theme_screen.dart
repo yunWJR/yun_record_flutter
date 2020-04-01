@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
-import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/theme/add_custom_theme_model.dart';
 
@@ -63,7 +63,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
             //分割器构造器
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-//                color: GlobalConfig.currentTheme().primaryColor,
+//                color: GlobalThemeConfig.currentTheme().primaryColor,
                 height: 4,
                 thickness: 0,
               );
@@ -98,7 +98,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
         const SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
-          color: GlobalConfig.currentTheme().primaryColorLight,
+          color: GlobalThemeConfig.currentTheme().primaryColorLight,
           child: Flex(
             direction: Axis.horizontal,
             children: [

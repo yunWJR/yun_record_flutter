@@ -52,8 +52,8 @@ class _PlanEditScreenState extends State<PlanEditScreen> {
         width: MediaQuery.of(context).size.width,
 //        decoration: BoxDecoration(
 //            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-//          GlobalConfig.currentTheme().dividerColor.withOpacity(0.1),
-//          GlobalConfig.currentTheme().dividerColor.withOpacity(0.2)
+//          GlobalThemeConfig.currentTheme().dividerColor.withOpacity(0.1),
+//          GlobalThemeConfig.currentTheme().dividerColor.withOpacity(0.2)
 //        ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

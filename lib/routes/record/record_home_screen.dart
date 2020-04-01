@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/action/yun_action.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/index.dart';
 import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
@@ -74,8 +74,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-        GlobalConfig.currentTheme().primaryColor.withOpacity(0.02),
-        GlobalConfig.currentTheme().primaryColor.withOpacity(0.02)
+        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
+        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
       ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -196,7 +196,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: GlobalConfig.currentTheme().primaryColor,
+          color: GlobalThemeConfig.currentTheme().primaryColor,
           height: 2,
           thickness: 2,
         );
@@ -249,7 +249,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
                     flex: 4,
                     child: new Text(
                       f.propData.orgValue,
-                      style: TextStyle(fontWeight: FontWeight.normal, color: GlobalConfig.currentTheme().primaryColor),
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal, color: GlobalThemeConfig.currentTheme().primaryColor),
                     ),
                   ),
                 ],

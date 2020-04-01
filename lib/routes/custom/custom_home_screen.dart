@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/custom_data_vo.dart';
 import 'package:yun_record/routes/record/home_calendar.dart';
 
@@ -58,8 +58,8 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-        GlobalConfig.currentTheme().primaryColor.withOpacity(0.02),
-        GlobalConfig.currentTheme().primaryColor.withOpacity(0.02)
+        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
+        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
       ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -137,7 +137,7 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: GlobalConfig.currentTheme().primaryColor,
+          color: GlobalThemeConfig.currentTheme().primaryColor,
           height: 2,
           thickness: 2,
         );
@@ -154,8 +154,8 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
         Container(
           padding: EdgeInsets.all(_defPadding()),
           color: item.isCmp()
-              ? GlobalConfig.currentTheme().primaryColor.withOpacity(0.3)
-              : GlobalConfig.currentTheme().cardColor.withOpacity(0.3),
+              ? GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.3)
+              : GlobalThemeConfig.currentTheme().cardColor.withOpacity(0.3),
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -163,7 +163,7 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
                 flex: 1,
                 child: Checkbox(
                   value: item.isCmp(),
-//                  activeColor: item.isCmp() ? GlobalConfig.currentTheme().backgroundColor : Colors.grey, //选中时的颜色
+//                  activeColor: item.isCmp() ? GlobalThemeConfig.currentTheme().backgroundColor : Colors.grey, //选中时的颜色
                   onChanged: (value) {
                     itemStatusChanged(model, item);
                   },
