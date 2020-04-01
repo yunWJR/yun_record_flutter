@@ -8,7 +8,6 @@ import 'package:yun_record/models/theme_vo.dart';
 
 class RecordModel extends YunPageBaseNotiModel {
   RecordModel(BuildContext context) : super(context) {
-    YunLog.logData('RecordModel inti');
     this.selDate = DateTime.now();
   }
 

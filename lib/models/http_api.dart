@@ -165,4 +165,12 @@ class Api {
 
     return rst;
   }
+
+
+  /// user
+  static Future<UserVo> getUserInfo<N extends YunPageBaseNotiModel>(N model) async {
+    UserVo rst = await YunHttp(model).get(UserVo(), "/v1/api/my/myInfo", null);
+
+    return rst;
+  }
 }

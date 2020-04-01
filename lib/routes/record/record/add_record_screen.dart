@@ -16,10 +16,10 @@ class AddRecordScreen extends StatefulWidget {
 class _AddRecordScreenState extends State<AddRecordScreen> {
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> argu = ModalRoute.of(context).settings.arguments;
+    Map<String, dynamic> arg = ModalRoute.of(context).settings.arguments;
 
     AddRecordModel newModel = AddRecordModel(context);
-    newModel.setArgu(argu);
+    newModel.setArgu(arg);
 
     return ChangeNotifierProvider<AddRecordModel>.value(
         value: newModel,
@@ -75,10 +75,18 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     });
   }
 
+  void _onDateTime(AddRecordModel model) {
+    DatePicker.showDateTimePicker(context,
+        currentTime: model.dto.selDate,
+        onChanged: (date) {}, onConfirm: (date) {
+      model.updateDate(date);
+    }, locale: LocaleType.zh);
+  }
+
   void _onTime(AddRecordModel model) {
-    DatePicker.showTimePicker(context, currentTime: model.dto.selDate, onChanged: (date) {
-//      print('change $date');
-    }, onConfirm: (date) {
+    DatePicker.showTimePicker(context,
+        currentTime: model.dto.selDate,
+        onChanged: (date) {}, onConfirm: (date) {
       model.updateTime(date);
     }, locale: LocaleType.zh);
   }
@@ -90,28 +98,22 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
 // region Widget
 
   Widget _statusWidget(AddRecordModel model) {
-    double p = _defPadding();
-
     return new Container(
       width: MediaQuery.of(context).size.width,
-      child: Flex(
-        direction: Axis.horizontal,
+      color: Theme.of(context).primaryColor.withOpacity(0.3),
+      child: Column(
         children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-//              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
-//              height: 30.0,
-              color: Colors.amber[200],
-              child: FlatButton.icon(
-                icon: Icon(Icons.date_range),
-                label: Text(model.timeText()),
-                onPressed: () {
-                  _onTime(model);
-                },
-              ),
+          Container(
+            child: FlatButton.icon(
+              icon: Icon(Icons.date_range),
+              label: Text(model.dateTimeText()),
+              onPressed: () {
+                _onDateTime(model);
+              },
             ),
           ),
+          Container(
+              color: Theme.of(context).primaryColor.withOpacity(1), height: 1)
         ],
       ),
       //      color: Colors.amber,
@@ -128,9 +130,9 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: Colors.blue,
-          thickness: 2,
-          height: 2,
+          color: Theme.of(context).primaryColor.withOpacity(0.4),
+          thickness: 1,
+          height: 1,
         );
       },
     );
@@ -140,31 +142,38 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   Widget _itemWidget(AddRecordModel model, int index) {
     PropDto item = model.dto.propList[index];
 
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(_defPadding()),
-          color: Colors.black12,
-          child: Flex(
-            direction: Axis.horizontal,
-            children: <Widget>[
-              Expanded(
-                child: new Text(item.prop.name),
-              ),
-              Expanded(
-                child: new Text(item.prop.dataUnit ?? ""),
-              ),
-            ],
-          ),
-        ),
-        Container(
-            padding: EdgeInsets.all(_defPadding()),
+    return Container(
+      color: Theme.of(context).selectedRowColor,
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(
+                left: _defPadding() * 2,
+                right: _defPadding() * 2,
+                top: _defPadding(),
+                bottom: _defPadding()),
 //            color: Colors.black12,
-            child: TextField(
-              controller: item.input,
-              decoration: InputDecoration(hintText: "请输入内容", filled: true),
-            )),
-      ],
+            child: Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Expanded(
+                  child: new Text("记录项:" + item.prop.name),
+                ),
+                Expanded(
+                  child: new Text("单位:" + item.prop.dataUnit ?? "无"),
+                ),
+              ],
+            ),
+          ),
+          Container(
+              padding: EdgeInsets.all(_defPadding()),
+//            color: Colors.black12,
+              child: TextField(
+                controller: item.input,
+                decoration: InputDecoration(hintText: "请输入内容", filled: true),
+              )),
+        ],
+      ),
     );
   }
 

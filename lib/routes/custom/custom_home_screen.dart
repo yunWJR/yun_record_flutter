@@ -57,10 +57,13 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
     return new Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
-        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
-      ])),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
+            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
+          ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,8 +71,9 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
           _statusWidget(model),
           Expanded(
               child: RefreshIndicator(
-            child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
-            onRefresh: _handleRefresh,
+            child:
+                model.isBlankList() ? _blankWidget(model) : _listWidget(model),
+            onRefresh: () => _handleRefresh(model),
           )),
         ],
       ),
@@ -79,8 +83,8 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
   // region action
 
   // 下拉刷新方法
-  Future<Null> _handleRefresh() async {
-    print('refresh');
+  Future<void> _handleRefresh(CustomModel model) async {
+    await model.loadData(context);
   }
 
   _onDate(CustomModel model) {
@@ -189,7 +193,8 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
   }
 
   Widget _noContentWidget(CustomModel model) {
-    return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
+    return Container(
+        color: Colors.grey[300], child: Center(child: new Text("无内容")));
   }
 
 // endregion

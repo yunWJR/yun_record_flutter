@@ -39,7 +39,10 @@ class DataTypePopupMenuState extends State<DataTypePopupMenu> {
       children: <Widget>[
         Text(DataTypeUtil.nameOfType(_index)),
         PopupMenuButton(
-          icon: Icon(Icons.filter_list),
+          icon: Icon(
+            Icons.filter_list,
+            size: 12,
+          ),
           onSelected: (value) {
             setState(() {
               _index = value;

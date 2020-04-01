@@ -73,10 +73,13 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     return new Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
-        GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
-      ])),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
+            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
+          ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,8 +87,9 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
           _statusWidget(model),
           Expanded(
               child: RefreshIndicator(
-            child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
-            onRefresh: _handleRefresh,
+            child:
+                model.isBlankList() ? _blankWidget(model) : _listWidget(model),
+            onRefresh: () => _handleRefresh(model),
           )),
         ],
       ),
@@ -95,8 +99,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   // region action
 
   // 下拉刷新方法
-  Future<Null> _handleRefresh() async {
-    print('refresh');
+  Future<void> _handleRefresh(RecordModel model) async {
+    await model.loadData(context);
   }
 
   void _addRecordOn() {
@@ -109,7 +113,9 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     ThemeVo selTheme = model.selTheme;
 
     if (selTheme == null) {
-      int index = await YunAction.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
+      int index = await YunAction.showAction(
+          context, model.themeList.map((f) => f.name).toList(),
+          title: "请选择主题");
 
       if (index != null) {
         selTheme = model.themeList[index];
@@ -129,7 +135,9 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     if (th.tagList.length == 1) {
       tagIndex = 0;
     } else {
-      tagIndex = await YunAction.showAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
+      tagIndex = await YunAction.showAction(
+          context, th.tagList.map((f) => f.name).toList(),
+          title: "请选择主题");
     }
 
     if (tagIndex != null) {
@@ -138,7 +146,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       argu["date"] = model.selDate;
       argu['tag'] = th.tagList[tagIndex];
 
-      var rst = await Navigator.pushNamed(context, "AddRecordScreen", arguments: argu);
+      var rst = await Navigator.pushNamed(context, "AddRecordScreen",
+          arguments: argu);
       if (rst != null) {
         model.loadList(context);
       }
@@ -146,7 +155,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   }
 
   void _gotoThemeMg(RecordModel model) async {
-    var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName, arguments: model);
+    var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName,
+        arguments: model);
 //    if (rst != null) {
 //      model.loadList(context);
 //    }
@@ -250,7 +260,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
                     child: new Text(
                       f.propData.orgValue,
                       style: TextStyle(
-                          fontWeight: FontWeight.normal, color: GlobalThemeConfig.currentTheme().primaryColor),
+                          fontWeight: FontWeight.normal,
+                          color: GlobalThemeConfig.currentTheme().primaryColor),
                     ),
                   ),
                 ],
@@ -267,7 +278,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   }
 
   Widget _noContentWidget(RecordModel model) {
-    return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
+    return Container(
+        color: Colors.grey[300], child: Center(child: new Text("无内容")));
   }
 
   void _handlerDrawerButton(RecordModel model) {

@@ -8,9 +8,11 @@ import 'package:yun_base/http/yun_http.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/model/yun_rst_data.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/models/user_vo.dart';
 
+import '../index.dart';
 import 'global_theme_config.dart';
 
 enum Items { loginToken, userName, themeName, fontFactor }
@@ -20,7 +22,8 @@ class GlobalConfig {
   static Map<int, String> _itemsKeyMap;
   static Map<int, bool> _itemsSaveMap;
 
-  static final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _notifications =
+      FlutterLocalNotificationsPlugin();
 
   static SharedPreferences _prefs;
 
@@ -87,10 +90,14 @@ class GlobalConfig {
 
     switch (item) {
       case Items.loginToken:
-        _loginToken == null ? _prefs.remove(key) : _prefs.setString(key, _loginToken);
+        _loginToken == null
+            ? _prefs.remove(key)
+            : _prefs.setString(key, _loginToken);
         break;
       case Items.userName:
-        _userName == null ? _prefs.remove(key) : _prefs.setString(key, _userName);
+        _userName == null
+            ? _prefs.remove(key)
+            : _prefs.setString(key, _userName);
         break;
       case Items.themeName:
         // TODO: Handle this case.
@@ -115,6 +122,8 @@ class GlobalConfig {
   static Future init() async {
     YunConfig.isProp = false;
     YunConfig.logOnMode = YunOnMode.PROP_MODEL;
+
+    YunBasePageConfig.defConfig.loadBgColor = Colors.transparent;
 
     await _initItems();
 

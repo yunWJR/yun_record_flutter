@@ -41,8 +41,20 @@ class AddRecordModel extends YunPageBaseNotiModel {
     dto = RecordDto.ofNew(_theme, _tag, _date);
   }
 
+  String dateTimeText() {
+    return DateFormat("yyyy-MM-dd HH:mm:ss").format(dto.selDate);
+  }
+
   String timeText() {
     return DateFormat("HH:mm:ss").format(dto.selDate);
+  }
+
+  void updateDate(DateTime date) {
+    if (date != dto.selDate) {
+      dto.selDate = date;
+
+      notifyListeners();
+    }
   }
 
   void updateTime(DateTime date) {

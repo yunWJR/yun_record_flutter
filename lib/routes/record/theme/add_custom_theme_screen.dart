@@ -56,7 +56,9 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
       body: new Container(
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
-            itemCount: model.themeDto?.tagList?.length != null ? model.themeDto.tagList.length + 1 : 1,
+            itemCount: model.themeDto?.tagList?.length != null
+                ? model.themeDto.tagList.length + 1
+                : 1,
             itemBuilder: (BuildContext context, int index) {
               return _itemWidget(model, index);
             },
@@ -185,12 +187,23 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
                       direction: Axis.horizontal,
                       children: [
                         Expanded(
-                          child: prop.nameTf,
-                        ),
-                        Expanded(
+                          flex: 8,
                           child: prop.dataTypePopupMenu,
                         ),
                         Expanded(
+                          flex: 2,
+                          child: SizedBox(),
+                        ),
+                        Expanded(
+                          flex: 16,
+                          child: prop.nameTf,
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: SizedBox(),
+                        ),
+                        Expanded(
+                          flex: 8,
                           child: prop.dataUnitTf,
                         )
                       ],
