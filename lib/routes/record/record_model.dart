@@ -9,6 +9,7 @@ import 'package:yun_record/models/theme_vo.dart';
 class RecordModel extends YunPageBaseNotiModel {
   RecordModel(BuildContext context) : super(context) {
     YunLog.logData('RecordModel inti');
+    this.selDate = DateTime.now();
   }
 
   List<ThemeVo> themeList;
@@ -81,7 +82,7 @@ class RecordModel extends YunPageBaseNotiModel {
       return selTheme.name;
     }
 
-    return "请选择主题";
+    return "全部主题";
   }
 
   String dateText() {
@@ -93,6 +94,17 @@ class RecordModel extends YunPageBaseNotiModel {
   }
 
   void selectTheme(int themeId) {
+    // todo null
+    if (themeId == null) {
+      if (selTheme != null) {
+        selTheme = null;
+        loadList();
+        return;
+      }
+
+      return;
+    }
+
     if (selTheme == null || selTheme.id != themeId) {
       for (var value in themeList) {
         if (value.id == themeId) {
@@ -105,6 +117,18 @@ class RecordModel extends YunPageBaseNotiModel {
     }
   }
 
+  bool isSelTheme(int themeId) {
+    if (themeId == null) {
+      return selTheme == null;
+    }
+
+    if (selTheme == null) {
+      return false;
+    }
+
+    return selTheme.id == themeId;
+  }
+
   void selectDate(DateTime date) {
     if (selTheme == null || !YunDate.sameYmd(selDate, date)) {
       selDate = date;
@@ -113,14 +137,18 @@ class RecordModel extends YunPageBaseNotiModel {
     }
   }
 
-  Future<ThemeVo> getValidThemeDetails() async {
-    if (selThemeDt == null || selThemeDt.id != selTheme.id) {
-      selThemeDt = await Api.getThemeDetails(this, selTheme.id);
-    } else {
+  Future<ThemeVo> getValidThemeDetails(ThemeVo selTheme) async {
+    if (selTheme == null) {
       await Future.delayed(Duration(microseconds: 0));
       if (selThemeDt.tagList.length == 0) {
         showErr("主题无标签信息");
       }
+
+      return null;
+    }
+
+    if (selThemeDt == null || selThemeDt.id != selTheme.id) {
+      selThemeDt = await Api.getThemeDetails(this, selTheme.id);
     }
 
     return selThemeDt;

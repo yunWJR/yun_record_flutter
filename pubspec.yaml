@@ -30,6 +30,9 @@ dependencies:
   flutter_datetime_picker: ^1.3.4
   flutter_svg: ^0.17.1
   row_collection: ^0.2.4
+  calendarro: ^1.2.0 # 日历
+  flutter_calendar_carousel: ^1.4.11 # 日历
+  r_calendar: ^0.1.7
 
 #  # tool
   yun_base: ^0.0.8

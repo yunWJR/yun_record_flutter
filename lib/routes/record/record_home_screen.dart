@@ -7,10 +7,13 @@ import 'package:provider/provider.dart';
 import 'package:yun_base/action/yun_action.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/config/global_config.dart';
+import 'package:yun_record/index.dart';
 import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
+import 'package:yun_record/routes/record/record_drawer_left.dart';
 import 'package:yun_record/routes/record/theme/theme_list_screen.dart';
 
+import 'home_calendar.dart';
 import 'record_model.dart';
 
 class RecordHomeScreen extends StatefulWidget {
@@ -22,13 +25,36 @@ class RecordHomeScreen extends StatefulWidget {
 
 class _RecordHomeScreenState extends State<RecordHomeScreen> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<RecordModel>(
       builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+//            IconButton(
+//              icon: Icon(Icons.account_balance_wallet),
+//              onPressed: () {
+//                _handlerDrawerButton(model);
+//              },
+//            ),
+//            IconButton(
+//              icon: Icon(Icons.widgets),
+//              onPressed: () {
+//                _gotoThemeMg(model);
+//              },
+//            )
+          ],
+          title: new Text("记录-" + model.themeText()),
+        ),
         body: YunBasePage<RecordModel>.page(
           body: bodyWidget(model),
           model: model,
         ),
+        drawer: new RecordDrawerLeft(model),
         floatingActionButton: ClipOval(
             child: Container(
           color: Colors.amber,
@@ -45,37 +71,24 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   }
 
   Widget bodyWidget(RecordModel model) {
-    return Scaffold(
-      appBar: AppBar(
-        title: new Text('记录'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.widgets),
-            onPressed: () {
-              _gotoThemeMg(model);
-            },
-          )
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+        GlobalConfig.currentTheme().primaryColor.withOpacity(0.02),
+        GlobalConfig.currentTheme().primaryColor.withOpacity(0.02)
+      ])),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          _statusWidget(model),
+          Expanded(
+              child: RefreshIndicator(
+            child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
+            onRefresh: _handleRefresh,
+          )),
         ],
-      ),
-      body: new Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-          GlobalConfig.currentTheme().primaryColor.withOpacity(0.02),
-          GlobalConfig.currentTheme().primaryColor.withOpacity(0.02)
-        ])),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            _statusWidget(model),
-            Expanded(
-                child: RefreshIndicator(
-              child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
-              onRefresh: _handleRefresh,
-            )),
-          ],
-        ),
       ),
     );
   }
@@ -116,7 +129,19 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   void _setThemeTag() async {
     RecordModel model = Provider.of(context, listen: false);
 
-    ThemeVo th = await model.getValidThemeDetails();
+    ThemeVo selTheme = model.selTheme;
+
+    if (selTheme == null) {
+      int index = await YunAction.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
+
+      if (index != null) {
+        selTheme = model.themeList[index];
+      } else {
+        return;
+      }
+    }
+
+    ThemeVo th = await model.getValidThemeDetails(selTheme);
     if (th == null || th.tagList.length == 0) {
 //      model.showErr('无主题信息');
       return;
@@ -155,51 +180,12 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   // region Widget
 
   Widget _statusWidget(RecordModel model) {
-    double p = _defPadding();
-
-    return new Container(
-      width: MediaQuery.of(context).size.width,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          Expanded(
-            flex: 100,
-            child: Container(
-//              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
-//              height: 30.0,
-              color: Colors.amber[200],
-              child: FlatButton.icon(
-                icon: Icon(Icons.book),
-                label: Text(model.themeText()),
-                onPressed: () {
-                  _onTheme(model);
-                },
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: Colors.red,
-            ),
-          ),
-          Expanded(
-            flex: 100,
-            child: Container(
-//              margin: EdgeInsets.only(left: p, right: p, top: p, bottom: p),
-//              height: 30.0,
-              color: Colors.amber[200],
-              child: FlatButton.icon(
-                icon: Icon(Icons.date_range),
-                label: Text(model.dateText()),
-                onPressed: () {
-                  _onDate(model);
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
+    return Container(
+      color: Theme.of(context).primaryColor.withOpacity(0.3),
+//      width: MediaQuery.of(context).size.width,
+      child: HomeCalendar(model.selDate, (DateTime dateTime) {
+        model.selectDate(dateTime);
+      }),
       //      color: Colors.amber,
     );
   }
@@ -295,6 +281,11 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
 
   Widget _noContentWidget(RecordModel model) {
     return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
+  }
+
+  void _handlerDrawerButton(RecordModel model) {
+    YunLog.logData("_handlerDrawerButton");
+    Scaffold.of(context).openDrawer();
   }
 
 // endregion

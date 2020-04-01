@@ -42,7 +42,7 @@ class ThemeDataVo implements YunBaseModel {
       name: json['name'],
       propDataList: json['propDataList'] != null
           ? (json['propDataList'] as List).map((i) => PropDataVo().fromJson(i)).toList()
-          : null,
+          : [],
       remark: json['remark'],
       tagId: json['tagId'],
       theme: json['theme'] != null ? ThemeV().fromJson(json['theme']) : null,
