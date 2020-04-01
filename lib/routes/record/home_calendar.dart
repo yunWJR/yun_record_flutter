@@ -250,6 +250,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
           icon: Icon(Icons.title),
           color: tStyle.color.withOpacity(0.4),
           onPressed: () {
+            controller.jumpTo(DateTime.now());
             controller.updateSelected(DateTime.now());
 //            controller.selectedDate = DateTime.now();
           },
@@ -300,6 +301,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
         maxTime: DateTime(endYear, 12, 31),
         onChanged: (date) {}, onConfirm: (date) {
       controller.updateSelected(date);
+      controller.jumpTo(date);
     }, currentTime: controller.selectedDate ?? DateTime.now(), locale: LocaleType.zh);
   }
 }
