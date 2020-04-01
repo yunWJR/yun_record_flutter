@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:r_calendar/r_calendar.dart';
+import 'package:r_calendar/src/r_calendar_utils.dart';
+import 'package:yun_record/index.dart';
 
 //
 // Created by yun on 2020/4/1.
@@ -26,9 +28,8 @@ class HomeCalendar extends StatefulWidget {
 class _HomeCalendarState extends State<HomeCalendar> {
   DateTime dateTime;
   DateTimeChanged dateTimeChanged;
-
-  int startYear = 2000;
-  int endYear = 2055;
+  DateTime firstDate = DateTime(2000, 1, 1);
+  DateTime lastDate = DateTime(2050, 12, 31);
 
   RCalendarController<List<DateTime>> controller;
 
@@ -41,7 +42,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
     controller = RCalendarController.single(
       mode: RCalendarMode.week,
       selectedDate: this.dateTime,
-      isAutoSelect: false,
+      isAutoSelect: true,
       initialData: [
 //        DateTime.now(),
 //        DateTime.now().add(Duration(days: 1)),
@@ -55,12 +56,32 @@ class _HomeCalendarState extends State<HomeCalendar> {
 //        controller.selectedDate;
         if (dateTimeChanged != null) {
           dateTimeChanged(controller.selectedDate);
+          _updateDisplayedMonthDate(controller, controller.selectedDate);
         }
 
         // multiple selected
         // controller.selectedDates;
         // controller.isDispersion;
       });
+  }
+
+  // 修复displayedMonthDate显示错误
+  _updateDisplayedMonthDate(RCalendarController controller, DateTime dateTime) {
+    if (controller.mode == RCalendarMode.week) {
+      DateTime displayedMonthDate =
+          RCalendarUtils.addWeeksToWeeksDate(firstDate, controller.displayedPage, DefaultMaterialLocalizations());
+      if (controller.selectedDate != null) {
+        bool isBefore = controller.selectedDate.isAfter(displayedMonthDate);
+        bool isAfter = controller.selectedDate.isBefore(displayedMonthDate.add(Duration(days: 7)));
+        if (isBefore && isAfter) {
+          if (DateFormat('yyyy-MM').format(controller.displayedMonthDate) !=
+              DateFormat('yyyy-MM').format(controller.selectedDate)) {
+            controller.displayedMonthDate = controller.selectedDate;
+            controller.notifyListeners();
+          }
+        }
+      }
+    }
   }
 
   @override
@@ -73,21 +94,21 @@ class _HomeCalendarState extends State<HomeCalendar> {
     ThemeData tD = Theme.of(context);
     return RCalendarWidget(
       controller: controller,
-      customWidget: MyRCalendarCustomWidget(tD),
-      firstDate: DateTime(startYear, 1, 1),
-      lastDate: DateTime(endYear, 12, 31),
+      customWidget: MyRCalendarCustomWidget(tD, firstDate: this.firstDate, lastDate: this.lastDate),
+      firstDate: this.firstDate,
+      lastDate: this.lastDate,
     );
   }
 }
 
 class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
-  int startYear;
-  int endYear;
+  DateTime firstDate;
+  DateTime lastDate;
 
   ThemeData tD;
   TextStyle tStyle;
 
-  MyRCalendarCustomWidget(this.tD, {this.startYear = 2000, this.endYear = 2055}) {
+  MyRCalendarCustomWidget(this.tD, {this.firstDate, this.lastDate}) {
     this.tStyle = tD.textTheme.title;
   }
 
@@ -250,9 +271,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
           icon: Icon(Icons.title),
           color: tStyle.color.withOpacity(0.4),
           onPressed: () {
-            controller.jumpTo(DateTime.now());
-            controller.updateSelected(DateTime.now());
-//            controller.selectedDate = DateTime.now();
+            _gotoDate(controller, DateTime.now());
           },
         ),
         SizedBox(
@@ -268,6 +287,7 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
           width: 4,
         ),
         Text(
+          // todo 2020-04-01选择时，显示2020-03，模式问题
           DateFormat('yyyy-MM').format(controller.displayedMonthDate),
           //          style: TextStyle(color: Colors.red, fontSize: 18),
         ),
@@ -287,21 +307,25 @@ class MyRCalendarCustomWidget extends DefaultRCalendarCustomWidget {
           icon: Icon(Icons.calendar_today),
           color: tStyle.color.withOpacity(0.4),
           onPressed: () {
-            _onDate(context, controller);
+            _onSelDate(context, controller);
           },
         ),
       ],
     );
   }
 
-  _onDate(BuildContext context, RCalendarController controller) {
+  _onSelDate(BuildContext context, RCalendarController controller) {
     DatePicker.showDatePicker(context,
         showTitleActions: true,
-        minTime: DateTime(startYear, 1, 1),
-        maxTime: DateTime(endYear, 12, 31),
+        minTime: this.firstDate,
+        maxTime: this.lastDate,
         onChanged: (date) {}, onConfirm: (date) {
-      controller.updateSelected(date);
-      controller.jumpTo(date);
+      _gotoDate(controller, date);
     }, currentTime: controller.selectedDate ?? DateTime.now(), locale: LocaleType.zh);
+  }
+
+  _gotoDate(RCalendarController controller, DateTime d) {
+    controller.updateSelected(d);
+    controller.jumpTo(d);
   }
 }
