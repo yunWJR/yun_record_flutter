@@ -95,7 +95,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
 
   // 下拉刷新方法
   Future<void> _handleRefresh(RecordModel model) async {
-    await model.loadData(context);
+    await model.loadList(context);
   }
 
   void _addRecordOn() {
