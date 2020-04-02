@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/plan_vo.dart';
 
 import 'edit/plan_edit_screen.dart';
@@ -56,13 +55,10 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
     return new Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
-            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
-          ])),
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+        Theme.of(context).primaryColor.withOpacity(0.02),
+        Theme.of(context).primaryColor.withOpacity(0.02)
+      ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,8 +66,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
 //            _statusWidget(model),
           Expanded(
               child: RefreshIndicator(
-            child:
-                model.isBlankList() ? _blankWidget(model) : _listWidget(model),
+            child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
             onRefresh: () => _handleRefresh(model),
           )),
         ],
@@ -91,8 +86,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
   }
 
   void _addPlanOn(PlanModel model) async {
-    var rst = await Navigator.pushNamed(context, PlanEditScreen.routeName,
-        arguments: model);
+    var rst = await Navigator.pushNamed(context, PlanEditScreen.routeName, arguments: model);
     if (rst != null) {
       model.loadList(context);
     }
@@ -139,8 +133,8 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
         Container(
           padding: EdgeInsets.all(_defPadding()),
           color: item.isCmp()
-              ? GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.3)
-              : GlobalThemeConfig.currentTheme().cardColor.withOpacity(0.3),
+              ? Theme.of(context).primaryColor.withOpacity(0.3)
+              : Theme.of(context).cardColor.withOpacity(0.3),
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -148,7 +142,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
                 flex: 1,
                 child: Checkbox(
                   value: item.isCmp(),
-//                  activeColor: item.isCmp() ? GlobalThemeConfig.currentTheme().backgroundColor : Colors.grey, //选中时的颜色
+//                  activeColor: item.isCmp() ? Theme.of(context).backgroundColor : Colors.grey, //选中时的颜色
                   onChanged: (value) {
                     itemStatusChanged(model, item);
                   },
@@ -170,8 +164,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
   }
 
   Widget _noContentWidget(PlanModel model) {
-    return Container(
-        color: Colors.grey[300], child: Center(child: new Text("无内容")));
+    return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
   }
 
   void itemStatusChanged(PlanModel model, PlanVo item) {

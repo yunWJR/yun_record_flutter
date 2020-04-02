@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yun_record/config/global_config.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/user_vo.dart';
 
 import '../../index.dart';
@@ -11,8 +10,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with YunPageNotiInterface<LoginNoti> {
+class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<LoginNoti> {
   var divWidth;
   bool _autoValidate = false;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -86,10 +84,8 @@ class _LoginScreenState extends State<LoginScreen>
               controller: _nameController,
               validator: _validateUserName,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  labelText: "用户名*",
-                  hintText: "请输入用户名",
-                  labelStyle: new TextStyle(fontSize: 13))),
+              decoration:
+                  InputDecoration(labelText: "用户名*", hintText: "请输入用户名", labelStyle: new TextStyle(fontSize: 13))),
         ),
         SizedBox(
           height: 10.0,
@@ -98,8 +94,7 @@ class _LoginScreenState extends State<LoginScreen>
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new TextFormField(
-              style: new TextStyle(
-                  fontSize: kMarginPadding, color: Colors.black38),
+              style: new TextStyle(fontSize: kMarginPadding, color: Colors.black38),
               obscureText: true,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -109,10 +104,8 @@ class _LoginScreenState extends State<LoginScreen>
                 }
               },
               controller: _pwdController,
-              decoration: InputDecoration(
-                  labelText: "密码*",
-                  hintText: "请输入密码",
-                  labelStyle: new TextStyle(fontSize: kFontSize))),
+              decoration:
+                  InputDecoration(labelText: "密码*", hintText: "请输入密码", labelStyle: new TextStyle(fontSize: kFontSize))),
         ),
         SizedBox(
           height: 20.0,
@@ -122,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen>
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new RaisedButton(
-//          color: GlobalThemeConfig.currentTheme().primaryColor,
+//          color: Theme.of(context).primaryColor,
             onPressed: () => _loginButtonTapped(model),
             child: new Text("登  录"),
           ),
@@ -169,8 +162,7 @@ class _LoginScreenState extends State<LoginScreen>
     return null;
 
     // 验证用户名 todo
-    Pattern pattern =
-        r'^(13[0-9]|14[5-9]|15[0-3,5-9]|16[2,5,6,7]|17[0-8]|18[0-9]|19[0-3,5-9])\\d{8}$';
+    Pattern pattern = r'^(13[0-9]|14[5-9]|15[0-3,5-9]|16[2,5,6,7]|17[0-8]|18[0-9]|19[0-3,5-9])\\d{8}$';
     RegExp regex = new RegExp(pattern);
     if (regex.hasMatch(uName))
       return null;
@@ -187,8 +179,7 @@ class _LoginScreenState extends State<LoginScreen>
 
     model.startLoading();
 
-    UserVo user =
-        await Api.login(model, _nameController.text, _pwdController.text);
+    UserVo user = await Api.login(model, _nameController.text, _pwdController.text);
     if (user != null) {
       GlobalConfig.userVo = user;
       GlobalConfig.loginToken = user.loginToken;
@@ -197,8 +188,7 @@ class _LoginScreenState extends State<LoginScreen>
       print("cRst");
       print(cRst);
 
-      Navigator.pushNamedAndRemoveUntil(
-          context, "HomeTab", (Route<dynamic> route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, "HomeTab", (Route<dynamic> route) => false);
 
 //      Navigator.push(
 //        context,

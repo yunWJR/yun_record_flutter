@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/theme/add_custom_theme_model.dart';
 
@@ -56,16 +55,14 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
       body: new Container(
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
-            itemCount: model.themeDto?.tagList?.length != null
-                ? model.themeDto.tagList.length + 1
-                : 1,
+            itemCount: model.themeDto?.tagList?.length != null ? model.themeDto.tagList.length + 1 : 1,
             itemBuilder: (BuildContext context, int index) {
               return _itemWidget(model, index);
             },
             //分割器构造器
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-//                color: GlobalThemeConfig.currentTheme().primaryColor,
+//                color: Theme.of(context).primaryColor,
                 height: 4,
                 thickness: 0,
               );
@@ -100,7 +97,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
         const SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
-          color: GlobalThemeConfig.currentTheme().primaryColorLight,
+          color: Theme.of(context).primaryColorLight,
           child: Flex(
             direction: Axis.horizontal,
             children: [

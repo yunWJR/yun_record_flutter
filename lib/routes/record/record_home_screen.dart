@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/action/yun_action.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/index.dart';
 import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
@@ -73,13 +72,10 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     return new Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
-            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
-          ])),
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+        Theme.of(context).primaryColor.withOpacity(0.02),
+        Theme.of(context).primaryColor.withOpacity(0.02)
+      ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,8 +83,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
           _statusWidget(model),
           Expanded(
               child: RefreshIndicator(
-            child:
-                model.isBlankList() ? _blankWidget(model) : _listWidget(model),
+            child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
             onRefresh: () => _handleRefresh(model),
           )),
         ],
@@ -113,9 +108,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     ThemeVo selTheme = model.selTheme;
 
     if (selTheme == null) {
-      int index = await YunAction.showAction(
-          context, model.themeList.map((f) => f.name).toList(),
-          title: "请选择主题");
+      int index = await YunAction.showAction(context, model.themeList.map((f) => f.name).toList(), title: "请选择主题");
 
       if (index != null) {
         selTheme = model.themeList[index];
@@ -135,19 +128,21 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     if (th.tagList.length == 1) {
       tagIndex = 0;
     } else {
-      tagIndex = await YunAction.showAction(
-          context, th.tagList.map((f) => f.name).toList(),
-          title: "请选择主题");
+      tagIndex = await YunAction.showAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
     }
 
     if (tagIndex != null) {
+      DateTime nDt = DateTime.now();
+      if (model.selDate != null) {
+        nDt = DateTime(model.selDate.year, model.selDate.month, model.selDate.day, nDt.hour, nDt.minute, nDt.second);
+      }
+
       Map<String, dynamic> argu = new Map();
       argu["theme"] = th;
-      argu["date"] = model.selDate;
+      argu["date"] = nDt;
       argu['tag'] = th.tagList[tagIndex];
 
-      var rst = await Navigator.pushNamed(context, "AddRecordScreen",
-          arguments: argu);
+      var rst = await Navigator.pushNamed(context, "AddRecordScreen", arguments: argu);
       if (rst != null) {
         model.loadList(context);
       }
@@ -155,8 +150,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   }
 
   void _gotoThemeMg(RecordModel model) async {
-    var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName,
-        arguments: model);
+    var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName, arguments: model);
 //    if (rst != null) {
 //      model.loadList(context);
 //    }
@@ -206,7 +200,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: GlobalThemeConfig.currentTheme().primaryColor,
+          color: Theme.of(context).primaryColor,
           height: 2,
           thickness: 2,
         );
@@ -259,9 +253,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
                     flex: 4,
                     child: new Text(
                       f.propData.orgValue,
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: GlobalThemeConfig.currentTheme().primaryColor),
+                      style: TextStyle(fontWeight: FontWeight.normal, color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ],
@@ -278,8 +270,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
   }
 
   Widget _noContentWidget(RecordModel model) {
-    return Container(
-        color: Colors.grey[300], child: Center(child: new Text("无内容")));
+    return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
   }
 
   void _handlerDrawerButton(RecordModel model) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/user_vo.dart';
 
 import '../../index.dart';
@@ -10,8 +9,7 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen>
-    with YunPageNotiInterface<LoginNoti> {
+class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterface<LoginNoti> {
   var divWidth;
   bool _autoValidate = false;
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -56,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen>
               )),
         ),
       ),
-//      backgroundColor: Colors.white, // todo
+      //      backgroundColor: Colors.white, // todo
     );
   }
 
@@ -82,10 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen>
               controller: _nameController,
               validator: _validateUserName,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  labelText: "用户名*",
-                  hintText: "请输入用户名",
-                  labelStyle: new TextStyle(fontSize: 13))),
+              decoration:
+                  InputDecoration(labelText: "用户名*", hintText: "请输入用户名", labelStyle: new TextStyle(fontSize: 13))),
         ),
         SizedBox(
           height: 10.0,
@@ -94,8 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new TextFormField(
-              style: new TextStyle(
-                  fontSize: kMarginPadding, color: Colors.black38),
+              style: new TextStyle(fontSize: kMarginPadding, color: Colors.black38),
               obscureText: true,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -105,10 +100,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                 }
               },
               controller: _pwdController,
-              decoration: InputDecoration(
-                  labelText: "密码*",
-                  hintText: "请输入密码",
-                  labelStyle: new TextStyle(fontSize: kFontSize))),
+              decoration:
+                  InputDecoration(labelText: "密码*", hintText: "请输入密码", labelStyle: new TextStyle(fontSize: kFontSize))),
         ),
         SizedBox(
           height: 20.0,
@@ -118,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           margin: EdgeInsets.only(left: kMarginPadding, right: kMarginPadding),
           child: new RaisedButton(
-//          color: GlobalThemeConfig.currentTheme().primaryColor,
+//          color: Theme.of(context).primaryColor,
             onPressed: () => _registerButtonTapped(model),
             child: new Text("注  册"),
           ),
@@ -144,8 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
     model.startLoading();
 
-    UserVo user =
-        await Api.register(model, _nameController.text, _pwdController.text);
+    UserVo user = await Api.register(model, _nameController.text, _pwdController.text);
     if (user != null) {
       Navigator.of(context).pop();
 

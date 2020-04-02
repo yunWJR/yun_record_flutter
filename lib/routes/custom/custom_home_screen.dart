@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/custom_data_vo.dart';
 import 'package:yun_record/routes/record/home_calendar.dart';
 
@@ -57,13 +56,10 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
     return new Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02),
-            GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.02)
-          ])),
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+        Theme.of(context).primaryColor.withOpacity(0.02),
+        Theme.of(context).primaryColor.withOpacity(0.02)
+      ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,8 +67,7 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
           _statusWidget(model),
           Expanded(
               child: RefreshIndicator(
-            child:
-                model.isBlankList() ? _blankWidget(model) : _listWidget(model),
+            child: model.isBlankList() ? _blankWidget(model) : _listWidget(model),
             onRefresh: () => _handleRefresh(model),
           )),
         ],
@@ -141,7 +136,7 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: GlobalThemeConfig.currentTheme().primaryColor,
+          color: Theme.of(context).primaryColor,
           height: 2,
           thickness: 2,
         );
@@ -158,8 +153,8 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
         Container(
           padding: EdgeInsets.all(_defPadding()),
           color: item.isCmp()
-              ? GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.3)
-              : GlobalThemeConfig.currentTheme().cardColor.withOpacity(0.3),
+              ? Theme.of(context).primaryColor.withOpacity(0.3)
+              : Theme.of(context).cardColor.withOpacity(0.3),
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -167,7 +162,7 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
                 flex: 1,
                 child: Checkbox(
                   value: item.isCmp(),
-//                  activeColor: item.isCmp() ? GlobalThemeConfig.currentTheme().backgroundColor : Colors.grey, //选中时的颜色
+//                  activeColor: item.isCmp() ? Theme.of(context).backgroundColor : Colors.grey, //选中时的颜色
                   onChanged: (value) {
                     itemStatusChanged(model, item);
                   },
@@ -193,8 +188,7 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
   }
 
   Widget _noContentWidget(CustomModel model) {
-    return Container(
-        color: Colors.grey[300], child: Center(child: new Text("无内容")));
+    return Container(color: Colors.grey[300], child: Center(child: new Text("无内容")));
   }
 
 // endregion

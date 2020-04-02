@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 import 'package:yun_record/routes/record/theme/theme_list_model.dart';
@@ -59,8 +58,8 @@ class ThemeListScreenState extends State<ThemeListScreen> {
         padding: EdgeInsets.all(10),
         //        decoration: BoxDecoration(
         //            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-        //          GlobalThemeConfig.currentTheme().dividerColor.withOpacity(0.2),
-        //          GlobalThemeConfig.currentTheme().dividerColor.withOpacity(0.1)
+        //          Theme.of(context).dividerColor.withOpacity(0.2),
+        //          Theme.of(context).dividerColor.withOpacity(0.1)
         //        ])),
         width: MediaQuery.of(context).size.width,
         child: GridView(
@@ -90,7 +89,7 @@ class ThemeListScreenState extends State<ThemeListScreen> {
 
     for (var value in model.themeList) {
       var cell = Container(
-          color: GlobalThemeConfig.currentTheme().primaryColor.withOpacity(0.4),
+          color: Theme.of(context).primaryColor.withOpacity(0.4),
           child: FlatButton(
             onPressed: () => _themeOn(value),
             child: Column(

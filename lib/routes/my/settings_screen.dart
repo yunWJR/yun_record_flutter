@@ -66,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _header(String title) {
     return Container(
-        color: GlobalThemeConfig.currentTheme().primaryColorLight,
+        color: Theme.of(context).primaryColorLight,
         margin: EdgeInsets.only(top: 0, bottom: 10),
         padding: EdgeInsets.all(10),
         child: Center(child: Text(title)));
@@ -125,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       var cell = Container(
           width: itemW,
           decoration: BoxDecoration(
-              color: value == _fontFactor ? GlobalThemeConfig.currentTheme().primaryColor : Colors.grey[300],
+              color: value == _fontFactor ? Theme.of(context).primaryColor : Colors.grey[300],
               border: Border.all(color: value == _fontFactor ? Colors.black : Colors.transparent, width: 4)),
           child: FlatButton(
             child: Text(value.toString() + "号"),

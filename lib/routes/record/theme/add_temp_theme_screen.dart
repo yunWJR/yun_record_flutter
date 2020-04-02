@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
-import 'package:yun_record/config/global_theme_config.dart';
 import 'package:yun_record/models/prop_data_type.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 
@@ -73,7 +72,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
             //分割器构造器
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-//                color: GlobalThemeConfig.currentTheme().primaryColor,
+//                color: Theme.of(context).primaryColor,
                 height: 4,
                 thickness: 0,
               );
@@ -113,7 +112,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
         const SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-          color: GlobalThemeConfig.currentTheme().primaryColorLight,
+          color: Theme.of(context).primaryColorLight,
           child: Flex(
             direction: Axis.horizontal,
             children: [
