@@ -23,14 +23,14 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: new Text('待办'),
-          //        actions: <Widget>[
-          //          IconButton(
-          //            icon: Icon(Icons.widgets),
-          //            onPressed: () {
-          //              _gotoThemeMg(model);
-          //            },
-          //          )
-          //        ],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(model.sortType == 1 ? Icons.sort : Icons.timelapse),
+              onPressed: () {
+                _changeSortType(model);
+              },
+            )
+          ],
         ),
         body: YunBasePage<PlanModel>.page(
           body: bodyWidget(model),
@@ -169,6 +169,10 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
 
   void itemStatusChanged(PlanModel model, PlanVo item) {
     model.changeItemStatus(item);
+  }
+
+  void _changeSortType(PlanModel model) {
+    model.changeSortType();
   }
 
 // endregion

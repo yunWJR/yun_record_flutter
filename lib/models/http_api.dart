@@ -130,10 +130,18 @@ class Api {
   }
 
   /// 列表
-  static Future<List<PlanVo>> getPlanList<N extends YunPageBaseNotiModel>(N model, String name) async {
+  static Future<List<PlanVo>> getPlanList<N extends YunPageBaseNotiModel>(N model, String name,
+      {int sortType, int showType}) async {
     var qP = Map<String, dynamic>();
     if (YunValue.hasContent(name)) {
       qP['name'] = name;
+    }
+
+    if (sortType != null) {
+      qP['sortType'] = sortType;
+    }
+    if (showType != null) {
+      qP['showType'] = showType;
     }
 
     List<PlanVo> rst = await YunHttp(model).get(PlanVo(), "/v1/api/plan/list", qP, dIsList: true);

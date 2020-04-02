@@ -11,6 +11,12 @@ class PlanModel extends YunPageBaseNotiModel {
 
   List<PlanVo> planList;
 
+  // 1- 完成状态，创建时间；2-创建时间;
+  int sortType = 1;
+
+  // 0-默认所有 1-只显示未完成 2-只显示已完成
+  int showType = 0;
+
   @override
   Future loadData([BuildContext context]) async {
     await loadList();
@@ -18,7 +24,7 @@ class PlanModel extends YunPageBaseNotiModel {
 
   Future loadList([BuildContext context]) async {
     if (canLoadData()) {
-      planList = await Api.getPlanList(this, null);
+      planList = await Api.getPlanList(this, null, sortType: sortType, showType: showType);
 
       if (planList == null) {
         return;
@@ -46,7 +52,7 @@ class PlanModel extends YunPageBaseNotiModel {
         return;
       }
 
-      planList = await Api.getPlanList(this, null);
+      planList = await Api.getPlanList(this, null, sortType: sortType, showType: showType);
 
       if (planList == null) {
         return;
@@ -54,5 +60,15 @@ class PlanModel extends YunPageBaseNotiModel {
 
       notifyListeners();
     }
+  }
+
+  void changeSortType() {
+    if (sortType == 1) {
+      sortType = 2;
+    } else {
+      sortType = 1;
+    }
+
+    loadList();
   }
 }
