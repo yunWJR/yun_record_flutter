@@ -8,7 +8,6 @@ import 'package:yun_record/models/http_api.dart';
 
 class CustomModel extends YunPageBaseNotiModel {
   CustomModel(BuildContext context) : super(context) {
-    YunLog.logData('CustomModel inti');
   }
 
   List<CustomDataVo> customDataList;

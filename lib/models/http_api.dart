@@ -9,6 +9,7 @@ import 'package:yun_record/models/theme_temp_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 import 'custom_data_vo.dart';
+import 'custom_vo.dart';
 import 'theme_data_vo.dart';
 import 'user_vo.dart';
 
@@ -166,6 +167,22 @@ class Api {
     return rst;
   }
 
+  static Future<CustomDataVo> saveCustom<N extends YunPageBaseNotiModel>(N model, data) async {
+    CustomDataVo rst = await YunHttp(model).post(CustomDataVo(), "/v1/api/custom", data, null);
+
+    return rst;
+  }
+
+  static Future<List<Custom>> getCustomList<N extends YunPageBaseNotiModel>(N model, String name) async {
+    var qP = Map<String, dynamic>();
+    if (YunValue.hasContent(name)) {
+      qP['name'] = name;
+    }
+
+    List<Custom> rst = await YunHttp(model).get(Custom(), "/v1/api/custom/list", qP, dIsList: true);
+
+    return rst;
+  }
 
   /// user
   static Future<UserVo> getUserInfo<N extends YunPageBaseNotiModel>(N model) async {

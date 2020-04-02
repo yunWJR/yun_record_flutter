@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
+import 'package:yun_record/index.dart';
+import 'package:yun_record/models/custom_vo.dart';
 import 'package:yun_record/models/http_api.dart';
-import 'package:yun_record/models/theme_vo.dart';
 
-class ThemeListModel extends YunPageBaseNotiModel {
-  ThemeListModel(BuildContext context, List<ThemeVo> themeList) : super(context, initLoadData: (themeList == null)) {
-    this.themeList = themeList;
-  }
+class CustomListModel extends YunPageBaseNotiModel {
+  CustomListModel(BuildContext context) : super(context, initLoadData: true);
 
-  List<ThemeVo> themeList;
+  List<Custom> customList;
 
   @override
   Future loadData([BuildContext context]) async {
     if (canLoadData()) {
       // 获取主题列表
-      themeList = await Api.getThemeList(this, null);
+      customList = await Api.getCustomList(this, null);
 
       // 错误
-      if (themeList == null) {
+      if (customList == null) {
         return;
       }
 
@@ -29,11 +28,10 @@ class ThemeListModel extends YunPageBaseNotiModel {
     startLoading();
 
     // 获取主题列表
-    themeList = await Api.getThemeList(this, null);
-    print(themeList);
+    customList = await Api.getCustomList(this, null);
 
     // 错误
-    if (themeList == null) {
+    if (customList == null) {
       return;
     }
 

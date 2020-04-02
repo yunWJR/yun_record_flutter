@@ -9,6 +9,8 @@ import 'package:yun_record/models/custom_data_vo.dart';
 import 'package:yun_record/routes/record/home_calendar.dart';
 
 import 'custom_model.dart';
+import 'edit/custom_edit_screen.dart';
+import 'list/custom_list_screen.dart';
 
 class CustomHomeScreen extends StatefulWidget {
   CustomHomeScreen({Key key}) : super(key: key);
@@ -24,15 +26,16 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: new Text('习惯'),
-          //        actions: <Widget>[
-          //          IconButton(
-          //            icon: Icon(Icons.widgets),
-          //            onPressed: () {
-          //              _gotoThemeMg(model);
-          //            },
-          //          )
-          //        ],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.border_all),
+              onPressed: () {
+                _addCustomOn(model);
+              },
+            )
+          ],
         ),
+
         body: YunBasePage<CustomModel>.page(
           body: bodyWidget(model),
           model: model,
@@ -92,6 +95,13 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
     }, currentTime: model.selDate ?? DateTime.now(), locale: LocaleType.zh);
   }
 
+  void _addCustomOn(CustomModel model) async {
+    var rst = await Navigator.pushNamed(context, CustomListScreen.routeName, arguments: model);
+    if (rst != null) {
+      model.loadList(context);
+    }
+  }
+
   // endregion
 
   // region Widget
@@ -136,9 +146,9 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: Theme.of(context).primaryColor,
-          height: 2,
-          thickness: 2,
+          color: Theme.of(context).primaryColor.withOpacity(0.5),
+          height: 1,
+          thickness: 1,
         );
       },
     );

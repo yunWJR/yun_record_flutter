@@ -116,9 +116,9 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-//          color: Colors.grey.withOpacity(0.5),
-          height: 2,
-          thickness: 2,
+          color: Theme.of(context).primaryColor.withOpacity(0.5),
+          height: 1,
+          thickness: 1,
         );
       },
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:yun_record/routes/custom/edit/custom_edit_screen.dart';
+import 'package:yun_record/routes/custom/list/custom_list_screen.dart';
 import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
             AddTempThemeScreen.routeName: (context) => AddTempThemeScreen(),
             AddCustomThemeScreen.routeName: (context) => AddCustomThemeScreen(),
             "SettingsScreen": (context) => SettingsScreen(),
+            CustomEditScreen.routeName: (context) => CustomEditScreen(),
+            CustomListScreen.routeName: (context) => CustomListScreen(),
           },
           //          localizationsDelegates: [
           //            FlutterI18nDelegate(fallbackFile: 'en'),

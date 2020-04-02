@@ -1,19 +1,148 @@
-# yun_record
+# YUN随记
 
-A new Flutter application.
+一个随记APP，提供随时记录、添加习惯、添加待办、添加笔记等功能。
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+功能简介：
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### 主题管理
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### 实现功能：
 
-# todo
+- 二阶主题内容管理
+- 所有记录都可关联到主题下
+
+#### TODO：
+
+- 多级主题
+
+
+
+## 记录
+
+#### 实现功能：
+
+- 自定义记录条目
+- 添加记录
+
+#### TODO：
+
+- 添加更多数据类型（正则、图片、附件等）
+- 添加记录统计
+- 记录不一定关联主题
+- 添加更多模板
+- 根据模板添加自定义统计页面（可用 web 实现）
+
+
+
+
+
+## 习惯
+
+#### 实现功能：
+
+- 添加习惯（支持每天）
+- 完成习惯
+
+#### TODO：
+
+- 添加更多习惯类型（小时、天、星期、日、月、年）
+
+- 添加更多习惯完成类型（添加记录、添加图片等）
+
+- 添加习惯提醒
+
+- 重置习惯记录
+
+  
+
+## 待办
+
+#### 实现功能：
+
+- 添加待办事项
+- 完成待办事项
+
+#### TODO：
+
+- 添加提醒时间
+
+- 添加完成记录（添加内容、图片等）
+
+- 添加排序条件
+
+  
+
+## 笔记
+
+#### 实现功能：
+
+- 无
+
+#### TODO：
+
+- 添加笔记（文本、md、文件（ppt、excel、word 等））
+
+
+
+## 群组
+
+#### 实现功能：
+
+- 无
+
+#### TODO：
+
+- 添加群组（多人平级）
+- 添加群组分享内容（记录、习惯、待办、笔记等）
+- 添加群组成员对分享内容操作权限
+
+
+
+## 组织
+
+#### 实现功能：
+
+- 无
+
+#### TODO：
+
+- 添加组织（多级架构）
+- 添加组织内容（记录、习惯、待办、笔记等）
+- 添加组织成员对内容的权限
+
+
+
+
+## 全局-标签
+
+#### 实现功能：
+
+- 无
+
+#### TODO：
+
+- 添加标签
+- 标签关联到任意记录
+- 根据标签筛选
+
+
+
+## 全局-APP主题
+
+#### 实现功能：
+
+- 全局颜色主题
+- 全局字体主题
+
+#### TODO：
+
+- 各模块自定义颜色主题
+
+- 各模块自定义字体主题
+
+  
+
+## todo
 - 图表 ：https://github.com/syncfusion/flutter-examples

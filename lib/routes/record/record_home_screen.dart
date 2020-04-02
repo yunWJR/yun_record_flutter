@@ -200,9 +200,9 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: Theme.of(context).primaryColor,
-          height: 2,
-          thickness: 2,
+          color: Theme.of(context).primaryColor.withOpacity(0.5),
+          height: 1,
+          thickness: 1,
         );
       },
     );

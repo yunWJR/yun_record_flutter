@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yun_base/log/yun_log.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/util/yun_date.dart';
 import 'package:yun_record/models/http_api.dart';
@@ -37,10 +36,10 @@ class RecordModel extends YunPageBaseNotiModel {
         return;
       }
 
-      // todo 选中项，可以缓存本地
-      if (selTheme == null) {
-        selTheme = themeList[0];
-      }
+//      // todo 选中项，可以缓存本地
+//      if (selTheme == null) {
+//        selTheme = themeList[0];
+//      }
 
       if (selDate == null) {
         selDate = DateTime.now();
@@ -56,15 +55,11 @@ class RecordModel extends YunPageBaseNotiModel {
 
   Future loadList([BuildContext context]) async {
     if (canLoadData()) {
-      // Add parsed item
-
       String date = YunDate.ymdStr(selDate);
 
       themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
 
       notifyListeners();
-
-//      finishLoading();
     }
   }
 

@@ -1,5 +1,25 @@
 import 'package:yun_base/model/yun_base_model.dart';
 
+import '../index.dart';
+
+class CustomDefine {
+  static String typeName(int type) {
+    if (type == null) {
+      return "无";
+    }
+
+    if (type == 1) {
+      return "每日";
+    }
+
+    if (type == 2) {
+      return "每周";
+    }
+
+    return "未知";
+  }
+}
+
 class Custom extends YunBaseModel {
   String completePara;
   int completeType; // 0
@@ -13,6 +33,16 @@ class Custom extends YunBaseModel {
   String typePara;
   int updateTime; // 0
   int userId; // 0
+
+  GlobalKey<FormState> nameFormKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> completeParaFormKey = new GlobalKey<FormState>();
+  bool autoValidate = false;
+
+  TextEditingController nameController;
+  TextFormField nameTf;
+
+  TextEditingController completeParaController;
+  TextFormField completeParaTf;
 
   Custom(
       {this.completePara,
@@ -77,5 +107,47 @@ class Custom extends YunBaseModel {
     data['updateTime'] = this.updateTime;
     data['userId'] = this.userId;
     return data;
+  }
+
+  static Custom dto() {
+    Custom dto = Custom();
+    dto.enable = 1;
+    dto.type = 1;
+    dto.completeType = 1;
+
+    dto.nameController = TextEditingController();
+    dto.nameTf = new TextFormField(
+        controller: dto.nameController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请输入习惯名称" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "习惯名称*",
+          hintText: "请输入习惯名称",
+        ));
+
+    dto.completeParaController = TextEditingController();
+    dto.completeParaTf = new TextFormField(
+        controller: dto.completeParaController,
+        validator: (String value) {
+          return YunValue.isNullOrEmpty(value) ? "请输入完成量" : null;
+        },
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: "完成量*",
+          hintText: "请输入完成量",
+        ));
+
+    return dto;
+  }
+
+  String checkAndReform() {
+    this.name = nameController.text;
+    this.completePara = completeParaController.text;
+
+    // todo
+
+    return null;
   }
 }
