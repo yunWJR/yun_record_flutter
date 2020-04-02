@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
+import 'package:yun_record/index.dart';
 import 'package:yun_record/models/custom_vo.dart';
 import 'package:yun_record/models/http_api.dart';
 
@@ -8,6 +9,8 @@ class CustomEditModel extends YunPageBaseNotiModel {
     if (this.dto == null) {
       this.dto = Custom.dto();
     }
+
+    YunLog.logData("CustomEditModel");
   }
 
   Custom dto;
@@ -27,18 +30,6 @@ class CustomEditModel extends YunPageBaseNotiModel {
 
     return rst != null;
   }
-
-//  String timeText() {
-//    return DateFormat("HH:mm:ss").format(dto.selDate);
-//  }
-
-//  void updateTime(DateTime date) {
-//    if (date != dto.selDate) {
-//      dto.selDate = date;
-//
-//      notifyListeners();
-//    }
-//  }
 
   bool checkAndReformDto() {
     if (!dto.nameFormKey.currentState.validate()) {

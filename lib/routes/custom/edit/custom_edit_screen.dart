@@ -15,16 +15,18 @@ class CustomEditScreen extends StatefulWidget {
 }
 
 class _CustomEditScreenState extends State<CustomEditScreen> {
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  bool autoValidate = false;
+  CustomEditModel model;
 
   @override
   Widget build(BuildContext context) {
     var argu = ModalRoute.of(context).settings.arguments;
-    CustomEditModel newModel = CustomEditModel(context, dto: null);
+
+    if (model == null) {
+      model = CustomEditModel(context, dto: null);
+    }
 
     return ChangeNotifierProvider<CustomEditModel>.value(
-        value: newModel,
+        value: model,
         child: Consumer<CustomEditModel>(
           builder: (context, model, child) => Scaffold(
             body: YunBasePage<CustomEditModel>.page(
@@ -62,10 +64,8 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
   }
 
   void _saveOn(CustomEditModel model) {
+    FocusScope.of(context).requestFocus(new FocusNode());
     model.saveCustom().then((suc) {
-      YunLog.logData("_saveOn");
-      YunLog.logData(suc);
-
       if (suc) {
         YunToast.showToast("保存成功");
         Navigator.of(context).pop(1);
