@@ -4,72 +4,95 @@
 
 // 1-Text、2-Int、3-Double、4-Money、5-Enum、6-Time、
 import 'package:flutter/material.dart';
+import 'package:yun_record/index.dart';
 
-enum DataType { None, Text, Int, Double, Money, Enum, Time }
+enum DataType { None, Text, Int, Double, Money, Enum, Time, Max }
 
 class DataTypeItem {
-  int type;
+  DataType type;
   String name;
+  TextInputType inputType;
 
-  DataTypeItem(DataType type, String name) {
-    this.type = type.index;
-    this.name = name;
-  }
+  DataTypeItem(this.type, this.name, this.inputType);
 }
 
 class DataTypeUtil {
-  static List<DataTypeItem> _typeList;
-  static Map<int, String> _typeMap;
+  static List<DataTypeItem> _typeList =
+      List.generate(DataType.Max.index + 1, (int index) {
+    DataType dType = DataType.values[index];
 
-  static List<DataTypeItem> get typeList {
-    if (_typeList == null) {
-      _addType(DataType.Text, "文本");
-      _addType(DataType.Int, "整数");
-      _addType(DataType.Double, "小数");
+    DataTypeItem item;
+    switch (dType) {
+      case DataType.None:
+        // TODO: Handle this case.
+        break;
+      case DataType.Text:
+        item = DataTypeItem(dType, "文本", TextInputType.text);
+        break;
+      case DataType.Int:
+        item = DataTypeItem(dType, "整数",
+            TextInputType.numberWithOptions(signed: false, decimal: false));
+        break;
+      case DataType.Double:
+        item = DataTypeItem(dType, "小数",
+            TextInputType.numberWithOptions(signed: false, decimal: true));
+        break;
+      case DataType.Money:
+        item = DataTypeItem(dType, "金钱",
+            TextInputType.numberWithOptions(signed: false, decimal: true));
+        break;
+      case DataType.Enum:
+        item = DataTypeItem(dType, "枚举", TextInputType.text);
+        break;
+      case DataType.Time:
+        item = DataTypeItem(dType, "时间", TextInputType.text);
+        break;
+      case DataType.Max:
+        // TODO: Handle this case.
+        break;
     }
-    return _typeList;
-  }
 
-  static void _addType(DataType type, String name) {
-    if (_typeList == null) {
-      _typeList = List<DataTypeItem>();
+    return item;
+  });
+
+  static DataTypeItem itemOfType(int type) {
+    if (type == null) {
+      return null;
     }
 
-    if (_typeMap == null) {
-      _typeMap = Map();
+    if (type >= _typeList.length) {
+      return null;
     }
-    _typeMap[type.index] = name;
 
-    DataTypeItem item = DataTypeItem(type, name);
-    _typeList.add(item);
+    DataTypeItem item = _typeList[type];
+
+    return item;
   }
 
   static String nameOfType(int type) {
-    if (_typeMap == null) {
-      typeList;
-    }
+    DataTypeItem item = itemOfType(type);
 
-    if (type == null) {
+    if (item == null) {
       return "";
     }
 
-    if (type >= _typeMap.keys.length) {
-      return "未知";
+    return item.name;
+  }
+
+  static TextInputType inputOfType(int type) {
+    DataTypeItem item = itemOfType(type);
+
+    if (item == null) {
+      return TextInputType.text;
     }
 
-    String name = _typeMap[type];
-
-    if (name == null) {
-      return "";
-    }
-
-    return name;
+    return item.inputType;
   }
 
   static List<PopupMenuItem> buttons() {
     List<PopupMenuItem> btns = List();
 
-    for (DataTypeItem v in typeList) {
+    for (DataTypeItem v in _typeList) {
       btns.add(PopupMenuItem(
         value: v.type,
         child: Text(v.name),

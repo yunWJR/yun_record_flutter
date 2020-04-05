@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yun_base/util/yun_date.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/index.dart';
+import 'package:yun_record/models/prop_data_type.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 class RecordDto {
@@ -29,6 +32,8 @@ class RecordDto {
     bool isFirst = true;
     for (var value in tag.propList) {
       PropDto pDto = PropDto.ofNew(value, isFirst);
+
+      YunLog.logData(pDto.toJson());
 
       dto.propList.add(pDto);
 
@@ -102,18 +107,28 @@ class PropDto {
 
   // 临时变量
   Prop prop;
+
   TextEditingController input = TextEditingController();
+  TextField nameTf;
+
   bool isFirst = false;
 
   static PropDto ofNew(Prop prop, bool isFirst) {
     PropDto dto = PropDto();
 
     dto.isFirst = isFirst;
-
     dto.propId = prop.id;
     dto.dataType = prop.dataType;
 
     dto.prop = prop;
+
+    dto.input = TextEditingController();
+    dto.nameTf = TextField(
+      autofocus: isFirst,
+      controller: dto.input,
+      decoration: InputDecoration(hintText: "请输入内容", filled: true),
+      keyboardType: DataTypeUtil.inputOfType(dto.dataType),
+    );
 
     return dto;
   }

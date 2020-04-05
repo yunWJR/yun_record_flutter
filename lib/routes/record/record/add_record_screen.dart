@@ -152,7 +152,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 right: _defPadding() * 2,
                 top: _defPadding(),
                 bottom: _defPadding()),
-//            color: Colors.black12,
             child: Flex(
               direction: Axis.horizontal,
               children: <Widget>[
@@ -165,14 +164,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
               ],
             ),
           ),
-          Container(
-              padding: EdgeInsets.all(_defPadding()),
-//            color: Colors.black12,
-              child: TextField(
-                autofocus: item.isFirst,
-                controller: item.input,
-                decoration: InputDecoration(hintText: "请输入内容", filled: true),
-              )),
+          Container(padding: EdgeInsets.all(_defPadding()), child: item.nameTf),
         ],
       ),
     );
