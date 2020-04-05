@@ -16,10 +16,7 @@ class AddRecordScreen extends StatefulWidget {
 class _AddRecordScreenState extends State<AddRecordScreen> {
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> arg = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
+    Map<String, dynamic> arg = ModalRoute.of(context).settings.arguments;
 
     AddRecordModel newModel = AddRecordModel(context);
     newModel.setArgu(arg);
@@ -27,14 +24,13 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     return ChangeNotifierProvider<AddRecordModel>.value(
         value: newModel,
         child: Consumer<AddRecordModel>(
-          builder: (context, model, child) =>
-              Scaffold(
-                body: YunBasePage<AddRecordModel>.page(
-                  body: bodyWidget(model),
-                  model: model,
-                  ),
-                ),
-          ));
+          builder: (context, model, child) => Scaffold(
+            body: YunBasePage<AddRecordModel>.page(
+              body: bodyWidget(model),
+              model: model,
+            ),
+          ),
+        ));
   }
 
   Widget bodyWidget(AddRecordModel model) {
@@ -48,14 +44,11 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
             onPressed: () {
               _saveOn(model);
             },
-            ),
+          ),
         ],
-        ),
+      ),
       body: new Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
 //        decoration: BoxDecoration(
 //            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
 //          Theme.of(context).dividerColor.withOpacity(0.1),
@@ -68,9 +61,9 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
             _statusWidget(model),
             Expanded(child: _listWidget(model)),
           ],
-          ),
         ),
-      );
+      ),
+    );
   }
 
   void _saveOn(AddRecordModel model) {
@@ -84,18 +77,18 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
 
   void _onDateTime(AddRecordModel model) {
     DatePicker.showDateTimePicker(context,
-                                      currentTime: model.dto.selDate,
-                                      onChanged: (date) {}, onConfirm: (date) {
-          model.updateDate(date);
-        }, locale: LocaleType.zh);
+        currentTime: model.dto.selDate,
+        onChanged: (date) {}, onConfirm: (date) {
+      model.updateDate(date);
+    }, locale: LocaleType.zh);
   }
 
   void _onTime(AddRecordModel model) {
     DatePicker.showTimePicker(context,
-                                  currentTime: model.dto.selDate,
-                                  onChanged: (date) {}, onConfirm: (date) {
-          model.updateTime(date);
-        }, locale: LocaleType.zh);
+        currentTime: model.dto.selDate,
+        onChanged: (date) {}, onConfirm: (date) {
+      model.updateTime(date);
+    }, locale: LocaleType.zh);
   }
 
 // region action
@@ -106,14 +99,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
 
   Widget _statusWidget(AddRecordModel model) {
     return new Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      color: Theme
-          .of(context)
-          .primaryColor
-          .withOpacity(0.3),
+      width: MediaQuery.of(context).size.width,
+      color: Theme.of(context).primaryColor.withOpacity(0.3),
       child: Column(
         children: <Widget>[
           Container(
@@ -123,17 +110,14 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
               onPressed: () {
                 _onDateTime(model);
               },
-              ),
             ),
+          ),
           Container(
-              color: Theme
-                  .of(context)
-                  .primaryColor
-                  .withOpacity(1), height: 1)
+              color: Theme.of(context).primaryColor.withOpacity(1), height: 1)
         ],
-        ),
+      ),
       //      color: Colors.amber,
-      );
+    );
   }
 
   Widget _listWidget(AddRecordModel model) {
@@ -146,15 +130,12 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       //分割器构造器
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: Theme
-              .of(context)
-              .primaryColor
-              .withOpacity(0.4),
+          color: Theme.of(context).primaryColor.withOpacity(0.4),
           thickness: 1,
           height: 1,
-          );
+        );
       },
-      );
+    );
   }
 
   // 每个条目
@@ -162,9 +143,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     PropDto item = model.dto.propList[index];
 
     return Container(
-      color: Theme
-          .of(context)
-          .selectedRowColor,
+      color: Theme.of(context).selectedRowColor,
       child: Column(
         children: <Widget>[
           Container(
@@ -179,23 +158,24 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
               children: <Widget>[
                 Expanded(
                   child: new Text("记录项:" + item.prop.name),
-                  ),
+                ),
                 Expanded(
                   child: new Text("单位:" + item.prop.dataUnit ?? "无"),
-                  ),
+                ),
               ],
-              ),
             ),
+          ),
           Container(
               padding: EdgeInsets.all(_defPadding()),
 //            color: Colors.black12,
               child: TextField(
+                autofocus: item.isFirst,
                 controller: item.input,
                 decoration: InputDecoration(hintText: "请输入内容", filled: true),
-                )),
+              )),
         ],
-        ),
-      );
+      ),
+    );
   }
 
   double _defPadding() {

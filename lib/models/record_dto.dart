@@ -26,10 +26,13 @@ class RecordDto {
     dto.selDate = YunDate.ymdHmsDate("${y} ${t}");
 
     dto.propList = List();
+    bool isFirst = true;
     for (var value in tag.propList) {
-      PropDto pDto = PropDto.ofNew(value);
+      PropDto pDto = PropDto.ofNew(value, isFirst);
 
       dto.propList.add(pDto);
+
+      isFirst = false;
     }
 
     return dto;
@@ -52,14 +55,24 @@ class RecordDto {
     return null;
   }
 
-  RecordDto({this.date, this.dateTime, this.id, this.propList, this.tagId, this.time});
+  RecordDto(
+      {this.date,
+      this.dateTime,
+      this.id,
+      this.propList,
+      this.tagId,
+      this.time});
 
   RecordDto fromJson(Map<String, dynamic> json) {
     return RecordDto(
       date: json['date'],
       dateTime: json['dateTime'],
       id: json['id'],
-      propList: json['propList'] != null ? (json['propList'] as List).map((i) => PropDto().fromJson(i)).toList() : null,
+      propList: json['propList'] != null
+          ? (json['propList'] as List)
+              .map((i) => PropDto().fromJson(i))
+              .toList()
+          : null,
       tagId: json['tagId'],
       time: json['time'],
     );
@@ -90,9 +103,12 @@ class PropDto {
   // 临时变量
   Prop prop;
   TextEditingController input = TextEditingController();
+  bool isFirst = false;
 
-  static PropDto ofNew(Prop prop) {
+  static PropDto ofNew(Prop prop, bool isFirst) {
     PropDto dto = PropDto();
+
+    dto.isFirst = isFirst;
 
     dto.propId = prop.id;
     dto.dataType = prop.dataType;

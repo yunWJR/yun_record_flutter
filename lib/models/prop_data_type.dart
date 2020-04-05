@@ -45,8 +45,16 @@ class DataTypeUtil {
   }
 
   static String nameOfType(int type) {
+    if (_typeMap == null) {
+      typeList;
+    }
+
     if (type == null) {
       return "";
+    }
+
+    if (type >= _typeMap.keys.length) {
+      return "未知";
     }
 
     String name = _typeMap[type];
