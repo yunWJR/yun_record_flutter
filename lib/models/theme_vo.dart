@@ -52,6 +52,7 @@ class ThemeVo implements YunBaseModel {
     ThemeVo dto = ThemeVo();
 
     dto.nameTf = new TextFormField(
+        autofocus: true,
         controller: dto.nameController,
         validator: (String value) {
           return YunValue.isNullOrEmpty(value) ? "请输入主题名称" : null;

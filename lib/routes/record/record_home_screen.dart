@@ -39,12 +39,12 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
 //                _handlerDrawerButton(model);
 //              },
 //            ),
-//            IconButton(
-//              icon: Icon(Icons.widgets),
-//              onPressed: () {
-//                _gotoThemeMg(model);
-//              },
-//            )
+            IconButton(
+              icon: Icon(Icons.widgets),
+              onPressed: () {
+                _gotoThemeMg(model);
+              },
+            )
           ],
           title: new Text("记录-" + model.themeText()),
         ),

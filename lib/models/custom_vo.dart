@@ -117,6 +117,7 @@ class Custom extends YunBaseModel {
 
     dto.nameController = TextEditingController();
     dto.nameTf = new TextFormField(
+        autofocus: true,
         controller: dto.nameController,
         validator: (String value) {
           return YunValue.isNullOrEmpty(value) ? "请输入习惯名称" : null;

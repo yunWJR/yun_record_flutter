@@ -19,7 +19,15 @@ class PlanVo extends YunBaseModel {
   TextEditingController nameController;
   TextFormField nameTf;
 
-  PlanVo({this.content, this.createTime, this.id, this.status, this.tagId, this.themeId, this.updateTime, this.userId});
+  PlanVo(
+      {this.content,
+      this.createTime,
+      this.id,
+      this.status,
+      this.tagId,
+      this.themeId,
+      this.updateTime,
+      this.userId});
 
   factory PlanVo.fromJson(Map<String, dynamic> json) {
     return PlanVo(
@@ -66,6 +74,7 @@ class PlanVo extends YunBaseModel {
 
     dto.nameController = TextEditingController();
     dto.nameTf = new TextFormField(
+        autofocus: true,
         controller: dto.nameController,
         validator: (String value) {
           return YunValue.isNullOrEmpty(value) ? "请输入待办内容" : null;
