@@ -51,13 +51,15 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
           ),
         ],
       ),
-      body: new Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(_defPadding()),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: _itemsWidget(model),
+      body: SingleChildScrollView(
+        child: new Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.all(_defPadding()),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: _itemsWidget(model),
+          ),
         ),
       ),
     );
@@ -115,9 +117,12 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
         minWidth: double.infinity, //宽度尽可能大
       ),
       child: Wrap(
-        spacing: 4.0, // 主轴(水平)方向间距
-        runSpacing: 2.0, // 纵轴（垂直）方向间距
-        alignment: WrapAlignment.start, //沿主轴方向居中
+        spacing: 4.0,
+        // 主轴(水平)方向间距
+        runSpacing: 2.0,
+        // 纵轴（垂直）方向间距
+        alignment: WrapAlignment.start,
+        //沿主轴方向居中
         direction: Axis.horizontal,
         runAlignment: WrapAlignment.start,
         crossAxisAlignment: WrapCrossAlignment.start,
@@ -137,9 +142,12 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
         minWidth: double.infinity, //宽度尽可能大
       ),
       child: Wrap(
-        spacing: 4.0, // 主轴(水平)方向间距
-        runSpacing: 2.0, // 纵轴（垂直）方向间距
-        alignment: WrapAlignment.start, //沿主轴方向居中
+        spacing: 4.0,
+        // 主轴(水平)方向间距
+        runSpacing: 2.0,
+        // 纵轴（垂直）方向间距
+        alignment: WrapAlignment.start,
+        //沿主轴方向居中
         direction: Axis.horizontal,
         runAlignment: WrapAlignment.start,
         crossAxisAlignment: WrapCrossAlignment.start,
@@ -175,8 +183,14 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
 //          color: isSel ? Theme.of(context).primaryColor : Theme.of(context).selectedRowColor,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
-              color: isSel ? Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
-              border: Border.all(color: isSel ? Theme.of(context).primaryColor : Colors.transparent, width: 1)),
+              color: isSel
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
+              border: Border.all(
+                  color: isSel
+                      ? Theme.of(context).primaryColor
+                      : Colors.transparent,
+                  width: 1)),
           child: FlatButton(
             child: Text(i == 1 ? "每日" : "每周"),
 //            color: Colors.red,
@@ -215,8 +229,14 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
 //          color: isSel ? Theme.of(context).primaryColor : Theme.of(context).selectedRowColor,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
-              color: isSel ? Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
-              border: Border.all(color: isSel ? Theme.of(context).primaryColor : Colors.transparent, width: 1)),
+              color: isSel
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
+              border: Border.all(
+                  color: isSel
+                      ? Theme.of(context).primaryColor
+                      : Colors.transparent,
+                  width: 1)),
           child: FlatButton(
             child: Text(i == 1 ? "次数" : "总量"),
 //            color: Colors.red,

@@ -9,8 +9,6 @@ class CustomEditModel extends YunPageBaseNotiModel {
     if (this.dto == null) {
       this.dto = Custom.dto();
     }
-
-    YunLog.logData("CustomEditModel");
   }
 
   Custom dto;
