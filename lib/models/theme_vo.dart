@@ -14,6 +14,8 @@ class ThemeVo implements YunBaseModel {
   String remark;
   List<Tag> tagList;
 
+  bool isExpand = false;
+
   ThemeVo({this.createTime, this.id, this.name, this.remark, this.tagList});
 
   ThemeVo fromJson(Map<String, dynamic> json) {

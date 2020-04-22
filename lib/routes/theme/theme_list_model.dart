@@ -10,11 +10,13 @@ class ThemeListModel extends YunPageBaseNotiModel {
 
   List<ThemeVo> themeList;
 
+  bool isExpandAll = false;
+
   @override
   Future loadData([BuildContext context]) async {
     if (canLoadData()) {
       // 获取主题列表
-      themeList = await Api.getThemeList(this, null);
+      themeList = await Api.getThemeList(this, null, tag: true);
 
       // 错误
       if (themeList == null) {
@@ -51,5 +53,20 @@ class ThemeListModel extends YunPageBaseNotiModel {
     }
 
     loadList();
+  }
+
+  void changeThemeExpand(ThemeVo theme) {
+    theme.isExpand = !theme.isExpand;
+    notifyListeners();
+  }
+
+  void changeExpandAll() {
+    isExpandAll = !isExpandAll;
+
+    for (var value in themeList) {
+      value.isExpand = isExpandAll;
+    }
+
+    notifyListeners();
   }
 }

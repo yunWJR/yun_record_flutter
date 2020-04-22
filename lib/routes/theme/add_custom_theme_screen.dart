@@ -41,7 +41,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
   Widget _bodyWidget(AddCustomThemeModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text("添加自定义主题"),
+        title: new Text("添加主题"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),

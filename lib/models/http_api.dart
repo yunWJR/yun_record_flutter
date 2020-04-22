@@ -50,10 +50,14 @@ class Api {
   }
 
   /// 获取主题列表
-  static Future<List<ThemeVo>> getThemeList<N extends YunPageBaseNotiModel>(N model, String name) async {
+  static Future<List<ThemeVo>> getThemeList<N extends YunPageBaseNotiModel>(N model, String name, {bool tag}) async {
     var qP = Map<String, dynamic>();
     if (YunValue.hasContent(name)) {
       qP['name'] = name;
+    }
+
+    if(tag !=null){
+      qP['tag'] = tag;
     }
 
     List<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);

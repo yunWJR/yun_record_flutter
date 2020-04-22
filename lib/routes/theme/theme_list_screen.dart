@@ -65,12 +65,6 @@ class ThemeListScreenState extends State<ThemeListScreen> {
         ],
       ),
       body: new Container(
-//          padding: EdgeInsets.all(10),
-//        decoration: BoxDecoration(
-//            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-//          Theme.of(context).dividerColor.withOpacity(0.2),
-//          Theme.of(context).dividerColor.withOpacity(0.1)
-//        ])),
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
             itemCount: model.themeList?.length != null ? model.themeList.length : 1,
@@ -86,48 +80,118 @@ class ThemeListScreenState extends State<ThemeListScreen> {
               );
             },
           )),
+      floatingActionButton: ClipOval(
+          child: Container(
+        color: Theme.of(context).primaryColor,
+        child: IconButton(
+          onPressed: () {
+            _changeExpandAll(model);
+          },
+          icon: Icon(model.isExpandAll?Icons.format_align_right:Icons.reorder),
+          color: Theme.of(context).selectedRowColor,
+        ),
+      )),
     );
   }
 
   // region Widget
 
   Widget themItem(ThemeListModel model, int index) {
-    var value = model.themeList[index];
+    var theme = model.themeList[index];
+
+    List<Widget> items = List();
 
     var cell = Slidable(
-        actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
-        actionExtentRatio: 0.25,
-        secondaryActions: <Widget>[
-          //右侧按钮列表
-          IconSlideAction(
-            caption: '详情',
-            color: Colors.black45,
-            icon: Icons.more_horiz,
-            onTap: () => _themeOn(model, value),
+      actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
+      actionExtentRatio: 0.25,
+      secondaryActions: <Widget>[
+        //右侧按钮列表
+        IconSlideAction(
+          caption: '详情',
+          color: Colors.black45,
+          icon: Icons.more_horiz,
+          onTap: () => _themeOn(model, theme),
+        ),
+        IconSlideAction(
+          caption: '删除',
+          color: Colors.red,
+          icon: Icons.delete,
+          closeOnTap: true,
+          onTap: () {
+            _deleteTheme(model, theme);
+          },
+        ),
+      ],
+      child: Flex(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Expanded(
+            flex: 8,
+            child: FlatButton(
+              onPressed: () => _themeOn(model, theme),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(Icons.ac_unit),
+                  const SizedBox(width: 8.0),
+                  Text(theme.name),
+                ],
+              ),
+            ),
           ),
-          IconSlideAction(
-            caption: '删除',
-            color: Colors.red,
-            icon: Icons.delete,
-            closeOnTap: true,
-            onTap: () {
-              _deleteTheme(model, value);
-            },
+          Expanded(
+            flex: 2,
+            child: IconButton(
+              onPressed: () {
+                model.changeThemeExpand(theme);
+              },
+              icon: Icon(theme.isExpand ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_left),
+            ),
           ),
         ],
-        child: FlatButton(
-          onPressed: () => _themeOn(model, value),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Icon(Icons.ac_unit),
-              const SizedBox(width: 8.0),
-              Text(value.name),
-            ],
-          ),
-        ));
+      ),
+    );
 
-    return cell;
+    items.add(cell);
+
+    if (theme.isExpand && theme.tagList != null) {
+      for (var tag in theme.tagList) {
+        Widget iH = Slidable(
+            actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
+            actionExtentRatio: 0.25,
+            secondaryActions: <Widget>[
+              IconSlideAction(
+                caption: '删除',
+                color: Colors.red,
+                icon: Icons.delete,
+                closeOnTap: true,
+                onTap: () {
+                  _deleteTag(model, tag);
+                },
+              ),
+            ],
+            child: Container(
+              padding: EdgeInsets.only(left: 30),
+              child: FlatButton(
+                onPressed: () => _tagOn(model, tag),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Icon(Icons.all_out),
+                    const SizedBox(width: 8.0),
+                    Text(tag.name),
+                  ],
+                ),
+              ),
+            ));
+
+        items.add(iH);
+      }
+    }
+
+    return Column(
+      children: items,
+    );
   }
 
   // endregion
@@ -171,6 +235,14 @@ class ThemeListScreenState extends State<ThemeListScreen> {
         );
       },
     );
+  }
+
+  void _deleteTag(ThemeListModel model, Tag prop) {}
+
+  _tagOn(ThemeListModel model, Tag tag) {}
+
+  void _changeExpandAll(ThemeListModel model) {
+    model.changeExpandAll();
   }
 
 // endregion
