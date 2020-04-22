@@ -4,7 +4,7 @@ import 'package:yun_record/models/http_api.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 class ThemeListModel extends YunPageBaseNotiModel {
-  ThemeListModel(BuildContext context, List<ThemeVo> themeList) : super(context, initLoadData: (themeList == null)) {
+  ThemeListModel(BuildContext context, List<ThemeVo> themeList) : super(context, initLoadData: true) {
     this.themeList = themeList;
   }
 
@@ -30,7 +30,6 @@ class ThemeListModel extends YunPageBaseNotiModel {
 
     // 获取主题列表
     themeList = await Api.getThemeList(this, null);
-    print(themeList);
 
     // 错误
     if (themeList == null) {
@@ -38,5 +37,19 @@ class ThemeListModel extends YunPageBaseNotiModel {
     }
 
     notifyListeners();
+  }
+
+  Future deleteTheme(int id) async {
+    startLoading();
+
+    // 获取主题列表
+    var rst = await Api.deleteTheme(this, id);
+
+    // 错误
+    if (rst == null) {
+      return;
+    }
+
+    loadList();
   }
 }

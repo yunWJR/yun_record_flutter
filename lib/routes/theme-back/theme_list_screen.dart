@@ -7,8 +7,7 @@ import 'package:yun_record/index.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 import 'package:yun_record/routes/theme/theme_list_model.dart';
-
-import 'add_custom_theme_screen.dart';
+import 'package:yun_record/routes/theme/theme_temp_screen.dart';
 
 class ThemeListScreen extends StatefulWidget {
   static const routeName = "ThemeListScreen";
@@ -139,10 +138,10 @@ class ThemeListScreenState extends State<ThemeListScreen> {
   }
 
   _gotoAddTheme(ThemeListModel model) async {
-    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
+    var rst = await Navigator.pushNamed(context, ThemeTempScreen.routeName, arguments: null);
     if (rst != null) {
       model.loadData();
-//      recordModel.loadData();
+      recordModel.loadData();
     }
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:yun_base/model/yun_base_model.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/index.dart';
-import 'package:yun_record/models/prop_data_type.dart';
 import 'package:yun_record/widgets/data_type_popup_menu.dart';
 
 typedef ValidErr = Function(String errMsg);
@@ -48,8 +47,6 @@ class ThemeVo implements YunBaseModel {
   TextFormField nameTf;
 
   factory ThemeVo.dto() {
-    YunLog.logTag("ThemeVo.dto");
-
     ThemeVo dto = ThemeVo();
 
     dto.nameTf = new TextFormField(
@@ -129,7 +126,7 @@ class Tag implements YunBaseModel {
         ));
 
     dtoTag.propList = [];
-    dtoTag.propList.add(Prop.dto());
+//    dtoTag.propList.add(Prop.dto());
 
     return dtoTag;
   }
@@ -164,8 +161,8 @@ class Tag implements YunBaseModel {
     }
 
     if (propList == null || propList.length == 0) {
-      validErr("记录项${name}至少添加一个属性");
-      return false;
+//      validErr("记录项${name}至少添加一个属性");
+      return true;
     }
 
     for (var value in propList) {
@@ -288,6 +285,10 @@ class Prop implements YunBaseModel {
   }
 
   bool valid(ValidErr validErr) {
+    if (formKey == null || formKey.currentState == null) {
+      return true;
+    }
+
     if (!formKey.currentState.validate()) {
       return false;
     }

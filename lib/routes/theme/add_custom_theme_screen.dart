@@ -166,6 +166,8 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
       ),
     );
 
+    return tagH;
+
     items.add(tagH);
 
     for (var prop in tag.propList) {
