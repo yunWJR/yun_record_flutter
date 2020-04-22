@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/models/user_vo.dart';
+import 'package:yun_record/routes/home_tab/home_tab.dart';
+import 'package:yun_record/routes/login/register_screen.dart';
 
 import '../../index.dart';
 import 'login_noti.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = "LoginScreen";
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -134,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
             children: [
               new FlatButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "Register");
+                    Navigator.pushNamed(context, RegisterScreen.routeName);
                   },
                   child: new Text(
                     '注  册',
@@ -188,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
       print("cRst");
       print(cRst);
 
-      Navigator.pushNamedAndRemoveUntil(context, "HomeTab", (Route<dynamic> route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, HomeTab.routeName, (Route<dynamic> route) => false);
 
 //      Navigator.push(
 //        context,

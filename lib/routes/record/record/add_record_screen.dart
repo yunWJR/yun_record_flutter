@@ -9,6 +9,8 @@ import '../../../index.dart';
 import 'add_record_model.dart';
 
 class AddRecordScreen extends StatefulWidget {
+  static const routeName = "AddRecordScreen";
+
   @override
   _AddRecordScreenState createState() => _AddRecordScreenState();
 }
@@ -76,17 +78,13 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   }
 
   void _onDateTime(AddRecordModel model) {
-    DatePicker.showDateTimePicker(context,
-        currentTime: model.dto.selDate,
-        onChanged: (date) {}, onConfirm: (date) {
+    DatePicker.showDateTimePicker(context, currentTime: model.dto.selDate, onChanged: (date) {}, onConfirm: (date) {
       model.updateDate(date);
     }, locale: LocaleType.zh);
   }
 
   void _onTime(AddRecordModel model) {
-    DatePicker.showTimePicker(context,
-        currentTime: model.dto.selDate,
-        onChanged: (date) {}, onConfirm: (date) {
+    DatePicker.showTimePicker(context, currentTime: model.dto.selDate, onChanged: (date) {}, onConfirm: (date) {
       model.updateTime(date);
     }, locale: LocaleType.zh);
   }
@@ -112,8 +110,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
               },
             ),
           ),
-          Container(
-              color: Theme.of(context).primaryColor.withOpacity(1), height: 1)
+          Container(color: Theme.of(context).primaryColor.withOpacity(1), height: 1)
         ],
       ),
       //      color: Colors.amber,
@@ -148,10 +145,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(
-                left: _defPadding() * 2,
-                right: _defPadding() * 2,
-                top: _defPadding(),
-                bottom: _defPadding()),
+                left: _defPadding() * 2, right: _defPadding() * 2, top: _defPadding(), bottom: _defPadding()),
             child: Flex(
               direction: Axis.horizontal,
               children: <Widget>[

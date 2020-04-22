@@ -4,6 +4,8 @@ import 'package:yun_record/config/global_config_noti.dart';
 import 'package:yun_record/config/global_theme_config.dart';
 
 class SettingsScreen extends StatefulWidget {
+  static const routeName = "SettingsScreen";
+
   const SettingsScreen({Key key}) : super(key: key);
 
   @override

@@ -68,6 +68,12 @@ class Api {
     return rst;
   }
 
+  static Future<YunBaseMapModel> deleteTheme<N extends YunPageBaseNotiModel>(N model, int themeId) async {
+    YunBaseMapModel rst = await YunHttp(model).delete(YunBaseMapModel(), "/v1/api/record/theme/${themeId.toString()}");
+
+    return rst;
+  }
+
   /// 获取主题数据列表
   static Future<List<ThemeDataVo>> getThemeDataList<N extends YunPageBaseNotiModel>(
       N model, String date, int tagId, int themeId) async {

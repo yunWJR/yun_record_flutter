@@ -7,10 +7,10 @@ import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
 import 'package:yun_record/routes/plan/edit/plan_edit_screen.dart';
-import 'package:yun_record/routes/record/theme/add_custom_theme_screen.dart';
-import 'package:yun_record/routes/record/theme/add_temp_theme_screen.dart';
-import 'package:yun_record/routes/record/theme/theme_list_screen.dart';
-import 'package:yun_record/routes/record/theme/theme_temp_screen.dart';
+import 'package:yun_record/routes/theme/add_custom_theme_screen.dart';
+import 'package:yun_record/routes/theme/add_temp_theme_screen.dart';
+import 'package:yun_record/routes/theme/theme_list_screen.dart';
+import 'package:yun_record/routes/theme/theme_temp_screen.dart';
 
 import 'config/global_config.dart';
 import 'config/global_config_noti.dart';
@@ -45,16 +45,16 @@ class MyApp extends StatelessWidget {
           home: GlobalConfig.isLogin ? homeTab : loginScreen,
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
-            "Login": (context) => loginScreen,
-            "Register": (context) => RegisterScreen(),
-            "HomeTab": (context) => homeTab,
-            "AddRecordScreen": (context) => AddRecordScreen(),
+            LoginScreen.routeName: (context) => loginScreen,
+            RegisterScreen.routeName: (context) => RegisterScreen(),
+            HomeTab.routeName: (context) => homeTab,
+            AddRecordScreen.routeName: (context) => AddRecordScreen(),
             ThemeListScreen.routeName: (context) => ThemeListScreen(),
             PlanEditScreen.routeName: (context) => PlanEditScreen(),
             ThemeTempScreen.routeName: (context) => ThemeTempScreen(),
             AddTempThemeScreen.routeName: (context) => AddTempThemeScreen(),
             AddCustomThemeScreen.routeName: (context) => AddCustomThemeScreen(),
-            "SettingsScreen": (context) => SettingsScreen(),
+            SettingsScreen.routeName: (context) => SettingsScreen(),
             CustomEditScreen.routeName: (context) => CustomEditScreen(),
             CustomListScreen.routeName: (context) => CustomListScreen(),
           },

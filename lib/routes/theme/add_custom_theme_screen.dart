@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/models/theme_vo.dart';
-import 'package:yun_record/routes/record/theme/add_custom_theme_model.dart';
+import 'package:yun_record/routes/theme/add_custom_theme_model.dart';
 
 class AddCustomThemeScreen extends StatefulWidget {
   static const routeName = "AddCustomThemeScreen";

@@ -5,6 +5,8 @@ import '../../index.dart';
 import 'login_noti.dart';
 
 class RegisterScreen extends StatefulWidget {
+  static const routeName = "RegisterScreen";
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }

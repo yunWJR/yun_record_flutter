@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_record/config/global_config.dart';
-import 'package:yun_record/config/global_theme_config.dart';
+import 'package:yun_record/routes/login/login_screen.dart';
+import 'package:yun_record/routes/my/settings_screen.dart';
 
 import '../../index.dart';
 import 'my_model.dart';
@@ -38,13 +38,10 @@ class MyScreenState extends State<MyScreen> {
       body: new Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              Theme.of(context).primaryColor.withOpacity(0.04),
-              Theme.of(context).primaryColor.withOpacity(0.08)
-            ])),
+            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+          Theme.of(context).primaryColor.withOpacity(0.04),
+          Theme.of(context).primaryColor.withOpacity(0.08)
+        ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,7 +86,7 @@ class MyScreenState extends State<MyScreen> {
               child: new FlatButton(
                   child: new Text('设置'),
                   onPressed: () {
-                    Navigator.pushNamed(context, "SettingsScreen");
+                    Navigator.pushNamed(context, SettingsScreen.routeName);
                   }),
             ),
             Container(
@@ -98,8 +95,7 @@ class MyScreenState extends State<MyScreen> {
             Container(
               width: MediaQuery.of(context).size.width,
               color: Theme.of(context).primaryColor.withOpacity(0.5),
-              child:
-                  new FlatButton(child: new Text('退出登录'), onPressed: _logOut),
+              child: new FlatButton(child: new Text('退出登录'), onPressed: _logOut),
             ),
             new Container(
               padding: EdgeInsets.all(10.0),
@@ -116,8 +112,7 @@ class MyScreenState extends State<MyScreen> {
   }
 
   void _logOut() {
-    Navigator.pushNamedAndRemoveUntil(
-        context, "Login", (Route<dynamic> route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (Route<dynamic> route) => false);
   }
 
 //  Future _logOutGlobal(String route, bool remove) async {

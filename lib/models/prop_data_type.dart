@@ -17,8 +17,7 @@ class DataTypeItem {
 }
 
 class DataTypeUtil {
-  static List<DataTypeItem> _typeList =
-      List.generate(DataType.Max.index + 1, (int index) {
+  static List<DataTypeItem> _typeList = List.generate(DataType.Max.index, (int index) {
     DataType dType = DataType.values[index];
 
     DataTypeItem item;
@@ -30,16 +29,13 @@ class DataTypeUtil {
         item = DataTypeItem(dType, "文本", TextInputType.text);
         break;
       case DataType.Int:
-        item = DataTypeItem(dType, "整数",
-            TextInputType.numberWithOptions(signed: false, decimal: false));
+        item = DataTypeItem(dType, "整数", TextInputType.numberWithOptions(signed: false, decimal: false));
         break;
       case DataType.Double:
-        item = DataTypeItem(dType, "小数",
-            TextInputType.numberWithOptions(signed: false, decimal: true));
+        item = DataTypeItem(dType, "小数", TextInputType.numberWithOptions(signed: false, decimal: true));
         break;
       case DataType.Money:
-        item = DataTypeItem(dType, "金钱",
-            TextInputType.numberWithOptions(signed: false, decimal: true));
+        item = DataTypeItem(dType, "金钱", TextInputType.numberWithOptions(signed: false, decimal: true));
         break;
       case DataType.Enum:
         item = DataTypeItem(dType, "枚举", TextInputType.text);
@@ -53,7 +49,7 @@ class DataTypeUtil {
     }
 
     return item;
-  });
+  }).sublist(1);
 
   static DataTypeItem itemOfType(int type) {
     if (type == null) {
@@ -92,9 +88,11 @@ class DataTypeUtil {
   static List<PopupMenuItem> buttons() {
     List<PopupMenuItem> btns = List();
 
-    for (DataTypeItem v in _typeList) {
+    for (int i = 0; i < _typeList.length; i++) {
+      DataTypeItem v = _typeList[i];
+
       btns.add(PopupMenuItem(
-        value: v.type,
+        value: i,
         child: Text(v.name),
       ));
     }

@@ -8,8 +8,9 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/index.dart';
 import 'package:yun_record/models/theme_data_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
-import 'package:yun_record/routes/record/record_drawer_left.dart';
-import 'package:yun_record/routes/record/theme/theme_list_screen.dart';
+import 'package:yun_record/routes/record/record/add_record_screen.dart';
+import 'package:yun_record/routes/theme/record_drawer_left.dart';
+import 'package:yun_record/routes/theme/theme_list_screen.dart';
 
 import 'home_calendar.dart';
 import 'record_model.dart';
@@ -142,7 +143,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       argu["date"] = nDt;
       argu['tag'] = th.tagList[tagIndex];
 
-      var rst = await Navigator.pushNamed(context, "AddRecordScreen", arguments: argu);
+      var rst = await Navigator.pushNamed(context, AddRecordScreen.routeName, arguments: argu);
       if (rst != null) {
         model.loadList(context);
       }

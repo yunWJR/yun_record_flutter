@@ -21,8 +21,7 @@ class GlobalConfig {
   static Map<int, String> _itemsKeyMap;
   static Map<int, bool> _itemsSaveMap;
 
-  static final FlutterLocalNotificationsPlugin _notifications =
-      FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
 
   static SharedPreferences _prefs;
 
@@ -89,14 +88,10 @@ class GlobalConfig {
 
     switch (item) {
       case Items.loginToken:
-        _loginToken == null
-            ? _prefs.remove(key)
-            : _prefs.setString(key, _loginToken);
+        _loginToken == null ? _prefs.remove(key) : _prefs.setString(key, _loginToken);
         break;
       case Items.userName:
-        _userName == null
-            ? _prefs.remove(key)
-            : _prefs.setString(key, _userName);
+        _userName == null ? _prefs.remove(key) : _prefs.setString(key, _userName);
         break;
       case Items.themeName:
         // TODO: Handle this case.
@@ -138,8 +133,8 @@ class GlobalConfig {
     if (YunConfig.isProp) {
       YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     } else {
-//      YunHttp.baseUrl = "http://127.0.0.1:11010";
-      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
+      YunHttp.baseUrl = "http://127.0.0.1:11010";
+//      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     }
 
     // err config

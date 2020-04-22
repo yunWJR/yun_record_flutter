@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
-import 'package:yun_record/routes/record/theme/theme_list_model.dart';
-import 'package:yun_record/routes/record/theme/theme_temp_screen.dart';
+import 'package:yun_record/routes/theme/theme_list_model.dart';
+import 'package:yun_record/routes/theme/theme_temp_screen.dart';
 
 class ThemeListScreen extends StatefulWidget {
   static const routeName = "ThemeListScreen";

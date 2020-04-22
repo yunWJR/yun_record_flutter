@@ -11,6 +11,8 @@ import 'package:yun_record/routes/record/record_home_screen.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 
 class HomeTab extends StatefulWidget {
+  static const routeName = "HomeTab";
+
   @override
   State<StatefulWidget> createState() => _HomeTabState();
 }
