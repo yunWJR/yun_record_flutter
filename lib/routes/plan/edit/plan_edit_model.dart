@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
-import 'package:yun_record/models/http_api.dart';
+import 'package:yun_record/api/http_api.dart';
 import 'package:yun_record/models/plan_vo.dart';
 
 class PlanEditModel extends YunPageBaseNotiModel {

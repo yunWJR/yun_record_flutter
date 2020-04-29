@@ -141,9 +141,8 @@ class _RegisterScreenState extends State<RegisterScreen> with YunPageNotiInterfa
 
     UserVo user = await Api.register(model, _nameController.text, _pwdController.text);
     if (user != null) {
-      Navigator.of(context).pop();
-
       YunToast.showToast("注册成功，请登录");
+      Navigator.of(context).pop();
     }
 
     return;

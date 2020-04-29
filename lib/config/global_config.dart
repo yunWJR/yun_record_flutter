@@ -9,6 +9,7 @@ import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/model/yun_rst_data.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/util/yun_value.dart';
+import 'package:yun_record/models/model_convert.dart';
 import 'package:yun_record/models/user_vo.dart';
 
 import '../index.dart';
@@ -119,6 +120,8 @@ class GlobalConfig {
 
     YunBasePageConfig.defConfig.loadBgColor = Colors.transparent;
 
+    ModelConvert.init();
+
     await _initItems();
 
     // noti
@@ -133,7 +136,7 @@ class GlobalConfig {
     if (YunConfig.isProp) {
       YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     } else {
-      YunHttp.baseUrl = "http://127.0.0.1:11010";
+      YunHttp.baseUrl = "http://192.168.0.118:11010";
 //      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     }
 

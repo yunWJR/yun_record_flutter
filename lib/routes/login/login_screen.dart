@@ -188,10 +188,6 @@ class _LoginScreenState extends State<LoginScreen> with YunPageNotiInterface<Log
       GlobalConfig.userVo = user;
       GlobalConfig.loginToken = user.loginToken;
 
-      YunBaseMapModel cRst = await Api.checkTheme(model);
-      print("cRst");
-      print(cRst);
-
       Navigator.pushNamedAndRemoveUntil(context, HomeTab.routeName, (Route<dynamic> route) => false);
 
 //      Navigator.push(

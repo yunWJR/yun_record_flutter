@@ -38,7 +38,7 @@ void showToast(
     msg: text,
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
-    timeInSecForIos: 1,
+//    timeInSecForIos: 1,
     backgroundColor: Colors.grey[600],
     fontSize: 16.0,
   );

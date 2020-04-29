@@ -3,26 +3,27 @@ import 'dart:async';
 import 'package:yun_base/http/yun_http.dart';
 import 'package:yun_base/model/yun_base_map_model.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
+import 'package:yun_base/model/yun_rst_data.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/models/plan_vo.dart';
 import 'package:yun_record/models/theme_temp_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
-import 'custom_data_vo.dart';
-import 'custom_vo.dart';
-import 'theme_data_vo.dart';
-import 'user_vo.dart';
+import '../models/custom_data_vo.dart';
+import '../models/custom_vo.dart';
+import '../models/theme_data_vo.dart';
+import '../models/user_vo.dart';
 
 class Api {
-  /// 登录接口，登录成功后返回用户信息
+  /// 注册
   static Future<UserVo> register<N extends YunPageBaseNotiModel>(N model, String name, String pwd) async {
     var qP = Map<String, dynamic>();
     qP["acctName"] = name;
     qP["password"] = pwd;
 
-    UserVo user = await YunHttp(model).post(UserVo(), "/v1/api/login/register", null, qP);
+    YunRspData<UserVo> user = await YunHttp(model).post(null, "/v1/api/login/register", null, qP);
 
-    return user;
+    return user?.data;
   }
 
   /// 登录接口，登录成功后返回用户信息
@@ -31,22 +32,23 @@ class Api {
     qP["acctName"] = name;
     qP["password"] = pwd;
 
-    UserVo user = await YunHttp(model).post(UserVo(), "/v1/api/login/login", null, qP);
+    YunRspData<UserVo> user = await YunHttp(model).post(null, "/v1/api/login/login", null, qP);
 
-    return user;
+    return user?.data;
   }
 
   static Future<YunBaseMapModel> checkTheme<N extends YunPageBaseNotiModel>(N model) async {
-    YunBaseMapModel rst =
+    YunRspData<YunBaseMapModel> rst =
         await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/checkTemplate", null, null);
 
-    return rst;
+    return rst?.data;
   }
 
   static Future<YunBaseMapModel> saveThemeData<N extends YunPageBaseNotiModel>(N model, data) async {
-    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/themeTagData", data, null);
+    YunRspData<YunBaseMapModel> rst =
+        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/themeTagData", data, null);
 
-    return rst;
+    return rst?.data;
   }
 
   /// 获取主题列表
@@ -56,26 +58,27 @@ class Api {
       qP['name'] = name;
     }
 
-    if(tag !=null){
+    if (tag != null) {
       qP['tag'] = tag;
     }
 
-    List<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);
+    YunRspData<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);
 
-    return rst;
+    return rst?.dataList;
   }
 
   /// 获取主题详情
   static Future<ThemeVo> getThemeDetails<N extends YunPageBaseNotiModel>(N model, int themeId) async {
-    ThemeVo rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/${themeId.toString()}", null);
+    YunRspData<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/${themeId.toString()}", null);
 
-    return rst;
+    return rst?.data;
   }
 
   static Future<YunBaseMapModel> deleteTheme<N extends YunPageBaseNotiModel>(N model, int themeId) async {
-    YunBaseMapModel rst = await YunHttp(model).delete(YunBaseMapModel(), "/v1/api/record/theme/${themeId.toString()}");
+    YunRspData<YunBaseMapModel> rst =
+        await YunHttp(model).delete(YunBaseMapModel(), "/v1/api/record/theme/${themeId.toString()}");
 
-    return rst;
+    return rst?.data;
   }
 
   /// 获取主题数据列表
@@ -92,9 +95,10 @@ class Api {
       qP['themeId'] = themeId;
     }
 
-    List<ThemeDataVo> rst = await YunHttp(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
+    YunRspData<ThemeDataVo> rst =
+        await YunHttp(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
 
-    return rst;
+    return rst?.dataList;
   }
 
   /// 获取主题模板列表
@@ -104,39 +108,39 @@ class Api {
       qP['name'] = name;
     }
 
-    List<ThemeTempVo> rst =
+    YunRspData<ThemeTempVo> rst =
         await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/list", qP, dIsList: true);
 
-    return rst;
+    return rst?.dataList;
   }
 
   /// 获取主题详情
   static Future<ThemeTempVo> getThemeTempDetails<N extends YunPageBaseNotiModel>(N model, int themeTempId) async {
-    ThemeTempVo rst =
+    YunRspData<ThemeTempVo> rst =
         await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/${themeTempId.toString()}", null);
 
-    return rst;
+    return rst?.data;
   }
 
   static Future<YunBaseMapModel> createThemeByTemplate<N extends YunPageBaseNotiModel>(N model, data) async {
-    YunBaseMapModel rst =
+    YunRspData<YunBaseMapModel> rst =
         await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/createByTemplate", data, null);
 
-    return rst;
+    return rst?.data;
   }
 
   static Future<YunBaseMapModel> saveCustomTheme<N extends YunPageBaseNotiModel>(N model, data) async {
-    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme", data, null);
+    YunRspData<YunBaseMapModel> rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme", data, null);
 
-    return rst;
+    return rst?.data;
   }
 
   /// ---- plan
   /// 保存
   static Future<PlanVo> savePlan<N extends YunPageBaseNotiModel>(N model, data) async {
-    PlanVo rst = await YunHttp(model).post(PlanVo(), "/v1/api/plan", data, null);
+    YunRspData<PlanVo> rst = await YunHttp(model).post(PlanVo(), "/v1/api/plan", data, null);
 
-    return rst;
+    return rst?.data;
   }
 
   /// 列表
@@ -154,16 +158,16 @@ class Api {
       qP['showType'] = showType;
     }
 
-    List<PlanVo> rst = await YunHttp(model).get(PlanVo(), "/v1/api/plan/list", qP, dIsList: true);
+    YunRspData<PlanVo> rst = await YunHttp(model).get(PlanVo(), "/v1/api/plan/list", qP, dIsList: true);
 
-    return rst;
+    return rst?.dataList;
   }
 
   /// 更新状态
   static Future<PlanVo> savePlanStatus<N extends YunPageBaseNotiModel>(N model, int id, int status) async {
-    PlanVo user = await YunHttp(model).post(PlanVo(), "/v1/api/plan/status/${id}/${status}", null, null);
+    YunRspData<PlanVo> user = await YunHttp(model).post(PlanVo(), "/v1/api/plan/status/${id}/${status}", null, null);
 
-    return user;
+    return user?.data;
   }
 
   /// 习惯
@@ -174,21 +178,23 @@ class Api {
       qP['date'] = date;
     }
 
-    List<CustomDataVo> rst = await YunHttp(model).get(CustomDataVo(), "/v1/api/customData/list", qP, dIsList: true);
+    YunRspData<CustomDataVo> rst =
+        await YunHttp(model).get(CustomDataVo(), "/v1/api/customData/list", qP, dIsList: true);
 
-    return rst;
+    return rst?.dataList;
   }
 
   static Future<YunBaseMapModel> saveCustomRecordData<N extends YunPageBaseNotiModel>(N model, data) async {
-    YunBaseMapModel rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/customData/saveData", data, null);
+    YunRspData<YunBaseMapModel> rst =
+        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/customData/saveData", data, null);
 
-    return rst;
+    return rst?.data;
   }
 
   static Future<CustomDataVo> saveCustom<N extends YunPageBaseNotiModel>(N model, data) async {
-    CustomDataVo rst = await YunHttp(model).post(CustomDataVo(), "/v1/api/custom", data, null);
+    YunRspData<CustomDataVo> rst = await YunHttp(model).post(CustomDataVo(), "/v1/api/custom", data, null);
 
-    return rst;
+    return rst?.data;
   }
 
   static Future<List<Custom>> getCustomList<N extends YunPageBaseNotiModel>(N model, String name) async {
@@ -197,15 +203,15 @@ class Api {
       qP['name'] = name;
     }
 
-    List<Custom> rst = await YunHttp(model).get(Custom(), "/v1/api/custom/list", qP, dIsList: true);
+    YunRspData<Custom> rst = await YunHttp(model).get(Custom(), "/v1/api/custom/list", qP, dIsList: true);
 
-    return rst;
+    return rst?.dataList;
   }
 
   /// user
   static Future<UserVo> getUserInfo<N extends YunPageBaseNotiModel>(N model) async {
-    UserVo rst = await YunHttp(model).get(UserVo(), "/v1/api/my/myInfo", null);
+    YunRspData<UserVo> rst = await YunHttp(model).get(UserVo(), "/v1/api/my/myInfo", null);
 
-    return rst;
+    return rst?.data;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
+import 'package:yun_record/config/global_config.dart';
 import 'package:yun_record/routes/login/login_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
 
@@ -112,6 +113,7 @@ class MyScreenState extends State<MyScreen> {
   }
 
   void _logOut() {
+    GlobalConfig.loginToken = null;
     Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (Route<dynamic> route) => false);
   }
 

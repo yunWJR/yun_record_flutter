@@ -30,20 +30,10 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     if (_models == null) {
-      RecordModel m = RecordModel(context);
       _models = [
-        ChangeNotifierProvider.value(
-          value: m,
-          child: RecordHomeScreen(),
-        ),
 //        ChangeNotifierProvider.value(
-//          value: m,
-//          child: ThemeScreen(),
-//        ),
-
-//        ChangeNotifierProvider<RecordModel>(
-//          create: (context) => RecordModel(context),
-//          child: RecordScreen(),
+//          value: RecordModel(context),
+//          child: RecordHomeScreen(),
 //        ),
         ChangeNotifierProvider<CustomModel>(
           create: (context) => CustomModel(context),
@@ -71,10 +61,10 @@ class _HomeTabState extends State<HomeTab> {
           onTap: (index) => setState(() => _currentIndex = index),
           currentIndex: _currentIndex,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              title: Text('记录'),
-              icon: Icon(Icons.home),
-            ),
+//            BottomNavigationBarItem(
+//              title: Text('记录'),
+//              icon: Icon(Icons.home),
+//            ),
             BottomNavigationBarItem(
               title: Text('习惯'),
               icon: Icon(Icons.blur_circular),
