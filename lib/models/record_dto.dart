@@ -4,6 +4,7 @@ import 'package:yun_base/util/yun_date.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/index.dart';
 import 'package:yun_record/models/prop_data_type.dart';
+import 'package:yun_record/models/tag.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 class RecordDto {
@@ -106,14 +107,14 @@ class PropDto {
   String dataValue;
 
   // 临时变量
-  Prop prop;
+  TagProp prop;
 
   TextEditingController input = TextEditingController();
   TextField nameTf;
 
   bool isFirst = false;
 
-  static PropDto ofNew(Prop prop, bool isFirst) {
+  static PropDto ofNew(TagProp prop, bool isFirst) {
     PropDto dto = PropDto();
 
     dto.isFirst = isFirst;

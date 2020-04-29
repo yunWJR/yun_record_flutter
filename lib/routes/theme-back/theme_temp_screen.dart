@@ -151,10 +151,10 @@ class ThemeTempScreenState extends State<ThemeTempScreen> {
   }
 
   void _customThemeOn() async {
-    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
-    if (rst != null) {
-      Navigator.pop(context, true);
-    }
+//    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
+//    if (rst != null) {
+//      Navigator.pop(context, true);
+//    }
   }
 
 // endregion

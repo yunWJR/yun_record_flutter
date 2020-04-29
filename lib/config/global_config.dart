@@ -136,7 +136,8 @@ class GlobalConfig {
     if (YunConfig.isProp) {
       YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     } else {
-      YunHttp.baseUrl = "http://192.168.0.118:11010";
+//      YunHttp.baseUrl = "http://192.168.0.118:11010";
+      YunHttp.baseUrl = "http://127.0.0.1:11010";
 //      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     }
 

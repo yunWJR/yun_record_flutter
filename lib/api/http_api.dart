@@ -39,14 +39,13 @@ class Api {
 
   static Future<YunBaseMapModel> checkTheme<N extends YunPageBaseNotiModel>(N model) async {
     YunRspData<YunBaseMapModel> rst =
-        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/checkTemplate", null, null);
+        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/theme/checkTemplate", null, null);
 
     return rst?.data;
   }
 
   static Future<YunBaseMapModel> saveThemeData<N extends YunPageBaseNotiModel>(N model, data) async {
-    YunRspData<YunBaseMapModel> rst =
-        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/themeTagData", data, null);
+    YunRspData<YunBaseMapModel> rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/themeTagData", data, null);
 
     return rst?.data;
   }
@@ -62,21 +61,21 @@ class Api {
       qP['tag'] = tag;
     }
 
-    YunRspData<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/list", qP, dIsList: true);
+    YunRspData<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/theme/list", qP, dIsList: true);
 
     return rst?.dataList;
   }
 
   /// 获取主题详情
   static Future<ThemeVo> getThemeDetails<N extends YunPageBaseNotiModel>(N model, int themeId) async {
-    YunRspData<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/record/theme/${themeId.toString()}", null);
+    YunRspData<ThemeVo> rst = await YunHttp(model).get(ThemeVo(), "/v1/api/theme/${themeId.toString()}", null);
 
     return rst?.data;
   }
 
   static Future<YunBaseMapModel> deleteTheme<N extends YunPageBaseNotiModel>(N model, int themeId) async {
     YunRspData<YunBaseMapModel> rst =
-        await YunHttp(model).delete(YunBaseMapModel(), "/v1/api/record/theme/${themeId.toString()}");
+        await YunHttp(model).delete(YunBaseMapModel(), "/v1/api/theme/${themeId.toString()}");
 
     return rst?.data;
   }
@@ -95,8 +94,7 @@ class Api {
       qP['themeId'] = themeId;
     }
 
-    YunRspData<ThemeDataVo> rst =
-        await YunHttp(model).get(ThemeDataVo(), "/v1/api/record/themeData/list", qP, dIsList: true);
+    YunRspData<ThemeDataVo> rst = await YunHttp(model).get(ThemeDataVo(), "/v1/api/themeData/list", qP, dIsList: true);
 
     return rst?.dataList;
   }
@@ -109,7 +107,7 @@ class Api {
     }
 
     YunRspData<ThemeTempVo> rst =
-        await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/list", qP, dIsList: true);
+        await YunHttp(model).get(ThemeTempVo(), "/v1/api/themeTemplate/list", qP, dIsList: true);
 
     return rst?.dataList;
   }
@@ -117,20 +115,20 @@ class Api {
   /// 获取主题详情
   static Future<ThemeTempVo> getThemeTempDetails<N extends YunPageBaseNotiModel>(N model, int themeTempId) async {
     YunRspData<ThemeTempVo> rst =
-        await YunHttp(model).get(ThemeTempVo(), "/v1/api/record/themeTemplate/${themeTempId.toString()}", null);
+        await YunHttp(model).get(ThemeTempVo(), "/v1/api/themeTemplate/${themeTempId.toString()}", null);
 
     return rst?.data;
   }
 
   static Future<YunBaseMapModel> createThemeByTemplate<N extends YunPageBaseNotiModel>(N model, data) async {
     YunRspData<YunBaseMapModel> rst =
-        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme/createByTemplate", data, null);
+        await YunHttp(model).post(YunBaseMapModel(), "/v1/api/theme/createByTemplate", data, null);
 
     return rst?.data;
   }
 
   static Future<YunBaseMapModel> saveCustomTheme<N extends YunPageBaseNotiModel>(N model, data) async {
-    YunRspData<YunBaseMapModel> rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/record/theme", data, null);
+    YunRspData<YunBaseMapModel> rst = await YunHttp(model).post(YunBaseMapModel(), "/v1/api/theme", data, null);
 
     return rst?.data;
   }

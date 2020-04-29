@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:yun_base/action/yun_action.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/index.dart';
-import 'package:yun_record/models/theme_data_vo.dart';
+import 'package:yun_record/models/TagDataVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record/add_record_screen.dart';
 import 'package:yun_record/routes/theme/record_drawer_left.dart';
@@ -119,10 +119,10 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     }
 
     ThemeVo th = await model.getValidThemeDetails(selTheme);
-    if (th == null || th.tagList.length == 0) {
-//      model.showErr('无主题信息');
-      return;
-    }
+//    if (th == null || th.tagList.length == 0) {
+////      model.showErr('无主题信息');
+//      return;
+//    }
 
     int tagIndex;
 
@@ -193,7 +193,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
 
   Widget _listWidget(RecordModel model) {
     return ListView.separated(
-      itemCount: model.themeDataList.length,
+      itemCount: model.tagDataList.length,
 //                    itemExtent: 50.0, //强制高度为50.0
       itemBuilder: (BuildContext context, int index) {
         return _itemWidget(model, index);
@@ -211,7 +211,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
 
   // 每个条目
   Widget _itemWidget(RecordModel model, int index) {
-    ThemeDataVo item = model.themeDataList[index];
+    TagDataVo item = model.tagDataList[index];
 
     return Column(
       children: <Widget>[
@@ -239,7 +239,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
         ),
         Container(
             child: Column(
-          children: item.propDataList.map<Widget>((PropDataVo f) {
+          children: item.propDataList.map<Widget>((PropDataVoNew f) {
             return Container(
               padding: EdgeInsets.all(_defPadding()),
 //              color: Colors.amberAccent,

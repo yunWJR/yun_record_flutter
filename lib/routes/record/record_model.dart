@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_base/util/yun_date.dart';
-import 'package:yun_record/api/http_api.dart';
-import 'package:yun_record/models/theme_data_vo.dart';
+import 'package:yun_record/api/theme_api.dart';
+import 'package:yun_record/models/TagDataVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 class RecordModel extends YunPageBaseNotiModel {
@@ -11,7 +11,7 @@ class RecordModel extends YunPageBaseNotiModel {
   }
 
   List<ThemeVo> themeList;
-  List<ThemeDataVo> themeDataList;
+  List<TagDataVo> tagDataList;
 
   ThemeVo selTheme;
 
@@ -23,7 +23,7 @@ class RecordModel extends YunPageBaseNotiModel {
   Future loadData([BuildContext context]) async {
     if (canLoadData()) {
       // 获取主题列表
-      themeList = await Api.getThemeList(this, null);
+      themeList = await ThemeApi.getThemeList(this, null);
 
       // 错误
       if (themeList == null) {
@@ -36,18 +36,13 @@ class RecordModel extends YunPageBaseNotiModel {
         return;
       }
 
-//      // todo 选中项，可以缓存本地
-//      if (selTheme == null) {
-//        selTheme = themeList[0];
-//      }
-
       if (selDate == null) {
         selDate = DateTime.now();
       }
 
       String date = YunDate.ymdStr(selDate);
 
-      themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
+      tagDataList = await ThemeApi.getTagDataList(this, date, null, selTheme?.id);
 
       notifyListeners();
     }
@@ -57,14 +52,14 @@ class RecordModel extends YunPageBaseNotiModel {
     if (canLoadData()) {
       String date = YunDate.ymdStr(selDate);
 
-      themeDataList = await Api.getThemeDataList(this, date, null, selTheme?.id);
+      tagDataList = await ThemeApi.getTagDataList(this, date, null, selTheme?.id);
 
       notifyListeners();
     }
   }
 
   bool isBlankList() {
-    if (themeDataList == null || themeDataList.length == 0) {
+    if (tagDataList == null || tagDataList.length == 0) {
       return true;
     }
 
@@ -134,15 +129,15 @@ class RecordModel extends YunPageBaseNotiModel {
   Future<ThemeVo> getValidThemeDetails(ThemeVo selTheme) async {
     if (selTheme == null) {
       await Future.delayed(Duration(microseconds: 0));
-      if (selThemeDt.tagList.length == 0) {
-        showErr("主题无标签信息");
-      }
+//      if (selThemeDt.tagList.length == 0) {
+//        showErr("主题无标签信息");
+//      }
 
       return null;
     }
 
     if (selThemeDt == null || selThemeDt.id != selTheme.id) {
-      selThemeDt = await Api.getThemeDetails(this, selTheme.id);
+      selThemeDt = await ThemeApi.getThemeDetails(this, selTheme.id);
     }
 
     return selThemeDt;
