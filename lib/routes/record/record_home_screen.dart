@@ -9,8 +9,8 @@ import 'package:yun_record/index.dart';
 import 'package:yun_record/models/TagDataVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record/add_record_screen.dart';
+import 'package:yun_record/routes/record/tag/theme_tag_list_screen.dart';
 import 'package:yun_record/routes/theme/record_drawer_left.dart';
-import 'package:yun_record/routes/theme/theme_list_screen.dart';
 
 import 'home_calendar.dart';
 import 'record_model.dart';
@@ -43,7 +43,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
             IconButton(
               icon: Icon(Icons.widgets),
               onPressed: () {
-                _gotoThemeMg(model);
+                _gotoTagList(model);
               },
             )
           ],
@@ -118,7 +118,7 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       }
     }
 
-    ThemeVo th = await model.getValidThemeDetails(selTheme);
+    ThemeVo th = model.selTheme;
 //    if (th == null || th.tagList.length == 0) {
 ////      model.showErr('无主题信息');
 //      return;
@@ -150,8 +150,8 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
     }
   }
 
-  void _gotoThemeMg(RecordModel model) async {
-    var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName, arguments: model);
+  void _gotoTagList(RecordModel model) async {
+    var rst = await Navigator.pushNamed(context, ThemeTagListScreen.routeName, arguments: model);
     if (rst != null) {
       model.loadList(context);
     }

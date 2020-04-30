@@ -15,15 +15,13 @@ class RecordModel extends YunPageBaseNotiModel {
 
   ThemeVo selTheme;
 
-  ThemeVo selThemeDt;
-
   DateTime selDate;
 
   @override
   Future loadData([BuildContext context]) async {
     if (canLoadData()) {
       // 获取主题列表
-      themeList = await ThemeApi.getThemeList(this, null);
+      themeList = await ThemeApi.getThemeTagList(this, null, null);
 
       // 错误
       if (themeList == null) {
@@ -34,6 +32,10 @@ class RecordModel extends YunPageBaseNotiModel {
         // 自动隐藏加载框
         showErr("主题不存在，请添加主题");
         return;
+      }
+
+      if (themeList.length == 1) {
+        selTheme = themeList[0];
       }
 
       if (selDate == null) {
@@ -124,22 +126,5 @@ class RecordModel extends YunPageBaseNotiModel {
 
       loadList();
     }
-  }
-
-  Future<ThemeVo> getValidThemeDetails(ThemeVo selTheme) async {
-    if (selTheme == null) {
-      await Future.delayed(Duration(microseconds: 0));
-//      if (selThemeDt.tagList.length == 0) {
-//        showErr("主题无标签信息");
-//      }
-
-      return null;
-    }
-
-    if (selThemeDt == null || selThemeDt.id != selTheme.id) {
-      selThemeDt = await ThemeApi.getThemeDetails(this, selTheme.id);
-    }
-
-    return selThemeDt;
   }
 }

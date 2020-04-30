@@ -7,6 +7,8 @@ import 'package:yun_record/routes/home_tab/home_tab.dart';
 import 'package:yun_record/routes/login/register_screen.dart';
 import 'package:yun_record/routes/my/settings_screen.dart';
 import 'package:yun_record/routes/plan/edit/plan_edit_screen.dart';
+import 'package:yun_record/routes/record/tag/add_tag_screen.dart';
+import 'package:yun_record/routes/record/tag/theme_tag_list_screen.dart';
 import 'package:yun_record/routes/theme/add_custom_theme_screen.dart';
 import 'package:yun_record/routes/theme/add_temp_theme_screen.dart';
 import 'package:yun_record/routes/theme/theme_list_screen.dart';
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
             SettingsScreen.routeName: (context) => SettingsScreen(),
             CustomEditScreen.routeName: (context) => CustomEditScreen(),
             CustomListScreen.routeName: (context) => CustomListScreen(),
+            ThemeTagListScreen.routeName: (context) => ThemeTagListScreen(),
+            AddTagScreen.routeName: (context) => AddTagScreen(),
           },
           //          localizationsDelegates: [
           //            FlutterI18nDelegate(fallbackFile: 'en'),

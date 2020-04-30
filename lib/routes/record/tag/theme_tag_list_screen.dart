@@ -9,16 +9,16 @@ import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 import 'package:yun_record/routes/theme/theme_list_model.dart';
 
-import 'add_custom_theme_screen.dart';
+import 'add_tag_screen.dart';
 
-class ThemeListScreen extends StatefulWidget {
-  static const routeName = "ThemeListScreen";
+class ThemeTagListScreen extends StatefulWidget {
+  static const routeName = "ThemeTagListScreen";
 
   @override
-  ThemeListScreenState createState() => ThemeListScreenState();
+  ThemeTagListScreenState createState() => ThemeTagListScreenState();
 }
 
-class ThemeListScreenState extends State<ThemeListScreen> {
+class ThemeTagListScreenState extends State<ThemeTagListScreen> {
   RecordModel recordModel;
 
   ThemeListModel themeListModel;
@@ -55,12 +55,12 @@ class ThemeListScreenState extends State<ThemeListScreen> {
   Widget bodyWidget(ThemeListModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('我的主题'),
+        title: new Text('我的记录'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              _gotoAddTheme(model);
+              _gotoAddTag(model);
             },
           )
         ],
@@ -88,7 +88,7 @@ class ThemeListScreenState extends State<ThemeListScreen> {
           onPressed: () {
             _changeExpandAll(model);
           },
-          icon: Icon(model.isExpandAll?Icons.format_align_right:Icons.reorder),
+          icon: Icon(model.isExpandAll ? Icons.format_align_right : Icons.reorder),
           color: Theme.of(context).selectedRowColor,
         ),
       )),
@@ -203,11 +203,10 @@ class ThemeListScreenState extends State<ThemeListScreen> {
     //    Navigator.of(context).pop();
   }
 
-  _gotoAddTheme(ThemeListModel model) async {
-    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
+  _gotoAddTag(ThemeListModel model) async {
+    var rst = await Navigator.pushNamed(context, AddTagScreen.routeName, arguments: model.themeList);
     if (rst != null) {
       model.loadData();
-//      recordModel.loadData();
     }
   }
 

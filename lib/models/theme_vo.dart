@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:yun_base/model/yun_base_model.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/index.dart';
-import 'package:yun_record/models/tag.dart';
+import 'package:yun_record/models/TagVo.dart';
 
 typedef ValidErr = Function(String errMsg);
 
@@ -18,7 +18,7 @@ class ThemeVo extends YunBaseModel {
   int themeShareType; // 0
   int userId; // 0
   List<ThemeVo> childList;
-  List<Tag> tagList;
+  List<TagVo> tagList;
 
   bool isExpand = false;
 
@@ -41,7 +41,7 @@ class ThemeVo extends YunBaseModel {
       businessType: json['businessType'],
       childList:
           json['childList'] != null ? (json['childList'] as List).map((i) => ThemeVo.fromJson(i)).toList() : null,
-      tagList: json['tagList'] != null ? (json['tagList'] as List).map((i) => Tag.fromJson(i)).toList() : null,
+      tagList: json['tagList'] != null ? (json['tagList'] as List).map((i) => TagVo.fromJson(i)).toList() : null,
       createTime: json['createTime'],
       id: json['id'],
       name: json['name'],
