@@ -22,7 +22,7 @@ class ModelConvert {
 //        return YunBaseMapModel.fromJson(json) as T;
       case 'UserVo':
         return UserVo.fromJson(json) as T;
-      case 'ThemeVoNew':
+      case 'ThemeVo':
         return ThemeVo.fromJson(json) as T;
       case 'TagDataVo':
         return TagDataVo.fromJson(json) as T;

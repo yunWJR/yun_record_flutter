@@ -68,26 +68,26 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
           ),
         ),
         const SizedBox(height: 10.0),
-        Container(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
-          color: Theme.of(context).primaryColorLight,
-          child: Flex(
-            direction: Axis.horizontal,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(Icons.table_chart),
-                    const SizedBox(width: 4.0),
-                    Text("记录项"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+//        Container(
+//          padding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+//          color: Theme.of(context).primaryColorLight,
+//          child: Flex(
+//            direction: Axis.horizontal,
+//            children: [
+//              Expanded(
+//                flex: 3,
+//                child: Row(
+//                  mainAxisSize: MainAxisSize.min,
+//                  children: <Widget>[
+//                    Icon(Icons.table_chart),
+//                    const SizedBox(width: 4.0),
+//                    Text("记录项"),
+//                  ],
+//                ),
+//              ),
+//            ],
+//          ),
+//        ),
       ],
     );
   }

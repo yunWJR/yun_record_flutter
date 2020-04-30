@@ -152,9 +152,9 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
 
   void _gotoThemeMg(RecordModel model) async {
     var rst = await Navigator.pushNamed(context, ThemeListScreen.routeName, arguments: model);
-//    if (rst != null) {
-//      model.loadList(context);
-//    }
+    if (rst != null) {
+      model.loadList(context);
+    }
   }
 
   // endregion
