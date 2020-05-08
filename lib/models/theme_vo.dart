@@ -82,7 +82,7 @@ class ThemeVo extends YunBaseModel {
     ThemeVo dto = ThemeVo();
 
     // 默认 type
-    dto.businessType = 1;
+    dto.businessType = 2;
 
     dto.nameTf = new TextFormField(
         autofocus: true,

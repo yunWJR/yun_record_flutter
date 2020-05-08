@@ -6,45 +6,40 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_record/index.dart';
 import 'package:yun_record/models/TagVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
-import 'package:yun_record/routes/record/record_model.dart';
-import 'package:yun_record/routes/theme/theme_list_model.dart';
-import 'package:yun_record/routes/theme/theme_user_screen.dart';
+import 'package:yun_record/routes/theme/theme_user_model.dart';
 
-import 'add_custom_theme_screen.dart';
-
-class ThemeListScreen extends StatefulWidget {
-  static const routeName = "ThemeListScreen";
+class ThemeUserScreen extends StatefulWidget {
+  static const routeName = "ThemeUserScreen";
 
   @override
-  ThemeListScreenState createState() => ThemeListScreenState();
+  ThemeUserScreenState createState() => ThemeUserScreenState();
 }
 
-class ThemeListScreenState extends State<ThemeListScreen> {
-  RecordModel recordModel;
+class ThemeUserScreenState extends State<ThemeUserScreen> {
+  ThemeVo themeVo;
 
-  ThemeListModel themeListModel;
+  ThemeUserModel themeUserMode;
 
   @override
   Widget build(BuildContext context) {
-    if (recordModel == null) {
-      recordModel = ModalRoute.of(context).settings.arguments;
+    if (themeVo == null) {
+      themeVo = ModalRoute.of(context).settings.arguments;
     }
 
-    if (themeListModel == null) {
-      themeListModel = ThemeListModel(context, recordModel.themeList);
+    if (themeUserMode == null) {
+      themeUserMode = ThemeUserModel(context, themeVo);
     }
 
-    return ChangeNotifierProvider<ThemeListModel>(
-      create: (context) => themeListModel,
-      child: Consumer<ThemeListModel>(
+    return ChangeNotifierProvider<ThemeUserModel>(
+      create: (context) => themeUserMode,
+      child: Consumer<ThemeUserModel>(
         builder: (context, model, child) => WillPopScope(
           onWillPop: () async {
-            recordModel.loadData(context);
             return true;
           },
           child: Scaffold(
-            body: YunBasePage<ThemeListModel>.page(
-              body: bodyWidget(themeListModel),
+            body: YunBasePage<ThemeUserModel>.page(
+              body: bodyWidget(themeUserMode),
               model: model,
             ),
           ),
@@ -53,10 +48,10 @@ class ThemeListScreenState extends State<ThemeListScreen> {
     );
   }
 
-  Widget bodyWidget(ThemeListModel model) {
+  Widget bodyWidget(ThemeUserModel model) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('我的主题'),
+        title: new Text(model.themeVo.name + '的成员管理'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -82,23 +77,12 @@ class ThemeListScreenState extends State<ThemeListScreen> {
               );
             },
           )),
-      floatingActionButton: ClipOval(
-          child: Container(
-        color: Theme.of(context).primaryColor,
-        child: IconButton(
-          onPressed: () {
-            _changeExpandAll(model);
-          },
-          icon: Icon(model.isExpandAll ? Icons.format_align_right : Icons.reorder),
-          color: Theme.of(context).selectedRowColor,
-        ),
-      )),
     );
   }
 
   // region Widget
 
-  Widget themItem(ThemeListModel model, int index) {
+  Widget themItem(ThemeUserModel model, int index) {
     var theme = model.themeList[index];
 
     List<Widget> items = List();
@@ -200,19 +184,19 @@ class ThemeListScreenState extends State<ThemeListScreen> {
 
   // region Action
 
-  void _themeUserOn(ThemeListModel model, ThemeVo theme) {
-    Navigator.pushNamed(context, ThemeUserScreen.routeName, arguments: theme);
+  void _themeUserOn(ThemeUserModel model, ThemeVo theme) {
+    //    Navigator.of(context).pop();
   }
 
-  _gotoAddTheme(ThemeListModel model) async {
-    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
-    if (rst != null) {
-      model.loadData();
-//      recordModel.loadData();
-    }
+  _gotoAddTheme(ThemeUserModel model) async {
+//    var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
+//    if (rst != null) {
+//      model.loadData();
+////      recordModel.loadData();
+//    }
   }
 
-  _deleteTheme(ThemeListModel model, ThemeVo value) {
+  _deleteTheme(ThemeUserModel model, ThemeVo value) {
     showDialog<bool>(
       context: context,
       builder: (context) {
@@ -239,13 +223,9 @@ class ThemeListScreenState extends State<ThemeListScreen> {
     );
   }
 
-  void _deleteTag(ThemeListModel model, TagVo prop) {}
+  void _deleteTag(ThemeUserModel model, TagVo prop) {}
 
-  _tagOn(ThemeListModel model, TagVo tag) {}
-
-  void _changeExpandAll(ThemeListModel model) {
-    model.changeExpandAll();
-  }
+  _tagOn(ThemeUserModel model, TagVo tag) {}
 
 // endregion
 
