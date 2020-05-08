@@ -118,18 +118,17 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       }
     }
 
-    ThemeVo th = model.selTheme;
-//    if (th == null || th.tagList.length == 0) {
-////      model.showErr('无主题信息');
-//      return;
-//    }
+    if (selTheme.tagList == null || selTheme.tagList.length == 0) {
+      model.showErr('无记录标签');
+      return;
+    }
 
     int tagIndex;
 
-    if (th.tagList.length == 1) {
+    if (selTheme.tagList.length == 1) {
       tagIndex = 0;
     } else {
-      tagIndex = await YunAction.showAction(context, th.tagList.map((f) => f.name).toList(), title: "请选择主题");
+      tagIndex = await YunAction.showAction(context, selTheme.tagList.map((f) => f.name).toList(), title: "请选择主题");
     }
 
     if (tagIndex != null) {
@@ -139,9 +138,9 @@ class _RecordHomeScreenState extends State<RecordHomeScreen> {
       }
 
       Map<String, dynamic> argu = new Map();
-      argu["theme"] = th;
+      argu["theme"] = selTheme;
       argu["date"] = nDt;
-      argu['tag'] = th.tagList[tagIndex];
+      argu['tag'] = selTheme.tagList[tagIndex];
 
       var rst = await Navigator.pushNamed(context, AddRecordScreen.routeName, arguments: argu);
       if (rst != null) {
