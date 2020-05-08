@@ -11,7 +11,9 @@ import 'package:yun_record/routes/record/tag/add_tag_screen.dart';
 import 'package:yun_record/routes/record/tag/theme_tag_list_screen.dart';
 import 'package:yun_record/routes/theme/add_custom_theme_screen.dart';
 import 'package:yun_record/routes/theme/add_temp_theme_screen.dart';
+import 'package:yun_record/routes/theme/theme_add_user_screen.dart';
 import 'package:yun_record/routes/theme/theme_list_screen.dart';
+import 'package:yun_record/routes/theme/theme_share_screen.dart';
 import 'package:yun_record/routes/theme/theme_temp_screen.dart';
 
 import 'config/global_config.dart';
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
             CustomListScreen.routeName: (context) => CustomListScreen(),
             ThemeTagListScreen.routeName: (context) => ThemeTagListScreen(),
             AddTagScreen.routeName: (context) => AddTagScreen(),
+            ThemeShareScreen.routeName: (context) => ThemeShareScreen(),
+            ThemeAddUserScreen.routeName: (context) => ThemeAddUserScreen(),
           },
           //          localizationsDelegates: [
           //            FlutterI18nDelegate(fallbackFile: 'en'),

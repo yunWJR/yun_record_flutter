@@ -8,7 +8,7 @@ import 'package:yun_record/models/TagVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
 import 'package:yun_record/routes/theme/theme_list_model.dart';
-import 'package:yun_record/routes/theme/theme_user_screen.dart';
+import 'package:yun_record/routes/theme/theme_share_screen.dart';
 
 import 'add_custom_theme_screen.dart';
 
@@ -69,9 +69,9 @@ class ThemeListScreenState extends State<ThemeListScreen> {
       body: new Container(
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
-            itemCount: model.themeList?.length != null ? model.themeList.length : 1,
+            itemCount: model.themeList?.length != null ? model.themeList.length : 0,
             itemBuilder: (BuildContext context, int index) {
-              return themItem(model, index);
+              return listItem(model, index);
             },
             //分割器构造器
             separatorBuilder: (BuildContext context, int index) {
@@ -98,7 +98,7 @@ class ThemeListScreenState extends State<ThemeListScreen> {
 
   // region Widget
 
-  Widget themItem(ThemeListModel model, int index) {
+  Widget listItem(ThemeListModel model, int index) {
     var theme = model.themeList[index];
 
     List<Widget> items = List();
@@ -130,7 +130,7 @@ class ThemeListScreenState extends State<ThemeListScreen> {
           Expanded(
             flex: 8,
             child: FlatButton(
-              onPressed: () => _themeUserOn(model, theme),
+              onPressed: () => _themeOn(model, theme),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
@@ -201,8 +201,10 @@ class ThemeListScreenState extends State<ThemeListScreen> {
   // region Action
 
   void _themeUserOn(ThemeListModel model, ThemeVo theme) {
-    Navigator.pushNamed(context, ThemeUserScreen.routeName, arguments: theme);
+    Navigator.pushNamed(context, ThemeShareScreen.routeName, arguments: theme);
   }
+
+  void _themeOn(ThemeListModel model, ThemeVo theme) {}
 
   _gotoAddTheme(ThemeListModel model) async {
     var rst = await Navigator.pushNamed(context, AddCustomThemeScreen.routeName, arguments: null);
