@@ -13,6 +13,7 @@ class PlanVo extends YunBaseModel {
   int userId; // 0
   int themeId; // 0
   ThemeVo theme;
+  String userName;
 
   bool isCmp() {
     return status != null && status > 0;
@@ -29,6 +30,7 @@ class PlanVo extends YunBaseModel {
       this.tagId,
       this.themeId,
       this.theme,
+      this.userName,
       this.updateTime,
       this.userId});
 
@@ -38,6 +40,7 @@ class PlanVo extends YunBaseModel {
       createTime: json['createTime'],
       id: json['id'],
       status: json['status'],
+      userName: json['userName'],
       tagId: json['tagId'],
       themeId: json['themeId'],
       theme: json['theme'] != null ? ThemeVo.fromJson(json['theme']) : null,
@@ -53,6 +56,7 @@ class PlanVo extends YunBaseModel {
       id: json['id'],
       status: json['status'],
       tagId: json['tagId'],
+      userName: json['userName'],
       themeId: json['themeId'],
       theme: json['theme'] != null ? ThemeVo.fromJson(json['theme']) : null,
       updateTime: json['updateTime'],
