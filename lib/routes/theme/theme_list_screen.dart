@@ -141,15 +141,15 @@ class ThemeListScreenState extends State<ThemeListScreen> {
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: IconButton(
-              onPressed: () {
-                model.changeThemeExpand(theme);
-              },
-              icon: Icon(theme.isExpand ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_left),
-            ),
-          ),
+//          Expanded(
+//            flex: 2,
+//            child: IconButton(
+//              onPressed: () {
+//                model.changeThemeExpand(theme);
+//              },
+//              icon: Icon(theme.isExpand ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_left),
+//            ),
+//          ),
         ],
       ),
     );

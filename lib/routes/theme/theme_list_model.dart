@@ -57,6 +57,22 @@ class ThemeListModel extends YunPageBaseNotiModel {
 
   void changeThemeExpand(ThemeVo theme) {
     theme.isExpand = !theme.isExpand;
+
+    // 全部判断
+    int negCount = 0;
+
+    for (var item in themeList) {
+      if (item.isExpand != isExpandAll) {
+        negCount++;
+      } else {
+        break;
+      }
+    }
+
+    if (negCount == themeList.length) {
+      isExpandAll = !isExpandAll;
+    }
+
     notifyListeners();
   }
 

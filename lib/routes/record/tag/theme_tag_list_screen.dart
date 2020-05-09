@@ -7,7 +7,7 @@ import 'package:yun_record/index.dart';
 import 'package:yun_record/models/TagVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/routes/record/record_model.dart';
-import 'package:yun_record/routes/theme/theme_list_model.dart';
+import 'package:yun_record/routes/record/tag/theme_tag_list_model.dart';
 
 import 'add_tag_screen.dart';
 
@@ -21,7 +21,7 @@ class ThemeTagListScreen extends StatefulWidget {
 class ThemeTagListScreenState extends State<ThemeTagListScreen> {
   RecordModel recordModel;
 
-  ThemeListModel themeListModel;
+  ThemeTagListModel themeListModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +30,19 @@ class ThemeTagListScreenState extends State<ThemeTagListScreen> {
     }
 
     if (themeListModel == null) {
-      themeListModel = ThemeListModel(context, recordModel.themeList);
+      themeListModel = ThemeTagListModel(context, recordModel.themeList);
     }
 
-    return ChangeNotifierProvider<ThemeListModel>(
+    return ChangeNotifierProvider<ThemeTagListModel>(
       create: (context) => themeListModel,
-      child: Consumer<ThemeListModel>(
+      child: Consumer<ThemeTagListModel>(
         builder: (context, model, child) => WillPopScope(
           onWillPop: () async {
             recordModel.loadData(context);
             return true;
           },
           child: Scaffold(
-            body: YunBasePage<ThemeListModel>.page(
+            body: YunBasePage<ThemeTagListModel>.page(
               body: bodyWidget(themeListModel),
               model: model,
             ),
@@ -52,7 +52,7 @@ class ThemeTagListScreenState extends State<ThemeTagListScreen> {
     );
   }
 
-  Widget bodyWidget(ThemeListModel model) {
+  Widget bodyWidget(ThemeTagListModel model) {
     return Scaffold(
       appBar: AppBar(
         title: new Text('我的记录'),
@@ -97,60 +97,38 @@ class ThemeTagListScreenState extends State<ThemeTagListScreen> {
 
   // region Widget
 
-  Widget themItem(ThemeListModel model, int index) {
+  Widget themItem(ThemeTagListModel model, int index) {
     var theme = model.themeList[index];
 
     List<Widget> items = List();
 
-    var cell = Slidable(
-      actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
-      actionExtentRatio: 0.25,
-      secondaryActions: <Widget>[
-        //右侧按钮列表
-        IconSlideAction(
-          caption: '详情',
-          color: Colors.black45,
-          icon: Icons.more_horiz,
-          onTap: () => _themeOn(model, theme),
+    var cell = Flex(
+      direction: Axis.horizontal,
+      children: <Widget>[
+        Expanded(
+          flex: 8,
+          child: FlatButton(
+            onPressed: () => _themeOn(model, theme),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Icon(Icons.ac_unit),
+                const SizedBox(width: 8.0),
+                Text(theme.name),
+              ],
+            ),
+          ),
         ),
-        IconSlideAction(
-          caption: '删除',
-          color: Colors.red,
-          icon: Icons.delete,
-          closeOnTap: true,
-          onTap: () {
-            _deleteTheme(model, theme);
-          },
+        Expanded(
+          flex: 2,
+          child: IconButton(
+            onPressed: () {
+              model.changeThemeExpand(theme);
+            },
+            icon: Icon(theme.isExpand ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_left),
+          ),
         ),
       ],
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          Expanded(
-            flex: 8,
-            child: FlatButton(
-              onPressed: () => _themeOn(model, theme),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Icon(Icons.ac_unit),
-                  const SizedBox(width: 8.0),
-                  Text(theme.name),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: IconButton(
-              onPressed: () {
-                model.changeThemeExpand(theme);
-              },
-              icon: Icon(theme.isExpand ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_left),
-            ),
-          ),
-        ],
-      ),
     );
 
     items.add(cell);
@@ -199,18 +177,18 @@ class ThemeTagListScreenState extends State<ThemeTagListScreen> {
 
   // region Action
 
-  void _themeOn(ThemeListModel model, ThemeVo theme) {
+  void _themeOn(ThemeTagListModel model, ThemeVo theme) {
     //    Navigator.of(context).pop();
   }
 
-  _gotoAddTag(ThemeListModel model) async {
+  _gotoAddTag(ThemeTagListModel model) async {
     var rst = await Navigator.pushNamed(context, AddTagScreen.routeName, arguments: model.themeList);
     if (rst != null) {
       model.loadData();
     }
   }
 
-  _deleteTheme(ThemeListModel model, ThemeVo value) {
+  _deleteTheme(ThemeTagListModel model, ThemeVo value) {
     showDialog<bool>(
       context: context,
       builder: (context) {
@@ -237,11 +215,11 @@ class ThemeTagListScreenState extends State<ThemeTagListScreen> {
     );
   }
 
-  void _deleteTag(ThemeListModel model, TagVo prop) {}
+  void _deleteTag(ThemeTagListModel model, TagVo prop) {}
 
-  _tagOn(ThemeListModel model, TagVo tag) {}
+  _tagOn(ThemeTagListModel model, TagVo tag) {}
 
-  void _changeExpandAll(ThemeListModel model) {
+  void _changeExpandAll(ThemeTagListModel model) {
     model.changeExpandAll();
   }
 
