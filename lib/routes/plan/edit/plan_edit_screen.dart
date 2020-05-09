@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/models/plan_vo.dart';
+import 'package:yun_record/models/theme_vo.dart';
 
 import '../../../index.dart';
 import 'plan_edit_model.dart';
@@ -59,7 +60,7 @@ class _PlanEditScreenState extends State<PlanEditScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-//            _statusWidget(model),
+            _selectThemeWidget(model),
             Expanded(child: _itemWidget(model)),
           ],
         ),
@@ -98,6 +99,42 @@ class _PlanEditScreenState extends State<PlanEditScreen> {
 
   double _defPadding() {
     return 10.0;
+  }
+
+  Widget _selectThemeWidget(PlanEditModel model) {
+    return Container(
+      padding: EdgeInsets.all(_defPadding()),
+      child: Row(
+        children: <Widget>[
+          Text(model.selThemeName()),
+          PopupMenuButton(
+            icon: Icon(
+              Icons.playlist_add_check,
+              size: 12,
+            ),
+            onSelected: (value) {
+              model.updateSelThemeIndex(value);
+            },
+            itemBuilder: (BuildContext context) => themeButtons(model),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<PopupMenuItem> themeButtons(PlanEditModel model) {
+    List<PopupMenuItem> btns = List();
+
+    for (int i = 0; i < model.themeList.length; i++) {
+      ThemeVo v = model.themeList[i];
+
+      btns.add(PopupMenuItem(
+        value: i,
+        child: Text(v.nameWithType()),
+      ));
+    }
+
+    return btns;
   }
 
 // endregion

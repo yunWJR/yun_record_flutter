@@ -137,4 +137,22 @@ class ThemeVo extends YunBaseModel {
 //      value.getData();
 //    }
   }
+
+  String nameWithType() {
+    if (name == null) {
+      return "";
+    }
+
+    if (businessType == 1) {
+      return "我的主题";
+    }
+
+    if (businessType == 2) {
+      if (themeShareType == 0) {
+        return name;
+      } else {
+        return name + "(分享主题)";
+      }
+    }
+  }
 }

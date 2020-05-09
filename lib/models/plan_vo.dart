@@ -1,4 +1,5 @@
 import 'package:yun_base/model/yun_base_model.dart';
+import 'package:yun_record/models/theme_vo.dart';
 
 import '../index.dart';
 
@@ -8,9 +9,10 @@ class PlanVo extends YunBaseModel {
   int id; // 0
   int status; // 0
   int tagId; // 0
-  int themeId; // 0
   int updateTime; // 0
   int userId; // 0
+  int themeId; // 0
+  ThemeVo theme;
 
   bool isCmp() {
     return status != null && status > 0;
@@ -26,6 +28,7 @@ class PlanVo extends YunBaseModel {
       this.status,
       this.tagId,
       this.themeId,
+      this.theme,
       this.updateTime,
       this.userId});
 
@@ -37,6 +40,7 @@ class PlanVo extends YunBaseModel {
       status: json['status'],
       tagId: json['tagId'],
       themeId: json['themeId'],
+      theme: json['theme'] != null ? ThemeVo.fromJson(json['theme']) : null,
       updateTime: json['updateTime'],
       userId: json['userId'],
     );
@@ -50,6 +54,7 @@ class PlanVo extends YunBaseModel {
       status: json['status'],
       tagId: json['tagId'],
       themeId: json['themeId'],
+      theme: json['theme'] != null ? ThemeVo.fromJson(json['theme']) : null,
       updateTime: json['updateTime'],
       userId: json['userId'],
     );
@@ -65,6 +70,10 @@ class PlanVo extends YunBaseModel {
     data['themeId'] = this.themeId;
     data['updateTime'] = this.updateTime;
     data['userId'] = this.userId;
+    if (this.theme != null) {
+      data['theme'] = this.theme.toJson();
+    }
+
     return data;
   }
 

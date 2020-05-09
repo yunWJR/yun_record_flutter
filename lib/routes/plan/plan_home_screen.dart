@@ -78,11 +78,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
 
   // 下拉刷新方法
   Future<void> _handleRefresh(PlanModel model) async {
-    print('refresh');
-
     await model.loadList(context);
-
-//   return null;
   }
 
   void _addPlanOn(PlanModel model) async {
@@ -151,6 +147,10 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
               Expanded(
                 flex: 11,
                 child: new Text(item.content),
+              ),
+              Expanded(
+                flex: 2,
+                child: new Text(item.theme == null ? "" : item.theme.nameWithType()),
               ),
             ],
           ),

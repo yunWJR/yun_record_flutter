@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yun_base/model/yun_page_base_noti_model.dart';
 import 'package:yun_record/api/http_api.dart';
+import 'package:yun_record/api/theme_api.dart';
 import 'package:yun_record/models/theme_vo.dart';
 
 class ThemeListModel extends YunPageBaseNotiModel {
@@ -14,7 +15,7 @@ class ThemeListModel extends YunPageBaseNotiModel {
   Future loadData([BuildContext context]) async {
     if (canLoadData()) {
       // 获取主题列表
-      themeList = await Api.getThemeList(this, null);
+      themeList = await ThemeApi.getThemeList(this, null);
 
       // 错误
       if (themeList == null) {
@@ -29,7 +30,7 @@ class ThemeListModel extends YunPageBaseNotiModel {
     startLoading();
 
     // 获取主题列表
-    themeList = await Api.getThemeList(this, null);
+    themeList = await ThemeApi.getThemeList(this, null);
 
     // 错误
     if (themeList == null) {
@@ -43,7 +44,7 @@ class ThemeListModel extends YunPageBaseNotiModel {
     startLoading();
 
     // 获取主题列表
-    var rst = await Api.deleteTheme(this, id);
+    var rst = await ThemeApi.deleteTheme(this, id);
 
     // 错误
     if (rst == null) {
