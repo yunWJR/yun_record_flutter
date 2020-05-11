@@ -16,15 +16,18 @@ class PlanEditScreen extends StatefulWidget {
 }
 
 class _PlanEditScreenState extends State<PlanEditScreen> {
+  PlanEditModel planModel;
+
   @override
   Widget build(BuildContext context) {
 //    Map<String, dynamic> argu = ModalRoute.of(context).settings.arguments;
 
-    PlanEditModel newModel = PlanEditModel(context);
-//    newModel.setArgu(argu);
+    if (planModel == null) {
+      planModel = PlanEditModel(context);
+    }
 
     return ChangeNotifierProvider<PlanEditModel>.value(
-        value: newModel,
+        value: planModel,
         child: Consumer<PlanEditModel>(
           builder: (context, model, child) => Scaffold(
             body: YunBasePage<PlanEditModel>.page(
