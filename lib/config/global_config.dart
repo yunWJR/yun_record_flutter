@@ -11,7 +11,6 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/models/model_convert.dart';
 import 'package:yun_record/models/user_vo.dart';
-import 'package:yun_record/routes/login/login_screen.dart';
 
 import '../index.dart';
 import 'global_theme_config.dart';
@@ -151,14 +150,14 @@ class GlobalConfig {
 
           if (org is YunPageBaseNotiModel) {
             if (org.nagOn != null) {
-              org.nagOn(LoginScreen.routeName, true);
+              org.nagOn("Login", true);
 
               return;
             }
           }
 
           if (nanOn != null) {
-            nanOn(LoginScreen.routeName, true);
+            nanOn("Login", true);
           }
         }
       }

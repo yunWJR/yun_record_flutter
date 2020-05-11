@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:yun_base/util/yun_value.dart';
 import 'package:yun_record/index.dart';
 import 'package:yun_record/widgets/data_type_popup_menu.dart';
+import 'package:yun_record/widgets/select_theme.dart';
 
 import 'ThemeVoBack.dart';
 
@@ -41,6 +42,8 @@ class TagVo {
   }
 
   // dto
+  GlobalKey<SelectThemeState> themeKey = new GlobalKey<SelectThemeState>();
+
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   final TextEditingController nameController = new TextEditingController();

@@ -1,5 +1,6 @@
 import 'package:yun_base/model/yun_base_model.dart';
 import 'package:yun_record/models/theme_vo.dart';
+import 'package:yun_record/widgets/select_theme.dart';
 
 import '../index.dart';
 
@@ -21,6 +22,8 @@ class PlanVo extends YunBaseModel {
 
   TextEditingController nameController;
   TextFormField nameTf;
+
+  GlobalKey<SelectThemeState> themeKey = new GlobalKey<SelectThemeState>();
 
   PlanVo(
       {this.content,

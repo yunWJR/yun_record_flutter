@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 import 'package:yun_base/page/yun_base_page.dart';
-import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/models/TagVo.dart';
 import 'package:yun_record/models/theme_vo.dart';
+import 'package:yun_record/widgets/select_theme.dart';
 
 import 'add_tag_model.dart';
 
@@ -89,6 +90,18 @@ class AddTagScreenState extends State<AddTagScreen> {
   Widget _headerWidget(AddTagModel model) {
     return Column(
       children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(10),
+//            color: Colors.grey[200],
+          child: SelectTheme(
+            key: model.tagDto.themeKey,
+            selIndex: 0,
+            changed: (index, item) {
+              model.tagDto.themeId = item.id;
+            },
+          ),
+        ),
+        const SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(10),
 //            color: Colors.grey[200],
@@ -189,14 +202,6 @@ class AddTagScreenState extends State<AddTagScreen> {
     return iH;
   }
 
-  String _validateUserName(String uName) {
-    if (uName.length == null || uName.length == 0) {
-      return '请输入主题名称';
-    }
-
-    return null;
-  }
-
   // endregion
 
   // region Action
@@ -209,7 +214,7 @@ class AddTagScreenState extends State<AddTagScreen> {
 
     model.saveTag().then((suc) {
       if (suc) {
-        YunToast.showToast("保存成功");
+        Toast.show("保存成功", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         Navigator.of(context).pop(1);
       }
     });

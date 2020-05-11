@@ -4,6 +4,7 @@ import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/models/plan_vo.dart';
 import 'package:yun_record/models/theme_vo.dart';
+import 'package:yun_record/widgets/select_theme.dart';
 
 import '../../../index.dart';
 import 'plan_edit_model.dart';
@@ -16,18 +17,15 @@ class PlanEditScreen extends StatefulWidget {
 }
 
 class _PlanEditScreenState extends State<PlanEditScreen> {
-  PlanEditModel planModel;
-
   @override
   Widget build(BuildContext context) {
 //    Map<String, dynamic> argu = ModalRoute.of(context).settings.arguments;
 
-    if (planModel == null) {
-      planModel = PlanEditModel(context);
-    }
+    PlanEditModel newModel = PlanEditModel(context);
+//    newModel.setArgu(argu);
 
     return ChangeNotifierProvider<PlanEditModel>.value(
-        value: planModel,
+        value: newModel,
         child: Consumer<PlanEditModel>(
           builder: (context, model, child) => Scaffold(
             body: YunBasePage<PlanEditModel>.page(
@@ -107,20 +105,12 @@ class _PlanEditScreenState extends State<PlanEditScreen> {
   Widget _selectThemeWidget(PlanEditModel model) {
     return Container(
       padding: EdgeInsets.all(_defPadding()),
-      child: Row(
-        children: <Widget>[
-          Text(model.selThemeName()),
-          PopupMenuButton(
-            icon: Icon(
-              Icons.playlist_add_check,
-              size: 12,
-            ),
-            onSelected: (value) {
-              model.updateSelThemeIndex(value);
-            },
-            itemBuilder: (BuildContext context) => themeButtons(model),
-          ),
-        ],
+      child: SelectTheme(
+        key: model.dto.themeKey,
+        selIndex: 0,
+        changed: (index, item) {
+          model.dto.themeId = item.id;
+        },
       ),
     );
   }

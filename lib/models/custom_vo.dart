@@ -1,4 +1,5 @@
 import 'package:yun_base/model/yun_base_model.dart';
+import 'package:yun_record/widgets/select_theme.dart';
 
 import '../index.dart';
 
@@ -33,6 +34,8 @@ class Custom extends YunBaseModel {
   String typePara;
   int updateTime; // 0
   int userId; // 0
+
+  GlobalKey<SelectThemeState> themeKey = new GlobalKey<SelectThemeState>();
 
   GlobalKey<FormState> nameFormKey = new GlobalKey<FormState>();
   GlobalKey<FormState> completeParaFormKey = new GlobalKey<FormState>();

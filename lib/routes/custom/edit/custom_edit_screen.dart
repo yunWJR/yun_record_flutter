@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:yun_base/page/yun_base_page.dart';
 import 'package:yun_base/toast/yun_toast.dart';
 import 'package:yun_record/models/custom_vo.dart';
+import 'package:yun_record/widgets/select_theme.dart';
 
 import '../../../index.dart';
 import 'custom_edit_model.dart';
@@ -99,6 +100,14 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
 
     List<Widget> items = List();
 
+    items.add(SelectTheme(
+      key: model.dto.themeKey,
+      selIndex: 0,
+      changed: (index, item) {
+        model.dto.themeId = item.id;
+      },
+    ));
+
     items.add(Form(
       key: item.nameFormKey,
       autovalidate: item.autoValidate,
@@ -183,14 +192,8 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
 //          color: isSel ? Theme.of(context).primaryColor : Theme.of(context).selectedRowColor,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
-              color: isSel
-                  ? Theme.of(context).primaryColor
-                  : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
-              border: Border.all(
-                  color: isSel
-                      ? Theme.of(context).primaryColor
-                      : Colors.transparent,
-                  width: 1)),
+              color: isSel ? Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
+              border: Border.all(color: isSel ? Theme.of(context).primaryColor : Colors.transparent, width: 1)),
           child: FlatButton(
             child: Text(i == 1 ? "每日" : "每周"),
 //            color: Colors.red,
@@ -229,14 +232,8 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
 //          color: isSel ? Theme.of(context).primaryColor : Theme.of(context).selectedRowColor,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
-              color: isSel
-                  ? Theme.of(context).primaryColor
-                  : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
-              border: Border.all(
-                  color: isSel
-                      ? Theme.of(context).primaryColor
-                      : Colors.transparent,
-                  width: 1)),
+              color: isSel ? Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
+              border: Border.all(color: isSel ? Theme.of(context).primaryColor : Colors.transparent, width: 1)),
           child: FlatButton(
             child: Text(i == 1 ? "次数" : "总量"),
 //            color: Colors.red,
