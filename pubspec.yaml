@@ -50,7 +50,7 @@ dependencies:
   toast: ^0.1.5
 
   ## Online
-  connectivity: ^0.4.8+2
+#  connectivity: '>=0.4.y+x <2.0.0'
   flutter_web_browser: ^0.11.0
 
 #  intl: ^0.16.1

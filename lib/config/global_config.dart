@@ -151,7 +151,7 @@ class GlobalConfig {
 
           if (org is YunPageBaseNotiModel) {
             if (org.nagOn != null) {
-              org.nagOn("Login", true);
+              org.nagOn(LoginScreen.routeName, true);
 
               return;
             }
