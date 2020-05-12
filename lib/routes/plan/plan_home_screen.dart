@@ -150,7 +150,7 @@ class _PlanHomeScreenState extends State<PlanHomeScreen> {
               ),
               Expanded(
                 flex: 2,
-                child: new Text(item.theme == null ? "" : item.theme.nameWithType()),
+                child: new Text(item.theme?.nameWithType() ?? ""),
               ),
             ],
           ),

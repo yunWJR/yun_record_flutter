@@ -7,11 +7,11 @@ import 'package:yun_record/api/http_api.dart';
 class CustomEditModel extends YunPageBaseNotiModel {
   CustomEditModel(BuildContext context, {this.dto}) : super(context, initLoadData: false) {
     if (this.dto == null) {
-      this.dto = Custom.dto();
+      this.dto = CustomVo.dto();
     }
   }
 
-  Custom dto;
+  CustomVo dto;
 
   @override
   Future loadData([BuildContext context]) async {}

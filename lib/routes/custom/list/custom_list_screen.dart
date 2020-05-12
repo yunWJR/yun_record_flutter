@@ -112,7 +112,7 @@ class CustomListScreenState extends State<CustomListScreen> {
 
   // region Action
 
-  void _itemOn(Custom theme) {
+  void _itemOn(CustomVo theme) {
     print(theme.name);
     //    Navigator.of(context).pop();
   }

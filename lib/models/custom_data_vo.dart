@@ -4,7 +4,7 @@ import 'custom_vo.dart';
 
 class CustomDataVo extends YunBaseModel {
   int createTime; // 0
-  Custom custom;
+  CustomVo custom;
   int dataType; // 0
   String date;
   int dateTime; // 0
@@ -18,7 +18,7 @@ class CustomDataVo extends YunBaseModel {
   factory CustomDataVo.fromJson(Map<String, dynamic> json) {
     return CustomDataVo(
       createTime: json['createTime'],
-      custom: json['custom'] != null ? Custom.fromJson(json['custom']) : null,
+      custom: json['custom'] != null ? CustomVo.fromJson(json['custom']) : null,
       dataType: json['dataType'],
       date: json['date'],
       dateTime: json['dateTime'],
@@ -31,7 +31,7 @@ class CustomDataVo extends YunBaseModel {
   fromJson(Map<String, dynamic> json) {
     return CustomDataVo(
       createTime: json['createTime'],
-      custom: json['custom'] != null ? Custom.fromJson(json['custom']) : null,
+      custom: json['custom'] != null ? CustomVo.fromJson(json['custom']) : null,
       dataType: json['dataType'],
       date: json['date'],
       dateTime: json['dateTime'],

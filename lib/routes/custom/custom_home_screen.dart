@@ -9,7 +9,6 @@ import 'package:yun_record/models/custom_data_vo.dart';
 import 'package:yun_record/routes/record/home_calendar.dart';
 
 import 'custom_model.dart';
-import 'edit/custom_edit_screen.dart';
 import 'list/custom_list_screen.dart';
 
 class CustomHomeScreen extends StatefulWidget {
@@ -181,6 +180,10 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
               Expanded(
                 flex: 11,
                 child: new Text(item.custom.name),
+              ),
+              Expanded(
+                flex: 2,
+                child: new Text(item.custom.themeVO?.nameWithType() ?? ""),
               ),
             ],
           ),

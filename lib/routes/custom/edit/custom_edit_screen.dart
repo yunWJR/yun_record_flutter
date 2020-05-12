@@ -84,7 +84,7 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
 
   // 每个条目
   Widget _itemWidget(CustomEditModel model) {
-    Custom item = model.dto;
+    CustomVo item = model.dto;
 
     return Column(
       children: <Widget>[
@@ -96,7 +96,7 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
   List<Widget> _itemsWidget(CustomEditModel model) {
     double p = 14;
 
-    Custom item = model.dto;
+    CustomVo item = model.dto;
 
     List<Widget> items = List();
 

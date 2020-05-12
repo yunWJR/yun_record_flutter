@@ -7,7 +7,7 @@ import 'package:yun_record/api/http_api.dart';
 class CustomListModel extends YunPageBaseNotiModel {
   CustomListModel(BuildContext context) : super(context, initLoadData: true);
 
-  List<Custom> customList;
+  List<CustomVo> customList;
 
   @override
   Future loadData([BuildContext context]) async {

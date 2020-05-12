@@ -195,13 +195,13 @@ class Api {
     return rst?.data;
   }
 
-  static Future<List<Custom>> getCustomList<N extends YunPageBaseNotiModel>(N model, String name) async {
+  static Future<List<CustomVo>> getCustomList<N extends YunPageBaseNotiModel>(N model, String name) async {
     var qP = Map<String, dynamic>();
     if (YunValue.hasContent(name)) {
       qP['name'] = name;
     }
 
-    YunRspData<Custom> rst = await YunHttp(model).get(Custom(), "/v1/api/custom/list", qP, dIsList: true);
+    YunRspData<CustomVo> rst = await YunHttp(model).get(CustomVo(), "/v1/api/custom/list", qP, dIsList: true);
 
     return rst?.dataList;
   }

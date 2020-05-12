@@ -1,4 +1,5 @@
 import 'package:yun_base/model/yun_base_model.dart';
+import 'package:yun_record/models/theme_vo.dart';
 import 'package:yun_record/widgets/select_theme.dart';
 
 import '../index.dart';
@@ -21,7 +22,7 @@ class CustomDefine {
   }
 }
 
-class Custom extends YunBaseModel {
+class CustomVo extends YunBaseModel {
   String completePara;
   int completeType; // 0
   int createTime; // 0
@@ -34,6 +35,7 @@ class Custom extends YunBaseModel {
   String typePara;
   int updateTime; // 0
   int userId; // 0
+  ThemeVo themeVO;
 
   GlobalKey<SelectThemeState> themeKey = new GlobalKey<SelectThemeState>();
 
@@ -47,13 +49,14 @@ class Custom extends YunBaseModel {
   TextEditingController completeParaController;
   TextFormField completeParaTf;
 
-  Custom(
+  CustomVo(
       {this.completePara,
       this.completeType,
       this.createTime,
       this.enable,
       this.id,
       this.name,
+      this.themeVO,
       this.tagId,
       this.themeId,
       this.type,
@@ -61,13 +64,14 @@ class Custom extends YunBaseModel {
       this.updateTime,
       this.userId});
 
-  factory Custom.fromJson(Map<String, dynamic> json) {
-    return Custom(
+  factory CustomVo.fromJson(Map<String, dynamic> json) {
+    return CustomVo(
       completePara: json['completePara'],
       completeType: json['completeType'],
       createTime: json['createTime'],
       enable: json['enable'],
       id: json['id'],
+      themeVO: json['themeVO'] != null ? ThemeVo.fromJson(json['themeVO']) : null,
       name: json['name'],
       tagId: json['tagId'],
       themeId: json['themeId'],
@@ -79,12 +83,13 @@ class Custom extends YunBaseModel {
   }
 
   fromJson(Map<String, dynamic> json) {
-    return Custom(
+    return CustomVo(
       completePara: json['completePara'],
       completeType: json['completeType'],
       createTime: json['createTime'],
       enable: json['enable'],
       id: json['id'],
+      themeVO: json['themeVO'] != null ? ThemeVo.fromJson(json['themeVO']) : null,
       name: json['name'],
       tagId: json['tagId'],
       themeId: json['themeId'],
@@ -109,11 +114,15 @@ class Custom extends YunBaseModel {
     data['typePara'] = this.typePara;
     data['updateTime'] = this.updateTime;
     data['userId'] = this.userId;
+    if (this.themeVO != null) {
+      data['themeVO'] = this.themeVO.toJson();
+    }
+
     return data;
   }
 
-  static Custom dto() {
-    Custom dto = Custom();
+  static CustomVo dto() {
+    CustomVo dto = CustomVo();
     dto.enable = 1;
     dto.type = 1;
     dto.completeType = 1;
