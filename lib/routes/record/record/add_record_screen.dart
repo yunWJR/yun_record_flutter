@@ -71,7 +71,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   void _saveOn(AddRecordModel model) {
     model.saveRecord().then((suc) {
       if (suc) {
-        YunToast.showToast("保存成功");
+        YunToast.showToast("保存成功", context);
         Navigator.of(context).pop(1);
       }
     });

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yun_base/alert/yun_alert.dart';
 import 'package:yun_base/config/yun_config.dart';
@@ -23,7 +23,7 @@ class GlobalConfig {
   static Map<int, String> _itemsKeyMap;
   static Map<int, bool> _itemsSaveMap;
 
-  static final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
+//  static final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
 
   static SharedPreferences _prefs;
 
@@ -79,7 +79,7 @@ class GlobalConfig {
 
   // endregion
 
-  static FlutterLocalNotificationsPlugin get notifications => _notifications;
+//  static FlutterLocalNotificationsPlugin get notifications => _notifications;
 
   static savePref(Items item) {
     if (_prefs == null || item == null) {
@@ -125,11 +125,11 @@ class GlobalConfig {
 
     await _initItems();
 
-    // noti
-    notifications.initialize(const InitializationSettings(
-      AndroidInitializationSettings('notification_launch'),
-      IOSInitializationSettings(),
-    ));
+//    // noti
+//    notifications.initialize(const InitializationSettings(
+//      AndroidInitializationSettings('notification_launch'),
+//      IOSInitializationSettings(),
+//    ));
 
     // http config
     var rst = YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);

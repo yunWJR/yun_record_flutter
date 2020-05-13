@@ -268,7 +268,7 @@ class AddTempThemeScreenState extends State<AddTempThemeScreen> {
 
     model.createThemeByTemplate(model.tmpVo.id, _nameController.text).then((suc) {
       if (suc) {
-        YunToast.showToast("主题创建成功");
+        YunToast.showToast("主题创建成功", context);
 //        Navigator.pushReplacementNamed(context, "HomeTab"); // todo
         Navigator.pop(context, true);
       }

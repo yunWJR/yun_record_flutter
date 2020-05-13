@@ -104,7 +104,7 @@ class AddCustomThemeScreenState extends State<AddCustomThemeScreen> {
 
     model.saveTheme().then((suc) {
       if (suc) {
-        YunToast.showToast("保存成功");
+        YunToast.showToast("保存成功", context);
         Navigator.of(context).pop(1);
       }
     });

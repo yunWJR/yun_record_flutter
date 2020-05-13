@@ -70,7 +70,8 @@ class _CustomEditScreenState extends State<CustomEditScreen> {
     FocusScope.of(context).requestFocus(new FocusNode());
     model.saveCustom().then((suc) {
       if (suc) {
-        YunToast.showToast("保存成功");
+//        YunToast.showToast("保存成功");
+        YunToast.showToast("保存成功", context);
         Navigator.of(context).pop(1);
       }
     });

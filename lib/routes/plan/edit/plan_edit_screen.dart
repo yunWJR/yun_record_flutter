@@ -75,7 +75,7 @@ class _PlanEditScreenState extends State<PlanEditScreen> {
   void _saveOn(PlanEditModel model) {
     model.savePlan().then((suc) {
       if (suc) {
-        YunToast.showToast("保存成功");
+        YunToast.showToast("保存成功", context);
         Navigator.of(context).pop(1);
       }
     });

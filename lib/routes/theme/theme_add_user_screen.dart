@@ -127,7 +127,7 @@ class ThemeAddUserScreenState extends State<ThemeAddUserScreen> {
   _addUserOn(ThemeAddUserModel model) {
     model.addUser().then((suc) {
       if (suc) {
-        YunToast.showToast("添加成功");
+        YunToast.showToast("添加成功", context);
         Navigator.of(context).pop(1);
       }
     });
