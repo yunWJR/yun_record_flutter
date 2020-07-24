@@ -29,7 +29,8 @@ dependencies:
   # Widgets
   cached_network_image: ^2.0.0
 #  flutter_local_notifications: ^1.4.0
-  flutter_datetime_picker: ^1.3.5
+  flutter_datetime_picker: ^1.3.8
+
   flutter_svg: ^0.17.3+1
   row_collection: ^0.2.4
   calendarro: ^1.2.0 # 日历
@@ -64,10 +65,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-#  json_model: ^0.0.2
-#  intl_translation: ^0.17.4
-#  build_runner: ^1.0.0
-#  json_serializable: ^2.0.0
+dependency_overrides:
+  # 排除版本错误
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/DDDrop/flutter_datetime_picker
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
