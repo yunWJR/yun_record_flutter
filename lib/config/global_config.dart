@@ -116,7 +116,7 @@ class GlobalConfig {
   }
 
   static Future init() async {
-    YunConfig.isProp = true;
+    YunConfig.isProp = false;
     YunConfig.logOnMode = YunOnMode.PROP_MODEL;
 
     YunBasePageConfig.defConfig.loadBgColor = Colors.transparent;
@@ -132,14 +132,18 @@ class GlobalConfig {
 //    ));
 
     // http config
+    YunRstDataDefine.codeName = "code";
+    YunRstDataDefine.dataName = "result";
+    YunRstDataDefine.msgName = "message";
+
     var rst = YunHttp.addHeader(HttpHeaders.authorizationHeader, _loginToken);
     YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     if (YunConfig.isProp) {
       YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
     } else {
-//      YunHttp.baseUrl = "http://192.168.0.118:11010";
-      YunHttp.baseUrl = "http://127.0.0.1:11010";
-//      YunHttp.baseUrl = "http://fffy.api.yunsoho.cn";
+      YunHttp.baseUrl = "http://test.byb100.com:12041";
+      // YunHttp.baseUrl = "http://192.168.0.111:12041";
+     // YunHttp.baseUrl = "http://127.0.0.1:12041";
     }
 
     // err config
